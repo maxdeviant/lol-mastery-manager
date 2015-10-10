@@ -1,5 +1,7 @@
-﻿Imports System.Net.Http
+﻿Imports System.IO
+Imports System.Net.Http
 Imports HtmlAgilityPack
+Imports Newtonsoft.Json
 
 Module ChampionGG
 
@@ -24,7 +26,7 @@ Module ChampionGG
 
         Public Shared BaseUrl As String = "http://champion.gg/"
 
-        Public Function DownloadMasteries(ByVal championName As String, ByVal role As String, ByVal stats As Stats) As List(Of MasteryPage)
+        Public Function DownloadMasteries(ByVal championKey As String, ByVal role As String) As List(Of MasteryPage)
 
             Try
 
@@ -35,7 +37,7 @@ Module ChampionGG
                     oWeb.BaseAddress = New Uri(BaseUrl)
 
                     Dim oResponse As HttpResponseMessage
-                    Dim sRequestUrl As String = String.Format("champion/{0}/{1}", championName, role)
+                    Dim sRequestUrl As String = String.Format("champion/{0}/{1}", championKey, role)
 
                     oResponse = oWeb.GetAsync(sRequestUrl).Result
 
@@ -44,9 +46,26 @@ Module ChampionGG
 
                     oDocument.LoadHtml(sHTML)
 
-                    For Each oMasteryContainer As HtmlNode In oDocument.DocumentNode.SelectNodes("//div[contains(@class, 'mastery-container')]")
+                    Dim oMasteryContainers As HtmlNodeCollection = oDocument.DocumentNode.SelectNodes("//div[contains(@class, 'mastery-container')]")
+                    Dim eStat As Stats
+                    Dim iContainer As Integer = 0
 
-                        oMasteryPages.Add(BuildMasteryPage(GenerateMasteryPageName(championName, role, stats), ParseMasteries(oMasteryContainer)))
+                    For Each oMasteryContainer As HtmlNode In oMasteryContainers
+
+
+                        Select Case iContainer
+
+                            Case Stats.MostFrequent
+                                eStat = Stats.MostFrequent
+
+                            Case Stats.HighestWin
+                                eStat = Stats.HighestWin
+
+                        End Select
+
+                        oMasteryPages.Add(BuildMasteryPage(GenerateMasteryPageName(championKey, role, eStat), ParseMasteries(oMasteryContainer)))
+
+                        iContainer += 1
 
                     Next oMasteryContainer
 
@@ -165,7 +184,28 @@ Module ChampionGG
 
             Try
 
-                Return New Mastery
+                Dim sJson As String
+
+                Dim sMasteriesPath As String = Path.Combine(Path.GetDirectoryName(Reflection.Assembly.GetExecutingAssembly().Location), "Data", "Masteries.json")
+
+                Using oStreamReader As New StreamReader(sMasteriesPath)
+
+                    sJson = oStreamReader.ReadToEnd()
+
+                End Using
+
+                Dim oRiotMasteries As Dictionary(Of String, RiotMastery) = JsonConvert.DeserializeObject(Of RiotMasteryListFile)(sJson).Masteries
+                Dim oRiotMastery As RiotMastery = oRiotMasteries(id.ToString)
+
+                Dim oMastery As New Mastery
+
+                With oMastery
+                    .ID = oRiotMastery.ID
+                    .Name = oRiotMastery.Name
+                    .Tree = oRiotMastery.Tree
+                End With
+
+                Return oMastery
 
             Catch ex As Exception
 
