@@ -10,10 +10,6 @@
 
         _MasteryManager.PopulateStats(cboStats)
 
-        Dim oChampionGG As New Downloader
-
-        'oChampionGG.DownloadMasteries("Elise", "Jungle")
-
     End Sub
 
     Private Sub btnAssignMasteries_Click(sender As Object, e As EventArgs) Handles btnAssignMasteries.Click
