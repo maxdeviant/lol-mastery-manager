@@ -4,6 +4,7 @@ Imports Newtonsoft.Json
 Public Class MasteryManager
 
     Private _Downloader As New Downloader
+    Private _Assigner As New MasteryAssigner
 
     Public Function AssignMasteries(ByVal championKey As String, ByVal role As String, ByVal stat As String) As Boolean
 
@@ -14,8 +15,32 @@ Public Class MasteryManager
             If Not String.IsNullOrWhiteSpace(championKey) AndAlso Not String.IsNullOrWhiteSpace(role) Then
 
                 Dim oMasteryPages As List(Of MasteryPage) = _Downloader.DownloadMasteries(championKey, role)
+                Dim oMasteryPage As MasteryPage
 
-                bResult = True
+                If Not String.IsNullOrWhiteSpace(stat) Then
+
+                    Select Case stat
+
+                        Case "Most Frequent"
+                            oMasteryPage = oMasteryPages.Find(Function(p)
+                                                                  Return p.Name.Contains("[MF]")
+                                                              End Function)
+
+                        Case "Highest Win"
+                            oMasteryPage = oMasteryPages.Find(Function(p)
+                                                                  Return p.Name.Contains("[HW]")
+                                                              End Function)
+
+                        Case Else
+                            oMasteryPage = oMasteryPages.Find(Function(p)
+                                                                  Return p.Name.Contains("[HW]")
+                                                              End Function)
+
+                    End Select
+
+                    bResult = _Assigner.Assign(oMasteryPage)
+
+                End If
 
             End If
 

@@ -4,21 +4,37 @@
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        _MasteryManager.PopulateChampions(cboChampion)
+        Try
 
-        _MasteryManager.PopulateRoles(cboRole)
+            _MasteryManager.PopulateChampions(cboChampion)
 
-        _MasteryManager.PopulateStats(cboStats)
+            _MasteryManager.PopulateRoles(cboRole)
+
+            _MasteryManager.PopulateStats(cboStats)
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
 
     End Sub
 
     Private Sub btnAssignMasteries_Click(sender As Object, e As EventArgs) Handles btnAssignMasteries.Click
 
-        Dim sChampionKey As String = CType(cboChampion.SelectedItem, RiotChampion).Key
-        Dim sRole As String = cboRole.SelectedItem.ToString
-        Dim sStat As String = cboStats.SelectedItem.ToString
+        Try
 
-        _MasteryManager.AssignMasteries(sChampionKey, sRole, sStat)
+            Dim sChampionKey As String = CType(cboChampion.SelectedItem, RiotChampion).Key
+            Dim sRole As String = cboRole.SelectedItem.ToString
+            Dim sStat As String = cboStats.SelectedItem.ToString
+
+            _MasteryManager.AssignMasteries(sChampionKey, sRole, sStat)
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
 
     End Sub
 

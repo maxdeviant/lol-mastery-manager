@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChampionGG.vb" />
+    <Compile Include="HwndInterface.vb" />
     <Compile Include="Main.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +93,7 @@
       <DependentUpon>Main.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MasteryAssigner.vb" />
     <Compile Include="MasteryManager.vb" />
     <Compile Include="Models\Mastery.vb" />
     <Compile Include="Models\MasteryPage.vb" />
