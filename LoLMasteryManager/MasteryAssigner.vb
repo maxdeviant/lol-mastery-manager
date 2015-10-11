@@ -1,6 +1,4 @@
-﻿Imports WindowsInput
-
-Public Class MasteryAssigner
+﻿Public Class MasteryAssigner
 
     Private Structure MasteryTreeOffsets
 
