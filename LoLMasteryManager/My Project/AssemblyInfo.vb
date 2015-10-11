@@ -10,7 +10,7 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("LoL Mastery Manager")>
 <Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
+<Assembly: AssemblyCompany("elliott.codes")>
 <Assembly: AssemblyProduct("LoLMasteryManager")>
 <Assembly: AssemblyCopyright("Copyright © Marshall Bowers 2015")>
 <Assembly: AssemblyTrademark("")>
