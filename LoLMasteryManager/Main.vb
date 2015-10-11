@@ -18,7 +18,7 @@ Public Class Main
 
             _Timer = New Timer(1000)
 
-            _Timer.Enabled = True
+            _Timer.Enabled = False
 
 #End If
 

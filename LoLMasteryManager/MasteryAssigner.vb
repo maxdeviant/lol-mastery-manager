@@ -1,5 +1,55 @@
 ﻿Public Class MasteryAssigner
 
+    Private Structure SaveMasteriesButton
+
+        Public Const Width As Integer = 175
+        Public Const Height As Integer = 28
+
+        Public Structure Offsets
+
+            Public Structure ChampionSelect
+
+                Public Const X As Integer = 145
+                Public Const Y As Integer = 297
+
+            End Structure
+
+            Public Structure Menu
+
+                Public Const X As Integer = 135
+                Public Const Y As Integer = 377
+
+            End Structure
+
+        End Structure
+
+    End Structure
+
+    Private Structure ReturnPointsButton
+
+        Public Const Width As Integer = 175
+        Public Const Height As Integer = 28
+
+        Public Structure Offsets
+
+            Public Structure ChampionSelect
+
+                Public Const X As Integer = 145
+                Public Const Y As Integer = 327
+
+            End Structure
+
+            Public Structure Menu
+
+                Public Const X As Integer = 135
+                Public Const Y As Integer = 407
+
+            End Structure
+
+        End Structure
+
+    End Structure
+
     Private Structure MasteryTreeOffsets
 
         Public Structure ChampionSelect
@@ -76,15 +126,15 @@
 
     End Sub
 
-    Public Function Assign(ByVal masteryPage As MasteryPage) As Boolean
+    Public Sub Assign(ByVal masteryPage As MasteryPage)
 
         Try
 
-            Dim bResult As Boolean
+            ReturnMasteryPoints()
 
             AssignMasteries(masteryPage)
 
-            Return bResult
+            SaveMasteries()
 
         Catch ex As Exception
 
@@ -92,13 +142,75 @@
 
         End Try
 
-    End Function
+    End Sub
 
-    Private Function AssignMasteries(ByVal masteryPage As MasteryPage) As Boolean
+    Private Sub ReturnMasteryPoints()
 
         Try
 
-            Dim bResult As Boolean
+            Dim oClientPosition As Point = GetLeagueClientWindowPosition()
+            Dim oReturnPointsButtonOffsets As Point = CalculateReturnPointsButtonOffsets()
+
+            Dim oPosition As New Point
+
+            oPosition.X = oClientPosition.X + oReturnPointsButtonOffsets.X + (ReturnPointsButton.Width \ 2)
+            oPosition.Y = oClientPosition.Y + oReturnPointsButtonOffsets.Y + (ReturnPointsButton.Height \ 2)
+
+            Mouse.Lock()
+
+            Mouse.Move(oPosition)
+
+            Threading.Thread.Sleep(100)
+
+            Mouse.LeftClick()
+
+            Threading.Thread.Sleep(100)
+
+            Mouse.Unlock()
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Sub
+
+    Private Sub SaveMasteries()
+
+        Try
+
+            Dim oClientPosition As Point = GetLeagueClientWindowPosition()
+            Dim oSaveMasteriesButtonOffsets As Point = CalculateSaveMasteriesButtonOffsets()
+
+            Dim oPosition As New Point
+
+            oPosition.X = oClientPosition.X + oSaveMasteriesButtonOffsets.X + (SaveMasteriesButton.Width \ 2)
+            oPosition.Y = oClientPosition.Y + oSaveMasteriesButtonOffsets.Y + (SaveMasteriesButton.Height \ 2)
+
+            Mouse.Lock()
+
+            Mouse.Move(oPosition)
+
+            Threading.Thread.Sleep(100)
+
+            Mouse.LeftClick()
+
+            Threading.Thread.Sleep(100)
+
+            Mouse.Unlock()
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Sub
+
+    Private Sub AssignMasteries(ByVal masteryPage As MasteryPage)
+
+        Try
 
             Mouse.Lock()
 
@@ -122,15 +234,13 @@
 
             Mouse.Unlock()
 
-            Return bResult
-
         Catch ex As Exception
 
             Throw
 
         End Try
 
-    End Function
+    End Sub
 
     Private Sub AssignMastery(ByVal mastery As Mastery)
 
@@ -175,12 +285,68 @@
             Dim oClientPosition As Point = GetLeagueClientWindowPosition()
             Dim oMasteryTreeOffset As Point = CalculateMasteryTreeOffsets(iMasteryTree)
 
-            Dim iPositionX As Integer = oClientPosition.X + oMasteryTreeOffset.X + ((iMasteryColumn - 1) * MasteryNode.Width) + (iMasteryColumn * MasteryNode.Margin.X) + (MasteryNode.Width \ 2)
-            Dim iPositionY As Integer = oClientPosition.Y + oMasteryTreeOffset.Y + ((iMasteryRow - 1) * MasteryNode.Height) + (iMasteryRow * MasteryNode.Margin.Y) + (MasteryNode.Height \ 2)
+            Dim oPosition As New Point
 
-            Debug.WriteLine(New Point(iPositionX, iPositionY))
+            oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iMasteryColumn - 1) * MasteryNode.Width) + (iMasteryColumn * MasteryNode.Margin.X) + (MasteryNode.Width \ 2)
+            oPosition.Y = oClientPosition.Y + oMasteryTreeOffset.Y + ((iMasteryRow - 1) * MasteryNode.Height) + (iMasteryRow * MasteryNode.Margin.Y) + (MasteryNode.Height \ 2)
 
-            Return New Point(iPositionX, iPositionY)
+            Return oPosition
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Function
+
+    Private Function CalculateSaveMasteriesButtonOffsets() As Point
+
+        Try
+
+            Dim oSaveMasteriesButtonOffsets As New Point
+
+            If _Mode = Modes.ChampionSelect Then
+
+                oSaveMasteriesButtonOffsets.X = SaveMasteriesButton.Offsets.ChampionSelect.X
+                oSaveMasteriesButtonOffsets.Y = SaveMasteriesButton.Offsets.ChampionSelect.Y
+
+            ElseIf _Mode = Modes.Menu Then
+
+                oSaveMasteriesButtonOffsets.X = SaveMasteriesButton.Offsets.Menu.X
+                oSaveMasteriesButtonOffsets.Y = SaveMasteriesButton.Offsets.Menu.Y
+
+            End If
+
+            Return oSaveMasteriesButtonOffsets
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Function
+
+    Private Function CalculateReturnPointsButtonOffsets() As Point
+
+        Try
+
+            Dim oReturnPointsButtonOffsets As New Point
+
+            If _Mode = Modes.ChampionSelect Then
+
+                oReturnPointsButtonOffsets.X = ReturnPointsButton.Offsets.ChampionSelect.X
+                oReturnPointsButtonOffsets.Y = ReturnPointsButton.Offsets.ChampionSelect.Y
+
+            ElseIf _Mode = Modes.Menu Then
+
+                oReturnPointsButtonOffsets.X = ReturnPointsButton.Offsets.Menu.X
+                oReturnPointsButtonOffsets.Y = ReturnPointsButton.Offsets.Menu.Y
+
+            End If
+
+            Return oReturnPointsButtonOffsets
 
         Catch ex As Exception
 
@@ -194,8 +360,7 @@
 
         Try
 
-            Dim iMasteryTreeOffsetX As Integer
-            Dim iMasteryTreeOffsetY As Integer
+            Dim oMasteryTreeOffsets As New Point
 
             Select Case masteryTree
 
@@ -203,13 +368,13 @@
 
                     If _Mode = Modes.ChampionSelect Then
 
-                        iMasteryTreeOffsetX = MasteryTreeOffsets.ChampionSelect.Offense.X
-                        iMasteryTreeOffsetY = MasteryTreeOffsets.ChampionSelect.Offense.Y
+                        oMasteryTreeOffsets.X = MasteryTreeOffsets.ChampionSelect.Offense.X
+                        oMasteryTreeOffsets.Y = MasteryTreeOffsets.ChampionSelect.Offense.Y
 
                     ElseIf _Mode = Modes.Menu Then
 
-                        iMasteryTreeOffsetX = MasteryTreeOffsets.Menu.Offense.X
-                        iMasteryTreeOffsetY = MasteryTreeOffsets.Menu.Offense.Y
+                        oMasteryTreeOffsets.X = MasteryTreeOffsets.Menu.Offense.X
+                        oMasteryTreeOffsets.Y = MasteryTreeOffsets.Menu.Offense.Y
 
                     End If
 
@@ -217,13 +382,13 @@
 
                     If _Mode = Modes.ChampionSelect Then
 
-                        iMasteryTreeOffsetX = MasteryTreeOffsets.ChampionSelect.Defense.X
-                        iMasteryTreeOffsetY = MasteryTreeOffsets.ChampionSelect.Defense.Y
+                        oMasteryTreeOffsets.X = MasteryTreeOffsets.ChampionSelect.Defense.X
+                        oMasteryTreeOffsets.Y = MasteryTreeOffsets.ChampionSelect.Defense.Y
 
                     ElseIf _Mode = Modes.Menu Then
 
-                        iMasteryTreeOffsetX = MasteryTreeOffsets.Menu.Defense.X
-                        iMasteryTreeOffsetY = MasteryTreeOffsets.Menu.Defense.Y
+                        oMasteryTreeOffsets.X = MasteryTreeOffsets.Menu.Defense.X
+                        oMasteryTreeOffsets.Y = MasteryTreeOffsets.Menu.Defense.Y
 
                     End If
 
@@ -231,19 +396,19 @@
 
                     If _Mode = Modes.ChampionSelect Then
 
-                        iMasteryTreeOffsetX = MasteryTreeOffsets.ChampionSelect.Utility.X
-                        iMasteryTreeOffsetY = MasteryTreeOffsets.ChampionSelect.Utility.Y
+                        oMasteryTreeOffsets.X = MasteryTreeOffsets.ChampionSelect.Utility.X
+                        oMasteryTreeOffsets.Y = MasteryTreeOffsets.ChampionSelect.Utility.Y
 
                     ElseIf _Mode = Modes.Menu Then
 
-                        iMasteryTreeOffsetX = MasteryTreeOffsets.Menu.Utility.X
-                        iMasteryTreeOffsetY = MasteryTreeOffsets.Menu.Utility.Y
+                        oMasteryTreeOffsets.X = MasteryTreeOffsets.Menu.Utility.X
+                        oMasteryTreeOffsets.Y = MasteryTreeOffsets.Menu.Utility.Y
 
                     End If
 
             End Select
 
-            Return New Point(iMasteryTreeOffsetX, iMasteryTreeOffsetY)
+            Return oMasteryTreeOffsets
 
         Catch ex As Exception
 

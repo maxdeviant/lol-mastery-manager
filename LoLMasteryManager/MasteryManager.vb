@@ -45,7 +45,9 @@ Public Class MasteryManager
 
                     End Select
 
-                    bResult = _Assigner.Assign(oMasteryPage)
+                    _Assigner.Assign(oMasteryPage)
+
+                    bResult = True
 
                 End If
 
