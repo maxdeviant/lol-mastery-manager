@@ -187,23 +187,27 @@ Module ChampionGG
                         Dim eStat As Stats
                         Dim iContainer As Integer = 0
 
-                        For Each oMasteryContainer As HtmlNode In oMasteryContainers
+                        If oMasteryContainers IsNot Nothing Then
 
-                            Select Case iContainer
+                            For Each oMasteryContainer As HtmlNode In oMasteryContainers
 
-                                Case Stats.MostFrequent
-                                    eStat = Stats.MostFrequent
+                                Select Case iContainer
 
-                                Case Stats.HighestWin
-                                    eStat = Stats.HighestWin
+                                    Case Stats.MostFrequent
+                                        eStat = Stats.MostFrequent
 
-                            End Select
+                                    Case Stats.HighestWin
+                                        eStat = Stats.HighestWin
 
-                            oMasteryPages.Add(BuildMasteryPage(GenerateMasteryPageName(championKey, role, eStat), ParseMasteries(oMasteryContainer)))
+                                End Select
 
-                            iContainer += 1
+                                oMasteryPages.Add(BuildMasteryPage(GenerateMasteryPageName(championKey, role, eStat), ParseMasteries(oMasteryContainer)))
 
-                        Next oMasteryContainer
+                                iContainer += 1
+
+                            Next oMasteryContainer
+
+                        End If
 
                     End If
 

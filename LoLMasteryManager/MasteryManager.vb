@@ -11,11 +11,13 @@ End Enum
 Public Class MasteryManager
 
     Private _DataDirectory As String
+    Private _MasteriesDirectory As String
 
     Private _Downloader As New Downloader
     Private _Assigner As New MasteryAssigner
 
     Private _Champions As New List(Of Champion)
+    Private _MasteryPages As New List(Of MasteryPage)
 
     Public Sub New()
 
@@ -27,9 +29,31 @@ Public Class MasteryManager
 
         End If
 
+        _MasteriesDirectory = Path.Combine(_DataDirectory, "Masteries")
+
+        If Not Directory.Exists(_MasteriesDirectory) Then
+
+            Directory.CreateDirectory(_MasteriesDirectory)
+
+        End If
+
         _Champions = _Downloader.ScrapeChampions()
 
         SaveChampions()
+
+        Dim oMasteryPages As List(Of MasteryPage)
+
+        For Each oChampion As Champion In _Champions
+
+            For Each oRole As Role In oChampion.Roles
+
+                oMasteryPages = _Downloader.ScrapeChampionMasteries(oChampion.Key, oRole.Name)
+
+                SaveMasteryPages(oMasteryPages)
+
+            Next oRole
+
+        Next oChampion
 
     End Sub
 
@@ -47,16 +71,69 @@ Public Class MasteryManager
 
     End Sub
 
-    Private Sub SaveChampions(champions As List(Of Champion))
+    Private Sub SaveChampions(ByVal champions As List(Of Champion))
 
         Try
 
-            Dim sChampionsPath As String = Path.Combine(_DataDirectory, "champions.json")
+            Dim sChampionsPath As String = Path.Combine(_DataDirectory, "Champions.json")
             Dim sChampionsJson As String = JsonConvert.SerializeObject(_Champions)
 
             Using oStreamWriter As New StreamWriter(sChampionsPath)
 
                 oStreamWriter.Write(sChampionsJson)
+
+            End Using
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Sub
+
+    Private Sub SaveMasteryPages()
+
+        Try
+
+            SaveMasteryPages(_MasteryPages)
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Sub
+
+    Private Sub SaveMasteryPages(ByVal masteryPages As List(Of MasteryPage))
+
+        Try
+
+            For Each oMasteryPage As MasteryPage In masteryPages
+
+                SaveMasteryPage(oMasteryPage)
+
+            Next oMasteryPage
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Sub
+
+    Private Sub SaveMasteryPage(ByVal masteryPage As MasteryPage)
+
+        Try
+
+            Dim sMasteryPagePath As String = Path.Combine(_MasteriesDirectory, String.Format("{0}.json", masteryPage.Name))
+            Dim sMasteryPageJson As String = JsonConvert.SerializeObject(masteryPage)
+
+            Using oStreamWriter As New StreamWriter(sMasteryPagePath)
+
+                oStreamWriter.Write(sMasteryPageJson)
 
             End Using
 
