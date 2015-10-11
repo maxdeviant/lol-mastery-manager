@@ -170,6 +170,50 @@ Module ChampionGG
 
         End Function
 
+        Public Function ScrapePatchNumber() As String
+
+            Try
+
+                Dim sPatchNumber As String = String.Empty
+
+                Using oWeb As New HttpClient
+
+                    oWeb.BaseAddress = New Uri(BaseUrl)
+
+                    Dim oResponse As HttpResponseMessage
+                    Dim sRequestUrl As String = String.Empty
+
+                    oResponse = oWeb.GetAsync(sRequestUrl).Result
+
+                    If oResponse.IsSuccessStatusCode Then
+
+                        Dim sHTML As String = oResponse.Content.ReadAsStringAsync().Result
+                        Dim oDocument As New HtmlDocument
+
+                        oDocument.LoadHtml(sHTML)
+
+                        Dim oPatchNumberNode As HtmlNode = oDocument.DocumentNode.SelectSingleNode("//div[@class='analysis-holder']/small/strong")
+
+                        If oPatchNumberNode IsNot Nothing Then
+
+                            sPatchNumber = oPatchNumberNode.InnerText.Trim
+
+                        End If
+
+                    End If
+
+                End Using
+
+                Return sPatchNumber
+
+            Catch ex As Exception
+
+                Throw
+
+            End Try
+
+        End Function
+
         Public Function ScrapeChampionMasteries(ByVal championKey As String, ByVal role As String) As List(Of MasteryPage)
 
             Try

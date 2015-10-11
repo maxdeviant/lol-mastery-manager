@@ -10,52 +10,154 @@ End Enum
 
 Public Class MasteryManager
 
-    Private _DataDirectory As String
-    Private _MasteriesDirectory As String
+    Private Structure Directories
+
+        Public Shared Data As String
+        Public Shared Masteries As String
+
+    End Structure
+
+    Private Structure Paths
+
+        Public Shared Metadata As String
+        Public Shared Champions As String
+
+    End Structure
 
     Private _Downloader As New Downloader
     Private _Assigner As New MasteryAssigner
 
+    Private _PatchNumber As String
     Private _Champions As New List(Of Champion)
     Private _MasteryPages As New List(Of MasteryPage)
 
     Public Sub New()
 
-        _DataDirectory = Path.Combine(My.Computer.FileSystem.SpecialDirectories.MyDocuments, Reflection.Assembly.GetCallingAssembly().GetName().Name)
+        Directories.Data = Path.Combine(My.Computer.FileSystem.SpecialDirectories.MyDocuments, Reflection.Assembly.GetCallingAssembly().GetName().Name)
 
-        If Not Directory.Exists(_DataDirectory) Then
+        If Not Directory.Exists(Directories.Data) Then
 
-            Directory.CreateDirectory(_DataDirectory)
-
-        End If
-
-        _MasteriesDirectory = Path.Combine(_DataDirectory, "Masteries")
-
-        If Not Directory.Exists(_MasteriesDirectory) Then
-
-            Directory.CreateDirectory(_MasteriesDirectory)
+            Directory.CreateDirectory(Directories.Data)
 
         End If
 
-        _Champions = _Downloader.ScrapeChampions()
+        Directories.Masteries = Path.Combine(Directories.Data, "Masteries")
 
-        SaveChampions()
+        If Not Directory.Exists(Directories.Masteries) Then
 
-        Dim oMasteryPages As List(Of MasteryPage)
+            Directory.CreateDirectory(Directories.Masteries)
 
-        For Each oChampion As Champion In _Champions
+        End If
 
-            For Each oRole As Role In oChampion.Roles
+        Paths.Metadata = Path.Combine(Directories.Data, "Metadata.json")
+        Paths.Champions = Path.Combine(Directories.Data, "Champions.json")
 
-                oMasteryPages = _Downloader.ScrapeChampionMasteries(oChampion.Key, oRole.Name)
+        _PatchNumber = _Downloader.ScrapePatchNumber()
 
-                SaveMasteryPages(oMasteryPages)
+        Dim oMetadata As Metadata = LoadMetadata()
 
-            Next oRole
+        If oMetadata IsNot Nothing Then
 
-        Next oChampion
+            If Not String.Equals(_PatchNumber, oMetadata.PatchNumber) Then
+
+                Directory.Delete(Directories.Data, True)
+
+                Directory.CreateDirectory(Directories.Data)
+                Directory.CreateDirectory(Directories.Masteries)
+
+            End If
+
+        End If
+
+        If Not File.Exists(Paths.Champions) Then
+
+            _Champions = _Downloader.ScrapeChampions()
+
+            SaveChampions()
+
+        Else
+
+            _Champions = LoadChampions()
+
+        End If
+
+        If Not Directory.Exists(Directories.Masteries) OrElse Directory.GetFiles(Directories.Masteries).Count = 0 Then
+
+            Dim oMasteryPages As List(Of MasteryPage)
+
+            For Each oChampion As Champion In _Champions
+
+                For Each oRole As Role In oChampion.Roles
+
+                    oMasteryPages = _Downloader.ScrapeChampionMasteries(oChampion.Key, oRole.Name)
+
+                    SaveMasteryPages(oMasteryPages)
+
+                Next oRole
+
+            Next oChampion
+
+        End If
+
+        SaveMetadata()
 
     End Sub
+
+    Private Sub SaveMetadata()
+
+        Try
+
+            Dim oMetadata As New Metadata
+
+            With oMetadata
+                .PatchNumber = _PatchNumber
+                .LastUpdated = Date.UtcNow
+            End With
+
+            Dim sMetadataJson As String = JsonConvert.SerializeObject(oMetadata)
+
+            Using oStreamWriter As New StreamWriter(Paths.Metadata)
+
+                oStreamWriter.Write(sMetadataJson)
+
+            End Using
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Sub
+
+    Private Function LoadMetadata() As Metadata
+
+        Try
+
+            Dim oMetadata As Metadata = Nothing
+            Dim sMetadataJson As String
+
+            If File.Exists(Paths.Metadata) Then
+
+                Using oStreamReader As New StreamReader(Paths.Metadata)
+
+                    sMetadataJson = oStreamReader.ReadToEnd()
+
+                End Using
+
+                oMetadata = JsonConvert.DeserializeObject(Of Metadata)(sMetadataJson)
+
+            End If
+
+            Return oMetadata
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Function
 
     Private Sub SaveChampions()
 
@@ -75,10 +177,9 @@ Public Class MasteryManager
 
         Try
 
-            Dim sChampionsPath As String = Path.Combine(_DataDirectory, "Champions.json")
             Dim sChampionsJson As String = JsonConvert.SerializeObject(_Champions)
 
-            Using oStreamWriter As New StreamWriter(sChampionsPath)
+            Using oStreamWriter As New StreamWriter(Paths.Champions)
 
                 oStreamWriter.Write(sChampionsJson)
 
@@ -91,6 +192,36 @@ Public Class MasteryManager
         End Try
 
     End Sub
+
+    Private Function LoadChampions() As List(Of Champion)
+
+        Try
+
+            Dim oChampions As List(Of Champion) = Nothing
+            Dim sChampionsJson As String
+
+            If File.Exists(Paths.Metadata) Then
+
+                Using oStreamReader As New StreamReader(Paths.Champions)
+
+                    sChampionsJson = oStreamReader.ReadToEnd()
+
+                End Using
+
+                oChampions = JsonConvert.DeserializeObject(Of List(Of Champion))(sChampionsJson)
+
+            End If
+
+            Return oChampions
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Function
+
 
     Private Sub SaveMasteryPages()
 
@@ -128,7 +259,7 @@ Public Class MasteryManager
 
         Try
 
-            Dim sMasteryPagePath As String = Path.Combine(_MasteriesDirectory, String.Format("{0}.json", masteryPage.Name))
+            Dim sMasteryPagePath As String = Path.Combine(Directories.Masteries, String.Format("{0}.json", masteryPage.Name))
             Dim sMasteryPageJson As String = JsonConvert.SerializeObject(masteryPage)
 
             Using oStreamWriter As New StreamWriter(sMasteryPagePath)
@@ -209,30 +340,11 @@ Public Class MasteryManager
 
     End Sub
 
-    Public Function GetChampions() As List(Of RiotChampion)
+    Public Function GetChampions() As List(Of Champion)
 
         Try
 
-            Dim sJson As String
-
-            Dim sChampionsPath As String = Path.Combine(Path.GetDirectoryName(Reflection.Assembly.GetExecutingAssembly().Location), "Data", "Champions.json")
-
-            Using oStreamReader As New StreamReader(sChampionsPath)
-
-                sJson = oStreamReader.ReadToEnd()
-
-            End Using
-
-            Dim oRiotChampions As Dictionary(Of String, RiotChampion) = JsonConvert.DeserializeObject(Of RiotChampionListFile)(sJson).Champions
-            Dim oChampions As New List(Of RiotChampion)
-
-            For Each sKey As String In oRiotChampions.Keys
-
-                oChampions.Add(oRiotChampions(sKey))
-
-            Next sKey
-
-            Return oChampions
+            Return _Champions
 
         Catch ex As Exception
 
@@ -246,13 +358,13 @@ Public Class MasteryManager
 
         Try
 
-            Dim oChampions As List(Of RiotChampion) = GetChampions()
+            Dim oChampions As List(Of Champion) = GetChampions()
 
-            oChampions.Sort(Function(ByVal championA As RiotChampion, ByVal championB As RiotChampion)
-                                Return championA.Name.CompareTo(championB.Name)
-                            End Function)
+            'oChampions.Sort(Function(ByVal championA As RiotChampion, ByVal championB As RiotChampion)
+            '                    Return championA.Name.CompareTo(championB.Name)
+            '                End Function)
 
-            For Each oChampion As RiotChampion In oChampions
+            For Each oChampion As Champion In oChampions
 
                 cboChampion.Items.Add(oChampion)
 

@@ -14,6 +14,12 @@ Partial Public Module Models
         <JsonProperty(PropertyName:="roles", Required:=Required.AllowNull)>
         Public Roles As List(Of Role)
 
+        Public Overrides Function ToString() As String
+
+            Return Name
+
+        End Function
+
     End Class
 
 End Module
