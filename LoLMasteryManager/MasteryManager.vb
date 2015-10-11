@@ -200,7 +200,7 @@ Public Class MasteryManager
             Dim oChampions As List(Of Champion) = Nothing
             Dim sChampionsJson As String
 
-            If File.Exists(Paths.Metadata) Then
+            If File.Exists(Paths.Champions) Then
 
                 Using oStreamReader As New StreamReader(Paths.Champions)
 
@@ -276,6 +276,53 @@ Public Class MasteryManager
 
     End Sub
 
+    Private Function LoadMasteryPage(ByVal championKey As String, ByVal role As String, ByVal stat As Stats) As MasteryPage
+
+        Try
+
+            Dim sMasteryPageName As String = _Downloader.GenerateMasteryPageName(championKey, role, stat)
+
+            Return LoadMasteryPage(sMasteryPageName)
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Function
+
+    Private Function LoadMasteryPage(ByVal pageName As String) As MasteryPage
+
+        Try
+
+            Dim oMasteryPage As MasteryPage = Nothing
+            Dim sMasteryPagePath As String = Path.Combine(Directories.Masteries, String.Format("{0}.json", pageName))
+            Dim sMasteryPageJson As String
+
+            If File.Exists(sMasteryPagePath) Then
+
+                Using oStreamReader As New StreamReader(sMasteryPagePath)
+
+                    sMasteryPageJson = oStreamReader.ReadToEnd()
+
+                End Using
+
+                oMasteryPage = JsonConvert.DeserializeObject(Of MasteryPage)(sMasteryPageJson)
+
+            End If
+
+            Return oMasteryPage
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Function
+
+
     Public Function AssignMasteries(ByVal championKey As String, ByVal role As String, ByVal stat As String) As Boolean
 
         Try
@@ -284,29 +331,25 @@ Public Class MasteryManager
 
             If Not String.IsNullOrWhiteSpace(championKey) AndAlso Not String.IsNullOrWhiteSpace(role) Then
 
-                Dim oMasteryPages As List(Of MasteryPage) = _Downloader.ScrapeChampionMasteries(championKey, role)
                 Dim oMasteryPage As MasteryPage
+                Dim eStat As Stats
 
                 If Not String.IsNullOrWhiteSpace(stat) Then
 
                     Select Case stat
 
                         Case "Most Frequent"
-                            oMasteryPage = oMasteryPages.Find(Function(p)
-                                                                  Return p.Name.Contains("[MF]")
-                                                              End Function)
+                            eStat = Stats.MostFrequent
 
                         Case "Highest Win"
-                            oMasteryPage = oMasteryPages.Find(Function(p)
-                                                                  Return p.Name.Contains("[HW]")
-                                                              End Function)
+                            eStat = Stats.HighestWin
 
                         Case Else
-                            oMasteryPage = oMasteryPages.Find(Function(p)
-                                                                  Return p.Name.Contains("[HW]")
-                                                              End Function)
+                            eStat = Stats.HighestWin
 
                     End Select
+
+                    oMasteryPage = LoadMasteryPage(championKey, role, eStat)
 
                     _Assigner.Assign(oMasteryPage)
 

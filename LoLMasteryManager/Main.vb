@@ -50,7 +50,7 @@ Public Class Main
 
         Try
 
-            Dim sChampionKey As String = CType(cboChampion.SelectedItem, RiotChampion).Key
+            Dim sChampionKey As String = CType(cboChampion.SelectedItem, Champion).Key
             Dim sRole As String = cboRole.SelectedItem.ToString
             Dim sStat As String = cboStats.SelectedItem.ToString
 

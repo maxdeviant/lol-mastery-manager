@@ -276,7 +276,7 @@ Module ChampionGG
 
         End Function
 
-        Private Function GenerateMasteryPageName(ByVal championName As String, ByVal role As String, ByVal stats As Stats) As String
+        Friend Function GenerateMasteryPageName(ByVal championKey As String, ByVal role As String, ByVal stats As Stats) As String
 
             Try
 
@@ -295,7 +295,7 @@ Module ChampionGG
 
                 End Select
 
-                Return String.Format("[{0}] {1} - {2}", sStats, championName, role)
+                Return String.Format("[{0}] {1} - {2}", sStats, championKey, role)
 
             Catch ex As Exception
 
