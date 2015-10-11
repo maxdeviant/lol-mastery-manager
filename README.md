@@ -5,6 +5,8 @@ A tool for managing mastery pages in League of Legends. Inspired by [Championify
 
 ![A pretty screenshot.](Screenshot.png)
 
+[See it in action!](https://raw.githubusercontent.com/maxdeviant/lol-mastery-manager/master/Example%201%20-%20Menu.gif)
+
 Features
 --------
 - [x] Download mastery pages from [Champion.gg](http://champion.gg/)
