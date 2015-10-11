@@ -22,6 +22,14 @@ Module ChampionGG
 
     End Structure
 
+    Public Structure MasteryTrees
+
+        Public Const Offense As String = "Offense"
+        Public Const Defense As String = "Defense"
+        Public Const Utility As String = "Utility"
+
+    End Structure
+
     Public Class Downloader
 
         Public Const BaseUrl As String = "http://champion.gg/"
@@ -296,13 +304,13 @@ Module ChampionGG
 
                     Select Case oMastery.Tree
 
-                        Case MasteryTree.Offense
+                        Case MasteryTrees.Offense
                             oMasteryPage.OffenseTree.Add(oMastery)
 
-                        Case MasteryTree.Defense
+                        Case MasteryTrees.Defense
                             oMasteryPage.DefenseTree.Add(oMastery)
 
-                        Case MasteryTree.Utility
+                        Case MasteryTrees.Utility
                             oMasteryPage.UtilityTree.Add(oMastery)
 
                         Case Else

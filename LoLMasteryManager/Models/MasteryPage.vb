@@ -2,14 +2,6 @@
 
 Partial Public Module Models
 
-    Public Structure MasteryTree
-
-        Public Const Offense As String = "Offense"
-        Public Const Defense As String = "Defense"
-        Public Const Utility As String = "Utility"
-
-    End Structure
-
     <JsonObject(MemberSerialization:=MemberSerialization.OptIn)>
     Public Class MasteryPage
 
