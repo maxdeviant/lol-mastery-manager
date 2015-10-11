@@ -22,6 +22,7 @@ Partial Class Main
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
         Me.cboChampion = New System.Windows.Forms.ComboBox()
         Me.lblChampion = New System.Windows.Forms.Label()
         Me.cboRole = New System.Windows.Forms.ComboBox()
@@ -117,6 +118,7 @@ Partial Class Main
         Me.Controls.Add(Me.cboRole)
         Me.Controls.Add(Me.lblChampion)
         Me.Controls.Add(Me.cboChampion)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Main"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "LoL Mastery Manager"
