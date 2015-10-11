@@ -403,10 +403,6 @@ Public Class MasteryManager
 
             Dim oChampions As List(Of Champion) = GetChampions()
 
-            'oChampions.Sort(Function(ByVal championA As RiotChampion, ByVal championB As RiotChampion)
-            '                    Return championA.Name.CompareTo(championB.Name)
-            '                End Function)
-
             For Each oChampion As Champion In oChampions
 
                 cboChampion.Items.Add(oChampion)
