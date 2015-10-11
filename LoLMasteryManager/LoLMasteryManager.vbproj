@@ -99,9 +99,11 @@
     </Compile>
     <Compile Include="MasteryAssigner.vb" />
     <Compile Include="MasteryManager.vb" />
+    <Compile Include="Models\Champion.vb" />
     <Compile Include="Models\Mastery.vb" />
     <Compile Include="Models\MasteryPage.vb" />
     <Compile Include="Models\Riot.vb" />
+    <Compile Include="Models\Role.vb" />
     <Compile Include="Mouse.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

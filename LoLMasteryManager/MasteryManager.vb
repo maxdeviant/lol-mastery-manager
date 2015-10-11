@@ -10,8 +10,50 @@ End Enum
 
 Public Class MasteryManager
 
+    Private _DataDirectory As String
+
     Private _Downloader As New Downloader
     Private _Assigner As New MasteryAssigner
+
+    Private _Champions As New List(Of Champion)
+
+    Public Sub New()
+
+        _DataDirectory = Path.Combine(My.Computer.FileSystem.SpecialDirectories.MyDocuments, Reflection.Assembly.GetCallingAssembly().GetName().Name)
+
+        If Not Directory.Exists(_DataDirectory) Then
+
+            Directory.CreateDirectory(_DataDirectory)
+
+        End If
+
+        SaveChampions(_Downloader.ScrapeChampions())
+
+    End Sub
+
+    Private Sub SaveChampions(champions As List(Of Champion))
+
+        Try
+
+            _Champions = _Downloader.ScrapeChampions()
+
+            Dim sChampionsPath As String = Path.Combine(_DataDirectory, "champions.json")
+
+            Dim sChampionsJson As String = JsonConvert.SerializeObject(_Champions)
+
+            Using oStreamWriter As New StreamWriter(sChampionsPath)
+
+                oStreamWriter.Write(sChampionsJson)
+
+            End Using
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Sub
 
     Public Function AssignMasteries(ByVal championKey As String, ByVal role As String, ByVal stat As String) As Boolean
 
@@ -21,7 +63,7 @@ Public Class MasteryManager
 
             If Not String.IsNullOrWhiteSpace(championKey) AndAlso Not String.IsNullOrWhiteSpace(role) Then
 
-                Dim oMasteryPages As List(Of MasteryPage) = _Downloader.DownloadMasteries(championKey, role)
+                Dim oMasteryPages As List(Of MasteryPage) = _Downloader.ScrapeChampionMasteries(championKey, role)
                 Dim oMasteryPage As MasteryPage
 
                 If Not String.IsNullOrWhiteSpace(stat) Then

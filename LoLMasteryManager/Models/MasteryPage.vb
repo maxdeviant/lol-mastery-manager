@@ -1,19 +1,25 @@
-﻿Public Structure MasteryTree
+﻿Partial Public Module Models
 
-    Public Const Offense As String = "Offense"
-    Public Const Defense As String = "Defense"
-    Public Const Utility As String = "Utility"
+    Public Structure MasteryTree
 
-End Structure
+        Public Const Offense As String = "Offense"
+        Public Const Defense As String = "Defense"
+        Public Const Utility As String = "Utility"
 
-Public Class MasteryPage
+    End Structure
 
-    Public Name As String
+    Public Class MasteryPage
 
-    Public OffenseTree As New List(Of Mastery)
+        Public Name As String
 
-    Public DefenseTree As New List(Of Mastery)
+        Public OffenseTree As New List(Of Mastery)
 
-    Public UtilityTree As New List(Of Mastery)
+        Public DefenseTree As New List(Of Mastery)
 
-End Class
+        Public UtilityTree As New List(Of Mastery)
+
+    End Class
+
+End Module
+
+

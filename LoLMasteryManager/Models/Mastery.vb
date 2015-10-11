@@ -1,11 +1,16 @@
-﻿Public Class Mastery
+﻿Partial Public Module Models
 
-    Public ID As Integer
+    Public Class Mastery
 
-    Public Tree As String
+        Public ID As Integer
 
-    Public Name As String
+        Public Tree As String
 
-    Public Ranks As Integer
+        Public Name As String
 
-End Class
+        Public Ranks As Integer
+
+    End Class
+
+End Module
+

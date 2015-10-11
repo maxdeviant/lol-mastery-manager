@@ -26,7 +26,142 @@ Module ChampionGG
 
         Public Const BaseUrl As String = "http://champion.gg/"
 
-        Public Function DownloadMasteries(ByVal championKey As String, ByVal role As String) As List(Of MasteryPage)
+        Public Function ScrapeChampions() As List(Of Champion)
+
+            Try
+
+                Dim oChampions As New List(Of Champion)
+
+                Using oWeb As New HttpClient
+
+                    oWeb.BaseAddress = New Uri(BaseUrl)
+
+                    Dim oResponse As HttpResponseMessage
+                    Dim sRequestUrl As String = String.Empty
+
+                    oResponse = oWeb.GetAsync(sRequestUrl).Result
+
+                    If oResponse.IsSuccessStatusCode Then
+
+                        Dim sHTML As String = oResponse.Content.ReadAsStringAsync().Result
+                        Dim oDocument As New HtmlDocument
+
+                        oDocument.LoadHtml(sHTML)
+
+                        Dim oChampionNodes As HtmlNodeCollection = oDocument.DocumentNode.SelectNodes("//div[contains(@class, 'champ-index-img')]")
+                        Dim oChampion As Champion
+
+                        For Each oChampionNode As HtmlNode In oChampionNodes
+
+                            oChampion = New Champion
+
+                            With oChampion
+                                .Key = ParseChampionKey(oChampionNode)
+                                .Name = ParseChampionName(oChampionNode)
+                                .Roles = ParseChampionRoles(oChampionNode)
+                            End With
+
+                            oChampions.Add(oChampion)
+
+                        Next oChampionNode
+
+                    End If
+
+                End Using
+
+                Return oChampions
+
+            Catch ex As Exception
+
+                Throw
+
+            End Try
+
+        End Function
+
+        Private Function ParseChampionKey(ByVal championNode As HtmlNode) As String
+
+            Try
+
+                Dim sChampionKey As String = String.Empty
+                Dim oChampionLink As HtmlNode = championNode.SelectSingleNode("a")
+
+                If oChampionLink IsNot Nothing Then
+
+                    Dim sChampionUrl As String = oChampionLink.Attributes("href").Value
+
+                    sChampionKey = sChampionUrl.Split("/"c).Last
+
+                End If
+
+                Return sChampionKey
+
+            Catch ex As Exception
+
+                Throw
+
+            End Try
+
+        End Function
+
+        Private Function ParseChampionName(ByVal championNode As HtmlNode) As String
+
+            Try
+
+                Dim sChampionName As String = String.Empty
+                Dim oChampionNameNode As HtmlNode = championNode.SelectSingleNode("descendant::span[@class='champion-name']")
+
+                If oChampionNameNode IsNot Nothing Then
+
+                    sChampionName = oChampionNameNode.InnerText
+
+                End If
+
+                Return sChampionName
+
+            Catch ex As Exception
+
+                Throw
+
+            End Try
+
+        End Function
+
+        Private Function ParseChampionRoles(ByVal championNode As HtmlNode) As List(Of Role)
+
+            Try
+
+                Dim oRoles As New List(Of Role)
+                Dim oChampionRoleNodes As HtmlNodeCollection = championNode.SelectNodes("descendant::a")
+
+                oChampionRoleNodes.Remove(0)
+
+                Dim oRole As Role
+
+                For Each oChampionRoleNode As HtmlNode In oChampionRoleNodes
+
+                    oRole = New Role
+
+                    With oRole
+                        .Name = oChampionRoleNode.InnerText.Trim
+                        .Rate = 0
+                    End With
+
+                    oRoles.Add(oRole)
+
+                Next oChampionRoleNode
+
+                Return oRoles
+
+            Catch ex As Exception
+
+                Throw
+
+            End Try
+
+        End Function
+
+        Public Function ScrapeChampionMasteries(ByVal championKey As String, ByVal role As String) As List(Of MasteryPage)
 
             Try
 
@@ -41,33 +176,36 @@ Module ChampionGG
 
                     oResponse = oWeb.GetAsync(sRequestUrl).Result
 
-                    Dim sHTML As String = oResponse.Content.ReadAsStringAsync().Result
-                    Dim oDocument As New HtmlDocument
+                    If oResponse.IsSuccessStatusCode Then
 
-                    oDocument.LoadHtml(sHTML)
+                        Dim sHTML As String = oResponse.Content.ReadAsStringAsync().Result
+                        Dim oDocument As New HtmlDocument
 
-                    Dim oMasteryContainers As HtmlNodeCollection = oDocument.DocumentNode.SelectNodes("//div[contains(@class, 'mastery-container')]")
-                    Dim eStat As Stats
-                    Dim iContainer As Integer = 0
+                        oDocument.LoadHtml(sHTML)
 
-                    For Each oMasteryContainer As HtmlNode In oMasteryContainers
+                        Dim oMasteryContainers As HtmlNodeCollection = oDocument.DocumentNode.SelectNodes("//div[contains(@class, 'mastery-container')]")
+                        Dim eStat As Stats
+                        Dim iContainer As Integer = 0
 
+                        For Each oMasteryContainer As HtmlNode In oMasteryContainers
 
-                        Select Case iContainer
+                            Select Case iContainer
 
-                            Case Stats.MostFrequent
-                                eStat = Stats.MostFrequent
+                                Case Stats.MostFrequent
+                                    eStat = Stats.MostFrequent
 
-                            Case Stats.HighestWin
-                                eStat = Stats.HighestWin
+                                Case Stats.HighestWin
+                                    eStat = Stats.HighestWin
 
-                        End Select
+                            End Select
 
-                        oMasteryPages.Add(BuildMasteryPage(GenerateMasteryPageName(championKey, role, eStat), ParseMasteries(oMasteryContainer)))
+                            oMasteryPages.Add(BuildMasteryPage(GenerateMasteryPageName(championKey, role, eStat), ParseMasteries(oMasteryContainer)))
 
-                        iContainer += 1
+                            iContainer += 1
 
-                    Next oMasteryContainer
+                        Next oMasteryContainer
+
+                    End If
 
                 End Using
 
