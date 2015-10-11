@@ -29,7 +29,21 @@ Public Class MasteryManager
 
         _Champions = _Downloader.ScrapeChampions()
 
-        SaveChampions(_Champions)
+        SaveChampions()
+
+    End Sub
+
+    Private Sub SaveChampions()
+
+        Try
+
+            SaveChampions(_Champions)
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
 
     End Sub
 
