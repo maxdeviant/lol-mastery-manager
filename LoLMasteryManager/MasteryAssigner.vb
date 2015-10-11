@@ -138,7 +138,7 @@
 
             If mastery.Ranks > 0 Then
 
-                Dim oMasteryPosition = GetMasteryPosition(mastery)
+                Dim oMasteryPosition = GetMasteryNodePosition(mastery)
 
                 Mouse.Move(oMasteryPosition)
 
@@ -162,7 +162,7 @@
 
     End Sub
 
-    Private Function GetMasteryPosition(ByVal mastery As Mastery) As Point
+    Private Function GetMasteryNodePosition(ByVal mastery As Mastery) As Point
 
         Try
 
