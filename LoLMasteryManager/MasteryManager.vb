@@ -27,7 +27,9 @@ Public Class MasteryManager
 
         End If
 
-        SaveChampions(_Downloader.ScrapeChampions())
+        _Champions = _Downloader.ScrapeChampions()
+
+        SaveChampions(_Champions)
 
     End Sub
 
@@ -35,10 +37,7 @@ Public Class MasteryManager
 
         Try
 
-            _Champions = _Downloader.ScrapeChampions()
-
             Dim sChampionsPath As String = Path.Combine(_DataDirectory, "champions.json")
-
             Dim sChampionsJson As String = JsonConvert.SerializeObject(_Champions)
 
             Using oStreamWriter As New StreamWriter(sChampionsPath)
