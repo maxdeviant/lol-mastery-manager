@@ -100,6 +100,8 @@
 
             Dim bResult As Boolean
 
+            Mouse.Lock()
+
             masteryPage.OffenseTree.Sort(Function(ByVal masteryA As Mastery, ByVal masteryB As Mastery)
                                              Return masteryA.ID.CompareTo(masteryB.ID)
                                          End Function)
@@ -121,6 +123,8 @@
                 AssignMastery(oMastery)
 
             Next oMastery
+
+            Mouse.Unlock()
 
             Return bResult
 
