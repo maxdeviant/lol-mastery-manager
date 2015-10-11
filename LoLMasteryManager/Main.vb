@@ -22,6 +22,16 @@ Public Class Main
 
 #End If
 
+            With cboChampion
+                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
+                .AutoCompleteSource = AutoCompleteSource.ListItems
+            End With
+
+            With cboRole
+                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
+                .AutoCompleteSource = AutoCompleteSource.ListItems
+            End With
+
             _MasteryManager.PopulateChampions(cboChampion)
 
             _MasteryManager.PopulateRoles(cboRole)
