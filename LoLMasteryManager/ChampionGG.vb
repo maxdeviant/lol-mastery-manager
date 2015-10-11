@@ -24,7 +24,7 @@ Module ChampionGG
 
     Public Class Downloader
 
-        Public Shared BaseUrl As String = "http://champion.gg/"
+        Public Const BaseUrl As String = "http://champion.gg/"
 
         Public Function DownloadMasteries(ByVal championKey As String, ByVal role As String) As List(Of MasteryPage)
 
