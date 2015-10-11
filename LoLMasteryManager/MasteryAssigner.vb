@@ -102,10 +102,6 @@
 
             Mouse.Lock()
 
-            masteryPage.OffenseTree.Sort(Function(ByVal masteryA As Mastery, ByVal masteryB As Mastery)
-                                             Return masteryA.ID.CompareTo(masteryB.ID)
-                                         End Function)
-
             For Each oMastery As Mastery In masteryPage.OffenseTree
 
                 AssignMastery(oMastery)
