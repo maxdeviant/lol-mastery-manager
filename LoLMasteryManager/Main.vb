@@ -28,15 +28,24 @@ Public Class Main
             End With
 
             With cboRole
-                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
-                .AutoCompleteSource = AutoCompleteSource.ListItems
+                .DropDownStyle = ComboBoxStyle.DropDownList
+            End With
+
+            With cboStats
+                .DropDownStyle = ComboBoxStyle.DropDownList
             End With
 
             _MasteryManager.PopulateChampions(cboChampion)
 
-            _MasteryManager.PopulateRoles(cboRole)
+            cboChampion.SelectedIndex = 0
+
+            _MasteryManager.PopulateRoles(cboRole, CType(cboChampion.SelectedItem, Champion))
+
+            cboRole.SelectedIndex = 0
 
             _MasteryManager.PopulateStats(cboStats)
+
+            cboStats.SelectedIndex = 1
 
         Catch ex As Exception
 
@@ -64,6 +73,22 @@ Public Class Main
 
     End Sub
 
+    Private Sub cboChampion_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboChampion.SelectedIndexChanged
+
+        Try
+
+            _MasteryManager.PopulateRoles(cboRole, CType(cboChampion.SelectedItem, Champion))
+
+            cboRole.SelectedIndex = 0
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+    End Sub
+
     Private Sub chkInChampionSelect_CheckedChanged(sender As Object, e As EventArgs) Handles chkInChampionSelect.CheckedChanged
 
         Try
@@ -77,7 +102,6 @@ Public Class Main
                 _MasteryManager.SetMode(Modes.Menu)
 
             End If
-
 
         Catch ex As Exception
 

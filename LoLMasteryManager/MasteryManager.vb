@@ -401,6 +401,8 @@ Public Class MasteryManager
 
         Try
 
+            cboChampion.Items.Clear()
+
             Dim oChampions As List(Of Champion) = GetChampions()
 
             For Each oChampion As Champion In oChampions
@@ -417,17 +419,17 @@ Public Class MasteryManager
 
     End Sub
 
-    Public Sub PopulateRoles(ByRef cboRole As ComboBox)
+    Public Sub PopulateRoles(ByRef cboRole As ComboBox, ByVal champion As Champion)
 
         Try
 
-            Dim oRoles As New List(Of String) From {Roles.Top, Roles.Jungle, Roles.Middle, Roles.ADC, Roles.Support}
+            cboRole.Items.Clear()
 
-            For Each sRole As String In oRoles
+            For Each oRole As Role In champion.Roles
 
-                cboRole.Items.Add(sRole)
+                cboRole.Items.Add(oRole)
 
-            Next sRole
+            Next oRole
 
         Catch ex As Exception
 
@@ -437,15 +439,17 @@ Public Class MasteryManager
 
     End Sub
 
-    Public Sub PopulateStats(ByRef cboStat As ComboBox)
+    Public Sub PopulateStats(ByRef cboStats As ComboBox)
 
         Try
+
+            cboStats.Items.Clear()
 
             Dim oStats As New List(Of String) From {"Most Frequent", "Highest Win"}
 
             For Each sStat As String In oStats
 
-                cboStat.Items.Add(sStat)
+                cboStats.Items.Add(sStat)
 
             Next sStat
 
