@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Net
 Imports System.Net.Http
 Imports HtmlAgilityPack
 Imports Newtonsoft.Json
@@ -121,7 +122,7 @@ Module ChampionGG
 
                 If oChampionNameNode IsNot Nothing Then
 
-                    sChampionName = oChampionNameNode.InnerText
+                    sChampionName = WebUtility.HtmlDecode(oChampionNameNode.InnerText)
 
                 End If
 
