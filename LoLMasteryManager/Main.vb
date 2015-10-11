@@ -1,6 +1,4 @@
-﻿Imports System.Timers
-
-Public Class Main
+﻿Public Class Main
 
     Private _MasteryManager As New MasteryManager
 
