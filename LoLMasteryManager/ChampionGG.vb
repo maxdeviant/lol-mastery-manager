@@ -381,7 +381,7 @@ Module ChampionGG
 
                 Dim sJson As String
 
-                Dim sMasteriesPath As String = Path.Combine(Path.GetDirectoryName(Reflection.Assembly.GetExecutingAssembly().Location), "Data", "Masteries.json")
+                Dim sMasteriesPath As String = Path.Combine(Path.GetDirectoryName(Reflection.Assembly.GetExecutingAssembly().Location), "Masteries.json")
 
                 Using oStreamReader As New StreamReader(sMasteriesPath)
 
