@@ -3,6 +3,8 @@ LoL Mastery Manager
 
 A tool for managing mastery pages in League of Legends. Inspired by [Championify](https://github.com/dustinblackman/Championify).
 
+![A pretty screenshot.](Screenshot.png)
+
 Features
 --------
 - [x] Download mastery pages from [Champion.gg](http://champion.gg/)
