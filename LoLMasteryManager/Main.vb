@@ -1,10 +1,26 @@
-﻿Public Class Main
+﻿Imports System.Timers
+
+Public Class Main
+
+#If DEBUG Then
+
+    Private WithEvents _Timer As Timer
+
+#End If
 
     Private _MasteryManager As New MasteryManager
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
+
+#If DEBUG Then
+
+            _Timer = New Timer(1000)
+
+            _Timer.Enabled = True
+
+#End If
 
             _MasteryManager.PopulateChampions(cboChampion)
 
@@ -60,5 +76,21 @@
         End Try
 
     End Sub
+
+#If DEBUG Then
+
+    Private Sub _Timer_Elapsed(sender As Object, e As ElapsedEventArgs) Handles _Timer.Elapsed
+
+        Dim oLeagueWindow As IntPtr = HwndInterface.GetHwndFromTitle("PVP.net Client")
+
+        HwndInterface.ActivateWindow(oLeagueWindow)
+
+        Dim oLeaguePosition = HwndInterface.GetHwndPos(oLeagueWindow)
+
+        Debug.WriteLine(New Point(Cursor.Position.X - oLeaguePosition.X, Cursor.Position.Y - oLeaguePosition.Y))
+
+    End Sub
+
+#End If
 
 End Class
