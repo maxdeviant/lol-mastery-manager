@@ -1,8 +1,8 @@
 ﻿Public Structure MasteryTree
 
-    Public Shared Offense As String = "Offense"
-    Public Shared Defense As String = "Defense"
-    Public Shared Utility As String = "Utility"
+    Public Const Offense As String = "Offense"
+    Public Const Defense As String = "Defense"
+    Public Const Utility As String = "Utility"
 
 End Structure
 

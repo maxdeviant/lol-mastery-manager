@@ -14,11 +14,11 @@ Module ChampionGG
 
     Public Structure Roles
 
-        Public Shared Top As String = "Top"
-        Public Shared Jungle As String = "Jungle"
-        Public Shared Middle As String = "Middle"
-        Public Shared ADC As String = "ADC"
-        Public Shared Support As String = "Support"
+        Public Const Top As String = "Top"
+        Public Const Jungle As String = "Jungle"
+        Public Const Middle As String = "Middle"
+        Public Const ADC As String = "ADC"
+        Public Const Support As String = "Support"
 
     End Structure
 
