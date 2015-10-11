@@ -40,4 +40,27 @@ Public Class Main
 
     End Sub
 
+    Private Sub chkInChampionSelect_CheckedChanged(sender As Object, e As EventArgs) Handles chkInChampionSelect.CheckedChanged
+
+        Try
+
+            If chkInChampionSelect.Checked Then
+
+                _MasteryManager.SetMode(Modes.ChampionSelect)
+
+            Else
+
+                _MasteryManager.SetMode(Modes.Menu)
+
+            End If
+
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+    End Sub
+
 End Class

@@ -29,6 +29,7 @@ Partial Class Main
         Me.lblRole = New System.Windows.Forms.Label()
         Me.lblStats = New System.Windows.Forms.Label()
         Me.btnAssignMasteries = New System.Windows.Forms.Button()
+        Me.chkInChampionSelect = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'cboChampion
@@ -91,11 +92,24 @@ Partial Class Main
         Me.btnAssignMasteries.Text = "Assign Masteries"
         Me.btnAssignMasteries.UseVisualStyleBackColor = True
         '
+        'chkInChampionSelect
+        '
+        Me.chkInChampionSelect.AutoSize = True
+        Me.chkInChampionSelect.Checked = True
+        Me.chkInChampionSelect.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkInChampionSelect.Location = New System.Drawing.Point(12, 111)
+        Me.chkInChampionSelect.Name = "chkInChampionSelect"
+        Me.chkInChampionSelect.Size = New System.Drawing.Size(118, 17)
+        Me.chkInChampionSelect.TabIndex = 8
+        Me.chkInChampionSelect.Text = "In Champion Select"
+        Me.chkInChampionSelect.UseVisualStyleBackColor = True
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(342, 140)
+        Me.Controls.Add(Me.chkInChampionSelect)
         Me.Controls.Add(Me.btnAssignMasteries)
         Me.Controls.Add(Me.lblStats)
         Me.Controls.Add(Me.lblRole)
@@ -118,4 +132,5 @@ Partial Class Main
     Friend WithEvents lblRole As Label
     Friend WithEvents lblStats As Label
     Friend WithEvents btnAssignMasteries As Button
+    Friend WithEvents chkInChampionSelect As CheckBox
 End Class

@@ -1,6 +1,13 @@
 ﻿Imports System.IO
 Imports Newtonsoft.Json
 
+Public Enum Modes
+
+    ChampionSelect
+    Menu
+
+End Enum
+
 Public Class MasteryManager
 
     Private _Downloader As New Downloader
@@ -53,6 +60,20 @@ Public Class MasteryManager
         End Try
 
     End Function
+
+    Public Sub SetMode(ByVal mode As Modes)
+
+        Try
+
+            _Assigner.SetMode(mode)
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Sub
 
     Public Function GetChampions() As List(Of RiotChampion)
 
