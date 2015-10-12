@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Threading
 Imports Newtonsoft.Json
 
 Public Enum Modes
@@ -26,6 +27,7 @@ Public Class MasteryManager
 
     Private _Downloader As New Downloader
     Private _Assigner As New MasteryAssigner
+    Private Shared _LoadingWindow As LoadingScreen = Nothing
 
     Private _PatchNumber As String
     Private _Champions As New List(Of Champion)
@@ -83,11 +85,27 @@ Public Class MasteryManager
 
         If Not Directory.Exists(Directories.Masteries) OrElse Directory.GetFiles(Directories.Masteries).Count = 0 Then
 
+            Dim oThread As New Thread(AddressOf ShowLoadingScreen)
+
+            oThread.SetApartmentState(ApartmentState.STA)
+
+            oThread.Start()
+
+            While _LoadingWindow Is Nothing OrElse Not _LoadingWindow.IsHandleCreated
+
+                Thread.Sleep(100)
+
+            End While
+
             Dim oMasteryPages As List(Of MasteryPage)
 
             For Each oChampion As Champion In _Champions
 
                 For Each oRole As Role In oChampion.Roles
+
+                    _LoadingWindow.BeginInvoke(New Action(Sub()
+                                                              _LoadingWindow.SetCurrentChampion(oChampion.Name, oRole.Name)
+                                                          End Sub))
 
                     oMasteryPages = _Downloader.ScrapeChampionMasteries(oChampion.Key, oRole.Name)
 
@@ -97,9 +115,31 @@ Public Class MasteryManager
 
             Next oChampion
 
+            _LoadingWindow.BeginInvoke(New Action(Sub()
+                                                      _LoadingWindow.Hide()
+                                                  End Sub))
+
         End If
 
         SaveMetadata()
+
+    End Sub
+
+    Private Sub ShowLoadingScreen()
+
+        Try
+
+            _LoadingWindow = New LoadingScreen
+
+            _LoadingWindow.Show()
+
+            Application.Run(_LoadingWindow)
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
 
     End Sub
 
