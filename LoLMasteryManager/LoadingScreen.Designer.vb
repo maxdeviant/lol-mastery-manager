@@ -50,7 +50,6 @@ Partial Class LoadingScreen
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Loading"
-        Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
