@@ -113,6 +113,42 @@
 
         End Structure
 
+        Public Structure SaveMasteriesButton
+
+            Public Structure ChampionSelect
+
+                Public Const X As Double = -1
+                Public Const Y As Double = -1
+
+            End Structure
+
+            Public Structure Menu
+
+                Public Const X As Double = 9.57
+                Public Const Y As Double = 2.13
+
+            End Structure
+
+        End Structure
+
+        Public Structure ReturnPointsButton
+
+            Public Structure ChampionSelect
+
+                Public Const X As Double = -1
+                Public Const Y As Double = -1
+
+            End Structure
+
+            Public Structure Menu
+
+                Public Const X As Double = 9.57
+                Public Const Y As Double = 1.96
+
+            End Structure
+
+        End Structure
+
     End Structure
 
     Private _Mode As Modes = Modes.ChampionSelect
@@ -304,8 +340,8 @@
 
             Dim oLeagueClientWindowSize As Size = GetLeagueClientWindowSize()
 
-            Dim iMasteryNodeWidth As Integer = CInt(Math.Round(oLeagueClientWindowSize.Width / ScaleFactor.MasteryNode.X))
-            Dim iMasteryNodeHeight As Integer = CInt(Math.Round(oLeagueClientWindowSize.Height / ScaleFactor.MasteryNode.Y))
+            Dim iMasteryNodeWidth As Integer = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.MasteryNode.X))
+            Dim iMasteryNodeHeight As Integer = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.MasteryNode.Y))
 
             Return New Size(iMasteryNodeWidth, iMasteryNodeHeight)
 
@@ -321,17 +357,19 @@
 
         Try
 
+            Dim oLeagueClientWindowSize As Size = GetLeagueClientWindowSize()
             Dim oSaveMasteriesButtonOffsets As New Point
 
             If _Mode = Modes.ChampionSelect Then
 
+                ' TODO: Update this offset calculation
                 oSaveMasteriesButtonOffsets.X = SaveMasteriesButton.Offsets.ChampionSelect.X
                 oSaveMasteriesButtonOffsets.Y = SaveMasteriesButton.Offsets.ChampionSelect.Y
 
-            ElseIf _Mode = Modes.Menu Then
+            Else
 
-                oSaveMasteriesButtonOffsets.X = SaveMasteriesButton.Offsets.Menu.X
-                oSaveMasteriesButtonOffsets.Y = SaveMasteriesButton.Offsets.Menu.Y
+                oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.SaveMasteriesButton.Menu.X))
+                oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.SaveMasteriesButton.Menu.Y))
 
             End If
 
@@ -349,17 +387,19 @@
 
         Try
 
+            Dim oLeagueClientWindowSize As Size = GetLeagueClientWindowSize()
             Dim oReturnPointsButtonOffsets As New Point
 
             If _Mode = Modes.ChampionSelect Then
 
+                ' TODO: Update this offset calculation
                 oReturnPointsButtonOffsets.X = ReturnPointsButton.Offsets.ChampionSelect.X
                 oReturnPointsButtonOffsets.Y = ReturnPointsButton.Offsets.ChampionSelect.Y
 
-            ElseIf _Mode = Modes.Menu Then
+            Else
 
-                oReturnPointsButtonOffsets.X = ReturnPointsButton.Offsets.Menu.X
-                oReturnPointsButtonOffsets.Y = ReturnPointsButton.Offsets.Menu.Y
+                oReturnPointsButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.ReturnPointsButton.Menu.X))
+                oReturnPointsButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.ReturnPointsButton.Menu.Y))
 
             End If
 
@@ -378,7 +418,6 @@
         Try
 
             Dim oLeagueClientWindowSize As Size = GetLeagueClientWindowSize()
-
             Dim oMasteryTreeOffsets As New Point
 
             If _Mode = Modes.ChampionSelect Then
