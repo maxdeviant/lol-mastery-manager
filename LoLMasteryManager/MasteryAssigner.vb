@@ -106,8 +106,12 @@
 
     Private Structure MasteryNode
 
-        Public Const Width As Integer = 50
-        Public Const Height As Integer = 50
+        Public Structure Scale
+
+            Public Const X As Double = 25.6
+            Public Const Y As Double = 16
+
+        End Structure
 
         Public Structure Margin
 
@@ -284,13 +288,33 @@
 
             Dim oClientPosition As Point = GetLeagueClientWindowPosition()
             Dim oMasteryTreeOffset As Point = CalculateMasteryTreeOffsets(iMasteryTree)
+            Dim oMasteryNodeSize As Size = CalculateMasteryNodeSize()
 
             Dim oPosition As New Point
 
-            oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iMasteryColumn - 1) * MasteryNode.Width) + (iMasteryColumn * MasteryNode.Margin.X) + (MasteryNode.Width \ 2)
-            oPosition.Y = oClientPosition.Y + oMasteryTreeOffset.Y + ((iMasteryRow - 1) * MasteryNode.Height) + (iMasteryRow * MasteryNode.Margin.Y) + (MasteryNode.Height \ 2)
+            oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iMasteryColumn - 1) * oMasteryNodeSize.Width) + (iMasteryColumn * MasteryNode.Margin.X) + (oMasteryNodeSize.Width \ 2)
+            oPosition.Y = oClientPosition.Y + oMasteryTreeOffset.Y + ((iMasteryRow - 1) * oMasteryNodeSize.Height) + (iMasteryRow * MasteryNode.Margin.Y) + (oMasteryNodeSize.Height \ 2)
 
             Return oPosition
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Function
+
+    Private Function CalculateMasteryNodeSize() As Size
+
+        Try
+
+            Dim oLeagueClientWindowSize As Size = GetLeagueClientWindowSize()
+
+            Dim iMasteryNodeWidth As Integer = CInt(Math.Round(oLeagueClientWindowSize.Width / 25.6))
+            Dim iMasteryNodeHeight As Integer = CInt(Math.Round(oLeagueClientWindowSize.Height / 16))
+
+            Return New Size(iMasteryNodeWidth, iMasteryNodeHeight)
 
         Catch ex As Exception
 
@@ -438,9 +462,27 @@
 
             Dim oLeagueWindow As IntPtr = GetLeagueClient()
 
-            HwndInterface.ActivateWindow(GetLeagueClient())
+            HwndInterface.ActivateWindow(oLeagueWindow)
 
             Return HwndInterface.GetHwndPos(oLeagueWindow)
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Function
+
+    Private Function GetLeagueClientWindowSize() As Size
+
+        Try
+
+            Dim oLeagueWindow As IntPtr = GetLeagueClient()
+
+            HwndInterface.ActivateWindow(oLeagueWindow)
+
+            Return HwndInterface.GetHwndSize(oLeagueWindow)
 
         Catch ex As Exception
 
