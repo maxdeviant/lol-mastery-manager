@@ -14,3 +14,9 @@ Features
 - [x] Download mastery pages from [Champion.gg](http://champion.gg/)
 - [x] Automatically assign mastery points based on selected champion and role
 - [x] Works in the menus and during champion select
+
+FAQ
+---
+
+### Can I run it on Mac OS X?
+As of right now only Windows is supported, but OS X support is being investigated.
