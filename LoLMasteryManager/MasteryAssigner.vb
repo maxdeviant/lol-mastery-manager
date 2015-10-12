@@ -104,19 +104,12 @@
 
     End Structure
 
-    Private Structure MasteryNode
+    Private Structure ScaleFactor
 
-        Public Structure Scale
+        Public Structure MasteryNode
 
             Public Const X As Double = 25.6
             Public Const Y As Double = 16
-
-        End Structure
-
-        Public Structure Margin
-
-            Public Const X As Integer = 12
-            Public Const Y As Integer = 22
 
         End Structure
 
@@ -292,8 +285,8 @@
 
             Dim oPosition As New Point
 
-            oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iMasteryColumn - 1) * oMasteryNodeSize.Width) + (iMasteryColumn * MasteryNode.Margin.X) + (oMasteryNodeSize.Width \ 2)
-            oPosition.Y = oClientPosition.Y + oMasteryTreeOffset.Y + ((iMasteryRow - 1) * oMasteryNodeSize.Height) + (iMasteryRow * MasteryNode.Margin.Y) + (oMasteryNodeSize.Height \ 2)
+            oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iMasteryColumn - 1) * oMasteryNodeSize.Width) + (iMasteryColumn * 10) + (oMasteryNodeSize.Width \ 2)
+            oPosition.Y = oClientPosition.Y + oMasteryTreeOffset.Y + ((iMasteryRow - 1) * oMasteryNodeSize.Height) + (iMasteryRow * 14) + (oMasteryNodeSize.Height \ 2)
 
             Return oPosition
 
@@ -311,8 +304,8 @@
 
             Dim oLeagueClientWindowSize As Size = GetLeagueClientWindowSize()
 
-            Dim iMasteryNodeWidth As Integer = CInt(Math.Round(oLeagueClientWindowSize.Width / 25.6))
-            Dim iMasteryNodeHeight As Integer = CInt(Math.Round(oLeagueClientWindowSize.Height / 16))
+            Dim iMasteryNodeWidth As Integer = CInt(Math.Round(oLeagueClientWindowSize.Width / ScaleFactor.MasteryNode.X))
+            Dim iMasteryNodeHeight As Integer = CInt(Math.Round(oLeagueClientWindowSize.Height / ScaleFactor.MasteryNode.Y))
 
             Return New Size(iMasteryNodeWidth, iMasteryNodeHeight)
 
@@ -384,53 +377,22 @@
 
         Try
 
+            Dim oLeagueClientWindowSize As Size = GetLeagueClientWindowSize()
+
             Dim oMasteryTreeOffsets As New Point
 
-            Select Case masteryTree
+            If _Mode = Modes.ChampionSelect Then
 
-                Case 1
+                ' TODO: Update this offset calculation
+                oMasteryTreeOffsets.X = MasteryTreeOffsets.ChampionSelect.Offense.X
+                oMasteryTreeOffsets.Y = MasteryTreeOffsets.ChampionSelect.Offense.Y
 
-                    If _Mode = Modes.ChampionSelect Then
+            Else
 
-                        oMasteryTreeOffsets.X = MasteryTreeOffsets.ChampionSelect.Offense.X
-                        oMasteryTreeOffsets.Y = MasteryTreeOffsets.ChampionSelect.Offense.Y
+                oMasteryTreeOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / 3.7) + Math.Floor(((masteryTree - 1) * (oLeagueClientWindowSize.Width / 4.6))))
+                oMasteryTreeOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / 3.2))
 
-                    ElseIf _Mode = Modes.Menu Then
-
-                        oMasteryTreeOffsets.X = MasteryTreeOffsets.Menu.Offense.X
-                        oMasteryTreeOffsets.Y = MasteryTreeOffsets.Menu.Offense.Y
-
-                    End If
-
-                Case 2
-
-                    If _Mode = Modes.ChampionSelect Then
-
-                        oMasteryTreeOffsets.X = MasteryTreeOffsets.ChampionSelect.Defense.X
-                        oMasteryTreeOffsets.Y = MasteryTreeOffsets.ChampionSelect.Defense.Y
-
-                    ElseIf _Mode = Modes.Menu Then
-
-                        oMasteryTreeOffsets.X = MasteryTreeOffsets.Menu.Defense.X
-                        oMasteryTreeOffsets.Y = MasteryTreeOffsets.Menu.Defense.Y
-
-                    End If
-
-                Case 3
-
-                    If _Mode = Modes.ChampionSelect Then
-
-                        oMasteryTreeOffsets.X = MasteryTreeOffsets.ChampionSelect.Utility.X
-                        oMasteryTreeOffsets.Y = MasteryTreeOffsets.ChampionSelect.Utility.Y
-
-                    ElseIf _Mode = Modes.Menu Then
-
-                        oMasteryTreeOffsets.X = MasteryTreeOffsets.Menu.Utility.X
-                        oMasteryTreeOffsets.Y = MasteryTreeOffsets.Menu.Utility.Y
-
-                    End If
-
-            End Select
+            End If
 
             Return oMasteryTreeOffsets
 
