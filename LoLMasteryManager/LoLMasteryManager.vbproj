@@ -53,7 +53,7 @@
   <PropertyGroup>
     <ApplicationIcon>LoLMasteryManager.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
