@@ -4,8 +4,8 @@
 
         Public Structure MasteryNode
 
-            Public Const X As Double = 25.6
-            Public Const Y As Double = 16
+            Public Const X As Double = 1024 / 40
+            Public Const Y As Double = 640 / 40
 
         End Structure
 
