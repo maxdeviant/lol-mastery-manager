@@ -117,15 +117,15 @@
 
             Public Structure ChampionSelect
 
-                Public Const X As Double = -1
-                Public Const Y As Double = -1
+                Public Const X As Double = 1024 / 120
+                Public Const Y As Double = 640 / 265
 
             End Structure
 
             Public Structure Menu
 
-                Public Const X As Double = 9.57
-                Public Const Y As Double = 2.13
+                Public Const X As Double = 1024 / 107
+                Public Const Y As Double = 640 / 300
 
             End Structure
 
@@ -135,15 +135,36 @@
 
             Public Structure ChampionSelect
 
-                Public Const X As Double = -1
-                Public Const Y As Double = -1
+                Public Const X As Double = 1024 / 120
+                Public Const Y As Double = 640 / 285
 
             End Structure
 
             Public Structure Menu
 
-                Public Const X As Double = 9.57
-                Public Const Y As Double = 1.96
+                Public Const X As Double = 1024 / 107
+                Public Const Y As Double = 540 / 325
+
+            End Structure
+
+        End Structure
+
+        Public Structure MasteryTree
+
+            Public Const Width As Double = 1024 / 220
+            Public Const Height As Double = 640 / 380
+
+            Public Structure ChampionSelect
+
+                Public Const X As Double = 1024 / 290
+                Public Const Y As Double = 640 / 160
+
+            End Structure
+
+            Public Structure Menu
+
+                Public Const X As Double = 1024 / 275
+                Public Const Y As Double = 640 / 190
 
             End Structure
 
@@ -363,8 +384,8 @@
             If _Mode = Modes.ChampionSelect Then
 
                 ' TODO: Update this offset calculation
-                oSaveMasteriesButtonOffsets.X = SaveMasteriesButton.Offsets.ChampionSelect.X
-                oSaveMasteriesButtonOffsets.Y = SaveMasteriesButton.Offsets.ChampionSelect.Y
+                oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.SaveMasteriesButton.ChampionSelect.X))
+                oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.SaveMasteriesButton.ChampionSelect.Y))
 
             Else
 
@@ -393,8 +414,8 @@
             If _Mode = Modes.ChampionSelect Then
 
                 ' TODO: Update this offset calculation
-                oReturnPointsButtonOffsets.X = ReturnPointsButton.Offsets.ChampionSelect.X
-                oReturnPointsButtonOffsets.Y = ReturnPointsButton.Offsets.ChampionSelect.Y
+                oReturnPointsButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.ReturnPointsButton.ChampionSelect.X))
+                oReturnPointsButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.ReturnPointsButton.ChampionSelect.Y))
 
             Else
 
@@ -422,14 +443,13 @@
 
             If _Mode = Modes.ChampionSelect Then
 
-                ' TODO: Update this offset calculation
-                oMasteryTreeOffsets.X = MasteryTreeOffsets.ChampionSelect.Offense.X
-                oMasteryTreeOffsets.Y = MasteryTreeOffsets.ChampionSelect.Offense.Y
+                oMasteryTreeOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.MasteryTree.ChampionSelect.X) + Math.Floor(((masteryTree - 1) * (oLeagueClientWindowSize.Width / ScaleFactor.MasteryTree.Width))))
+                oMasteryTreeOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.MasteryTree.ChampionSelect.Y))
 
             Else
 
-                oMasteryTreeOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / 3.7) + Math.Floor(((masteryTree - 1) * (oLeagueClientWindowSize.Width / 4.6))))
-                oMasteryTreeOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / 3.2))
+                oMasteryTreeOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.MasteryTree.Menu.X) + Math.Floor((masteryTree - 1) * (oLeagueClientWindowSize.Width / ScaleFactor.MasteryTree.Width)))
+                oMasteryTreeOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.MasteryTree.Menu.Y))
 
             End If
 
