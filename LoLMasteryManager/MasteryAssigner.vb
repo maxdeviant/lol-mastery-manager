@@ -104,15 +104,48 @@
 
     End Structure
 
-    Private Structure MasteryNode
+    Private Structure ScaleFactor
 
-        Public Const Width As Integer = 50
-        Public Const Height As Integer = 50
+        Public Structure MasteryNode
 
-        Public Structure Margin
+            Public Const X As Double = 25.6
+            Public Const Y As Double = 16
 
-            Public Const X As Integer = 12
-            Public Const Y As Integer = 22
+        End Structure
+
+        Public Structure SaveMasteriesButton
+
+            Public Structure ChampionSelect
+
+                Public Const X As Double = -1
+                Public Const Y As Double = -1
+
+            End Structure
+
+            Public Structure Menu
+
+                Public Const X As Double = 9.57
+                Public Const Y As Double = 2.13
+
+            End Structure
+
+        End Structure
+
+        Public Structure ReturnPointsButton
+
+            Public Structure ChampionSelect
+
+                Public Const X As Double = -1
+                Public Const Y As Double = -1
+
+            End Structure
+
+            Public Structure Menu
+
+                Public Const X As Double = 9.57
+                Public Const Y As Double = 1.96
+
+            End Structure
 
         End Structure
 
@@ -284,13 +317,33 @@
 
             Dim oClientPosition As Point = GetLeagueClientWindowPosition()
             Dim oMasteryTreeOffset As Point = CalculateMasteryTreeOffsets(iMasteryTree)
+            Dim oMasteryNodeSize As Size = CalculateMasteryNodeSize()
 
             Dim oPosition As New Point
 
-            oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iMasteryColumn - 1) * MasteryNode.Width) + (iMasteryColumn * MasteryNode.Margin.X) + (MasteryNode.Width \ 2)
-            oPosition.Y = oClientPosition.Y + oMasteryTreeOffset.Y + ((iMasteryRow - 1) * MasteryNode.Height) + (iMasteryRow * MasteryNode.Margin.Y) + (MasteryNode.Height \ 2)
+            oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iMasteryColumn - 1) * oMasteryNodeSize.Width) + (iMasteryColumn * 10) + (oMasteryNodeSize.Width \ 2)
+            oPosition.Y = oClientPosition.Y + oMasteryTreeOffset.Y + ((iMasteryRow - 1) * oMasteryNodeSize.Height) + (iMasteryRow * 14) + (oMasteryNodeSize.Height \ 2)
 
             Return oPosition
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Function
+
+    Private Function CalculateMasteryNodeSize() As Size
+
+        Try
+
+            Dim oLeagueClientWindowSize As Size = GetLeagueClientWindowSize()
+
+            Dim iMasteryNodeWidth As Integer = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.MasteryNode.X))
+            Dim iMasteryNodeHeight As Integer = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.MasteryNode.Y))
+
+            Return New Size(iMasteryNodeWidth, iMasteryNodeHeight)
 
         Catch ex As Exception
 
@@ -304,17 +357,19 @@
 
         Try
 
+            Dim oLeagueClientWindowSize As Size = GetLeagueClientWindowSize()
             Dim oSaveMasteriesButtonOffsets As New Point
 
             If _Mode = Modes.ChampionSelect Then
 
+                ' TODO: Update this offset calculation
                 oSaveMasteriesButtonOffsets.X = SaveMasteriesButton.Offsets.ChampionSelect.X
                 oSaveMasteriesButtonOffsets.Y = SaveMasteriesButton.Offsets.ChampionSelect.Y
 
-            ElseIf _Mode = Modes.Menu Then
+            Else
 
-                oSaveMasteriesButtonOffsets.X = SaveMasteriesButton.Offsets.Menu.X
-                oSaveMasteriesButtonOffsets.Y = SaveMasteriesButton.Offsets.Menu.Y
+                oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.SaveMasteriesButton.Menu.X))
+                oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.SaveMasteriesButton.Menu.Y))
 
             End If
 
@@ -332,17 +387,19 @@
 
         Try
 
+            Dim oLeagueClientWindowSize As Size = GetLeagueClientWindowSize()
             Dim oReturnPointsButtonOffsets As New Point
 
             If _Mode = Modes.ChampionSelect Then
 
+                ' TODO: Update this offset calculation
                 oReturnPointsButtonOffsets.X = ReturnPointsButton.Offsets.ChampionSelect.X
                 oReturnPointsButtonOffsets.Y = ReturnPointsButton.Offsets.ChampionSelect.Y
 
-            ElseIf _Mode = Modes.Menu Then
+            Else
 
-                oReturnPointsButtonOffsets.X = ReturnPointsButton.Offsets.Menu.X
-                oReturnPointsButtonOffsets.Y = ReturnPointsButton.Offsets.Menu.Y
+                oReturnPointsButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.ReturnPointsButton.Menu.X))
+                oReturnPointsButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.ReturnPointsButton.Menu.Y))
 
             End If
 
@@ -360,53 +417,21 @@
 
         Try
 
+            Dim oLeagueClientWindowSize As Size = GetLeagueClientWindowSize()
             Dim oMasteryTreeOffsets As New Point
 
-            Select Case masteryTree
+            If _Mode = Modes.ChampionSelect Then
 
-                Case 1
+                ' TODO: Update this offset calculation
+                oMasteryTreeOffsets.X = MasteryTreeOffsets.ChampionSelect.Offense.X
+                oMasteryTreeOffsets.Y = MasteryTreeOffsets.ChampionSelect.Offense.Y
 
-                    If _Mode = Modes.ChampionSelect Then
+            Else
 
-                        oMasteryTreeOffsets.X = MasteryTreeOffsets.ChampionSelect.Offense.X
-                        oMasteryTreeOffsets.Y = MasteryTreeOffsets.ChampionSelect.Offense.Y
+                oMasteryTreeOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / 3.7) + Math.Floor(((masteryTree - 1) * (oLeagueClientWindowSize.Width / 4.6))))
+                oMasteryTreeOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / 3.2))
 
-                    ElseIf _Mode = Modes.Menu Then
-
-                        oMasteryTreeOffsets.X = MasteryTreeOffsets.Menu.Offense.X
-                        oMasteryTreeOffsets.Y = MasteryTreeOffsets.Menu.Offense.Y
-
-                    End If
-
-                Case 2
-
-                    If _Mode = Modes.ChampionSelect Then
-
-                        oMasteryTreeOffsets.X = MasteryTreeOffsets.ChampionSelect.Defense.X
-                        oMasteryTreeOffsets.Y = MasteryTreeOffsets.ChampionSelect.Defense.Y
-
-                    ElseIf _Mode = Modes.Menu Then
-
-                        oMasteryTreeOffsets.X = MasteryTreeOffsets.Menu.Defense.X
-                        oMasteryTreeOffsets.Y = MasteryTreeOffsets.Menu.Defense.Y
-
-                    End If
-
-                Case 3
-
-                    If _Mode = Modes.ChampionSelect Then
-
-                        oMasteryTreeOffsets.X = MasteryTreeOffsets.ChampionSelect.Utility.X
-                        oMasteryTreeOffsets.Y = MasteryTreeOffsets.ChampionSelect.Utility.Y
-
-                    ElseIf _Mode = Modes.Menu Then
-
-                        oMasteryTreeOffsets.X = MasteryTreeOffsets.Menu.Utility.X
-                        oMasteryTreeOffsets.Y = MasteryTreeOffsets.Menu.Utility.Y
-
-                    End If
-
-            End Select
+            End If
 
             Return oMasteryTreeOffsets
 
@@ -438,9 +463,27 @@
 
             Dim oLeagueWindow As IntPtr = GetLeagueClient()
 
-            HwndInterface.ActivateWindow(GetLeagueClient())
+            HwndInterface.ActivateWindow(oLeagueWindow)
 
             Return HwndInterface.GetHwndPos(oLeagueWindow)
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Function
+
+    Private Function GetLeagueClientWindowSize() As Size
+
+        Try
+
+            Dim oLeagueWindow As IntPtr = GetLeagueClient()
+
+            HwndInterface.ActivateWindow(oLeagueWindow)
+
+            Return HwndInterface.GetHwndSize(oLeagueWindow)
 
         Catch ex As Exception
 
