@@ -12,7 +12,7 @@
         Public Structure SaveMasteriesButton
 
             Public Const Width As Integer = 175
-            Public Const Height As Integer = 28
+            Public Const Height As Integer = 25
 
             Public Structure ChampionSelect
 
@@ -33,7 +33,7 @@
         Public Structure ReturnPointsButton
 
             Public Const Width As Integer = 175
-            Public Const Height As Integer = 28
+            Public Const Height As Integer = 25
 
             Public Structure ChampionSelect
 
