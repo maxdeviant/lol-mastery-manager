@@ -1,109 +1,5 @@
 ﻿Public Class MasteryAssigner
 
-    Private Structure SaveMasteriesButton
-
-        Public Const Width As Integer = 175
-        Public Const Height As Integer = 28
-
-        Public Structure Offsets
-
-            Public Structure ChampionSelect
-
-                Public Const X As Integer = 145
-                Public Const Y As Integer = 297
-
-            End Structure
-
-            Public Structure Menu
-
-                Public Const X As Integer = 135
-                Public Const Y As Integer = 377
-
-            End Structure
-
-        End Structure
-
-    End Structure
-
-    Private Structure ReturnPointsButton
-
-        Public Const Width As Integer = 175
-        Public Const Height As Integer = 28
-
-        Public Structure Offsets
-
-            Public Structure ChampionSelect
-
-                Public Const X As Integer = 145
-                Public Const Y As Integer = 327
-
-            End Structure
-
-            Public Structure Menu
-
-                Public Const X As Integer = 135
-                Public Const Y As Integer = 407
-
-            End Structure
-
-        End Structure
-
-    End Structure
-
-    Private Structure MasteryTreeOffsets
-
-        Public Structure ChampionSelect
-
-            Public Structure Offense
-
-                Public Const X As Integer = 355
-                Public Const Y As Integer = 165
-
-            End Structure
-
-            Public Structure Defense
-
-                Public Const X As Integer = 630
-                Public Const Y As Integer = 165
-
-            End Structure
-
-            Public Structure Utility
-
-                Public Const X As Integer = 905
-                Public Const Y As Integer = 165
-
-            End Structure
-
-        End Structure
-
-        Public Structure Menu
-
-            Public Structure Offense
-
-                Public Const X As Integer = 345
-                Public Const Y As Integer = 245
-
-            End Structure
-
-            Public Structure Defense
-
-                Public Const X As Integer = 620
-                Public Const Y As Integer = 245
-
-            End Structure
-
-            Public Structure Utility
-
-                Public Const X As Integer = 895
-                Public Const Y As Integer = 245
-
-            End Structure
-
-        End Structure
-
-    End Structure
-
     Private Structure ScaleFactor
 
         Public Structure MasteryNode
@@ -114,6 +10,9 @@
         End Structure
 
         Public Structure SaveMasteriesButton
+
+            Public Const Width As Integer = 175
+            Public Const Height As Integer = 28
 
             Public Structure ChampionSelect
 
@@ -133,6 +32,9 @@
 
         Public Structure ReturnPointsButton
 
+            Public Const Width As Integer = 175
+            Public Const Height As Integer = 28
+
             Public Structure ChampionSelect
 
                 Public Const X As Double = 1024 / 120
@@ -143,7 +45,7 @@
             Public Structure Menu
 
                 Public Const X As Double = 1024 / 107
-                Public Const Y As Double = 540 / 325
+                Public Const Y As Double = 640 / 325
 
             End Structure
 
@@ -207,8 +109,8 @@
 
             Dim oPosition As New Point
 
-            oPosition.X = oClientPosition.X + oReturnPointsButtonOffsets.X + (ReturnPointsButton.Width \ 2)
-            oPosition.Y = oClientPosition.Y + oReturnPointsButtonOffsets.Y + (ReturnPointsButton.Height \ 2)
+            oPosition.X = oClientPosition.X + oReturnPointsButtonOffsets.X + (ScaleFactor.ReturnPointsButton.Width \ 2)
+            oPosition.Y = oClientPosition.Y + oReturnPointsButtonOffsets.Y + (ScaleFactor.ReturnPointsButton.Height \ 2)
 
             Mouse.Lock()
 
@@ -239,8 +141,8 @@
 
             Dim oPosition As New Point
 
-            oPosition.X = oClientPosition.X + oSaveMasteriesButtonOffsets.X + (SaveMasteriesButton.Width \ 2)
-            oPosition.Y = oClientPosition.Y + oSaveMasteriesButtonOffsets.Y + (SaveMasteriesButton.Height \ 2)
+            oPosition.X = oClientPosition.X + oSaveMasteriesButtonOffsets.X + (ScaleFactor.SaveMasteriesButton.Width \ 2)
+            oPosition.Y = oClientPosition.Y + oSaveMasteriesButtonOffsets.Y + (ScaleFactor.SaveMasteriesButton.Height \ 2)
 
             Mouse.Lock()
 
@@ -383,7 +285,6 @@
 
             If _Mode = Modes.ChampionSelect Then
 
-                ' TODO: Update this offset calculation
                 oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.SaveMasteriesButton.ChampionSelect.X))
                 oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.SaveMasteriesButton.ChampionSelect.Y))
 
@@ -413,7 +314,6 @@
 
             If _Mode = Modes.ChampionSelect Then
 
-                ' TODO: Update this offset calculation
                 oReturnPointsButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.ReturnPointsButton.ChampionSelect.X))
                 oReturnPointsButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.ReturnPointsButton.ChampionSelect.Y))
 
