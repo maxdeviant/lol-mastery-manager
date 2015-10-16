@@ -30,5 +30,7 @@ It's not something we can make a snap judgement on at this time without careful 
 >We typically don't ban for using a tool like this without an announcement. Further more, usage of these kinds of tools usually result in a warning and a temp ban before a permanent ban being the last step.
 I can't give you any kind of update now or anytime in the immediate future, but I can say that you will not wake up to a sudden and un-expected ban without warning by using this tool. [[Link]](https://www.reddit.com/r/leagueoflegends/comments/3oeb8q/just_made_a_tool_for_automatically_creating/cw03o71)
 
+**TL;DR:** Currently, you will not be banned for using it. And if Riot eventually decides that this *is* against the ToS, there would be fair warning before any permanent ban takes place against your account. So for now, happy mastery assigning :wink:
+
 ### Can I run it on Mac OS X?
 As of right now only Windows is supported, but OS X support is being investigated.
