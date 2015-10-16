@@ -9,6 +9,45 @@
 
         End Structure
 
+        Public Structure MasteryPageNameInputField
+
+            Public Const Width As Integer = 165
+            Public Const Height As Integer = 20
+
+            Public Structure ChampionSelect
+
+                Public Structure Small
+
+                    Public Const X As Double = 0
+                    Public Const Y As Double = 0
+
+                End Structure
+
+                Public Structure Medium
+
+                    Public Const X As Double = 0
+                    Public Const Y As Double = 0
+
+                End Structure
+
+                Public Structure Large
+
+                    Public Const X As Double = 0
+                    Public Const Y As Double = 0
+
+                End Structure
+
+            End Structure
+
+            Public Structure Menu
+
+                Public Const X As Double = 1024 / 98
+                Public Const Y As Double = 640 / 204
+
+            End Structure
+
+        End Structure
+
         Public Structure SaveMasteriesButton
 
             Public Const Width As Integer = 175
@@ -126,7 +165,61 @@
 
             AssignMasteries(masteryPage)
 
+            NameMasteryPage(masteryPage.Name)
+
             SaveMasteries()
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Sub
+
+    Private Sub NameMasteryPage(ByVal name As String)
+
+        Try
+
+            Input.Lock()
+
+            FocusMasteryPageNameInputBox()
+
+            Keyboard.Type(name)
+
+            Input.Unlock()
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Sub
+
+    Private Sub FocusMasteryPageNameInputBox()
+
+        Try
+
+            Dim oClientPosition As Point = GetLeagueClientWindowPosition()
+            Dim oMasteryPageNameInputFieldOffset As Point = CalculateMasteryPageNameInputFieldOffsets()
+
+            Dim oPosition As New Point
+
+            oPosition.X = oClientPosition.X + oMasteryPageNameInputFieldOffset.X + (ScaleFactor.MasteryPageNameInputField.Width \ 2)
+            oPosition.Y = oClientPosition.Y + oMasteryPageNameInputFieldOffset.Y + (ScaleFactor.MasteryPageNameInputField.Height \ 2)
+
+            Input.Lock()
+
+            Mouse.Move(oPosition)
+
+            Threading.Thread.Sleep(100)
+
+            Mouse.LeftClick()
+
+            Threading.Thread.Sleep(100)
+
+            Input.Unlock()
 
         Catch ex As Exception
 
@@ -148,7 +241,7 @@
             oPosition.X = oClientPosition.X + oReturnPointsButtonOffsets.X + (ScaleFactor.ReturnPointsButton.Width \ 2)
             oPosition.Y = oClientPosition.Y + oReturnPointsButtonOffsets.Y + (ScaleFactor.ReturnPointsButton.Height \ 2)
 
-            Mouse.Lock()
+            Input.Lock()
 
             Mouse.Move(oPosition)
 
@@ -158,7 +251,7 @@
 
             Threading.Thread.Sleep(100)
 
-            Mouse.Unlock()
+            Input.Unlock()
 
         Catch ex As Exception
 
@@ -180,7 +273,7 @@
             oPosition.X = oClientPosition.X + oSaveMasteriesButtonOffsets.X + (ScaleFactor.SaveMasteriesButton.Width \ 2)
             oPosition.Y = oClientPosition.Y + oSaveMasteriesButtonOffsets.Y + (ScaleFactor.SaveMasteriesButton.Height \ 2)
 
-            Mouse.Lock()
+            Input.Lock()
 
             Mouse.Move(oPosition)
 
@@ -190,7 +283,7 @@
 
             Threading.Thread.Sleep(100)
 
-            Mouse.Unlock()
+            Input.Unlock()
 
         Catch ex As Exception
 
@@ -204,7 +297,7 @@
 
         Try
 
-            Mouse.Lock()
+            Input.Lock()
 
             For Each oMastery As Mastery In masteryPage.OffenseTree
 
@@ -224,11 +317,11 @@
 
             Next oMastery
 
-            Mouse.Unlock()
+            Input.Unlock()
 
         Catch ex As Exception
 
-            Mouse.Unlock()
+            Input.Unlock()
 
             Throw
 
@@ -295,7 +388,6 @@
 
             End If
 
-
             Return oPosition
 
         Catch ex As Exception
@@ -316,6 +408,32 @@
             Dim iMasteryNodeHeight As Integer = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.MasteryNode.Y))
 
             Return New Size(iMasteryNodeWidth, iMasteryNodeHeight)
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Function
+
+    Private Function CalculateMasteryPageNameInputFieldOffsets() As Point
+
+        Try
+
+            Dim oLeagueClientWindowSize As Size = GetLeagueClientWindowSize()
+            Dim oMasteryPageNameInputFieldOffsets As New Point
+
+            If _Mode = Modes.ChampionSelect Then
+
+            Else
+
+                oMasteryPageNameInputFieldOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.MasteryPageNameInputField.Menu.X))
+                oMasteryPageNameInputFieldOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.MasteryPageNameInputField.Menu.Y))
+
+            End If
+
+            Return oMasteryPageNameInputFieldOffsets
 
         Catch ex As Exception
 

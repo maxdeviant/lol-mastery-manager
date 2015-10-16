@@ -96,6 +96,8 @@
   <ItemGroup>
     <Compile Include="ChampionGG.vb" />
     <Compile Include="HwndInterface.vb" />
+    <Compile Include="Input.vb" />
+    <Compile Include="Keyboard.vb" />
     <Compile Include="LoadingScreen.Designer.vb">
       <DependentUpon>LoadingScreen.vb</DependentUpon>
     </Compile>

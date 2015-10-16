@@ -30,7 +30,7 @@ Public Class Main
 
             _Timer = New Timer(1000)
 
-            _Timer.Enabled = False
+            _Timer.Enabled = True
 
 #End If
 
