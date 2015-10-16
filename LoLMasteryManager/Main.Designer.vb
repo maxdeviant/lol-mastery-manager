@@ -31,6 +31,7 @@ Partial Class Main
         Me.lblStats = New System.Windows.Forms.Label()
         Me.btnAssignMasteries = New System.Windows.Forms.Button()
         Me.chkInChampionSelect = New System.Windows.Forms.CheckBox()
+        Me.lblVersion = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'cboChampion
@@ -105,11 +106,25 @@ Partial Class Main
         Me.chkInChampionSelect.Text = "In Champion Select"
         Me.chkInChampionSelect.UseVisualStyleBackColor = True
         '
+        'lblVersion
+        '
+        Me.lblVersion.ActiveLinkColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.lblVersion.AutoSize = True
+        Me.lblVersion.LinkColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.lblVersion.Location = New System.Drawing.Point(9, 136)
+        Me.lblVersion.Name = "lblVersion"
+        Me.lblVersion.Size = New System.Drawing.Size(31, 13)
+        Me.lblVersion.TabIndex = 9
+        Me.lblVersion.TabStop = True
+        Me.lblVersion.Text = "1.0.0"
+        Me.lblVersion.VisitedLinkColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(192, Byte), Integer))
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(342, 140)
+        Me.ClientSize = New System.Drawing.Size(342, 158)
+        Me.Controls.Add(Me.lblVersion)
         Me.Controls.Add(Me.chkInChampionSelect)
         Me.Controls.Add(Me.btnAssignMasteries)
         Me.Controls.Add(Me.lblStats)
@@ -135,4 +150,5 @@ Partial Class Main
     Friend WithEvents lblStats As Label
     Friend WithEvents btnAssignMasteries As Button
     Friend WithEvents chkInChampionSelect As CheckBox
+    Friend WithEvents lblVersion As LinkLabel
 End Class

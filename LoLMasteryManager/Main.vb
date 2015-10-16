@@ -14,6 +14,18 @@ Public Class Main
 
         Try
 
+            Dim oVersion As New Version
+
+            Version.TryParse(ProductVersion, oVersion)
+
+            lblVersion.Text = String.Format("{0}.{1}.{2}", oVersion.Major, oVersion.Minor, oVersion.Build)
+
+            Dim oGitHubLink As New LinkLabel.Link()
+
+            oGitHubLink.LinkData = "https://github.com/maxdeviant/lol-mastery-manager/releases/latest"
+
+            lblVersion.Links.Add(oGitHubLink)
+
 #If DEBUG Then
 
             _Timer = New Timer(1000)
@@ -102,6 +114,20 @@ Public Class Main
                 _MasteryManager.SetMode(Modes.Menu)
 
             End If
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+    End Sub
+
+    Private Sub lblVersion_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblVersion.LinkClicked
+
+        Try
+
+            Process.Start(e.Link.LinkData.ToString)
 
         Catch ex As Exception
 
