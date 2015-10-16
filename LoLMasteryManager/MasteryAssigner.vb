@@ -228,6 +228,8 @@
 
         Catch ex As Exception
 
+            Mouse.Unlock()
+
             Throw
 
         End Try
