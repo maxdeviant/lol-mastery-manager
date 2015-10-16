@@ -19,7 +19,7 @@ FAQ
 ---
 
 ### Why is it not properly assigning masteries?
-I am aware of some issues with the assigning of masteries (not clicking in exactly the right spot, clicking outside of the client entirely, etc.) and am working to resolve them.
+Calculating the positioning of the mastery trees is hard to get right for all screen sizes. I have seen it work very consistently on client sizes of 1280x800 or smaller. I will be working to improve behavior at all screen sizes.
 
 ### Will I get banned for using this?
 Riot Sargonas has stated the following on the matter:
