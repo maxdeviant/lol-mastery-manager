@@ -12,6 +12,8 @@
 
         Try
 
+            Input.Lock()
+
             ReturnMasteryPoints()
 
             AssignMasteries(masteryPage)
@@ -24,6 +26,10 @@
 
             Throw
 
+        Finally
+
+            Input.Unlock()
+
         End Try
 
     End Sub
@@ -32,13 +38,9 @@
 
         Try
 
-            Input.Lock()
-
             FocusMasteryPageNameInputBox()
 
             Keyboard.Type(name)
-
-            Input.Unlock()
 
         Catch ex As Exception
 
@@ -60,8 +62,6 @@
             oPosition.X = oClientPosition.X + oMasteryPageNameInputFieldOffset.X + (ClientMasteryPageNameInputField.Width \ 2)
             oPosition.Y = oClientPosition.Y + oMasteryPageNameInputFieldOffset.Y + (ClientMasteryPageNameInputField.Height \ 2)
 
-            Input.Lock()
-
             Mouse.Move(oPosition)
 
             Threading.Thread.Sleep(100)
@@ -69,8 +69,6 @@
             Mouse.LeftClick()
 
             Threading.Thread.Sleep(100)
-
-            Input.Unlock()
 
         Catch ex As Exception
 
@@ -92,8 +90,6 @@
             oPosition.X = oClientPosition.X + oReturnPointsButtonOffsets.X + (ClientReturnPointsButton.Width \ 2)
             oPosition.Y = oClientPosition.Y + oReturnPointsButtonOffsets.Y + (ClientReturnPointsButton.Height \ 2)
 
-            Input.Lock()
-
             Mouse.Move(oPosition)
 
             Threading.Thread.Sleep(100)
@@ -101,8 +97,6 @@
             Mouse.LeftClick()
 
             Threading.Thread.Sleep(100)
-
-            Input.Unlock()
 
         Catch ex As Exception
 
@@ -124,8 +118,6 @@
             oPosition.X = oClientPosition.X + oSaveMasteriesButtonOffsets.X + (ClientSaveMasteriesButton.Width \ 2)
             oPosition.Y = oClientPosition.Y + oSaveMasteriesButtonOffsets.Y + (ClientSaveMasteriesButton.Height \ 2)
 
-            Input.Lock()
-
             Mouse.Move(oPosition)
 
             Threading.Thread.Sleep(100)
@@ -133,8 +125,6 @@
             Mouse.LeftClick()
 
             Threading.Thread.Sleep(100)
-
-            Input.Unlock()
 
         Catch ex As Exception
 
@@ -147,8 +137,6 @@
     Private Sub AssignMasteries(ByVal masteryPage As MasteryPage)
 
         Try
-
-            Input.Lock()
 
             For Each oMastery As Mastery In masteryPage.OffenseTree
 
@@ -168,11 +156,7 @@
 
             Next oMastery
 
-            Input.Unlock()
-
         Catch ex As Exception
-
-            Input.Unlock()
 
             Throw
 

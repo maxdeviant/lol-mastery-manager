@@ -5,11 +5,17 @@
 
         Try
 
+            Lock()
+
             _InputSimulator.Keyboard.TextEntry(inputString)
 
         Catch ex As Exception
 
             Throw
+
+        Finally
+
+            Unlock()
 
         End Try
 
