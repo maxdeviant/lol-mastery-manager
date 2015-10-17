@@ -466,4 +466,20 @@
 
     End Function
 
+    Private Function IsClientMinimized() As Boolean
+
+        Try
+
+            Dim oLeagueClientWindowPosition As Point = GetLeagueClientWindowPosition()
+
+            Return oLeagueClientWindowPosition.Y < 0
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Function
+
 End Class

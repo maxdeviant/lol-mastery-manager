@@ -296,10 +296,10 @@ Public Enum SW As UInteger
     ''' Activates and displays the window. If the window is minimized or maximized, the system restores it to its original size and position. An application should specify this flag when restoring a minimized window.
     ''' </summary>
     RESTORE = 9
+
     ''' <summary>
     ''' Sets the show state based on the SW_ value specified in the STARTUPINFO structure passed to the CreateProcess function by the program that started the application.
     ''' </summary>
-    ''' 
     SHOWDEFAULT = 10
 
     ''' <summary>
