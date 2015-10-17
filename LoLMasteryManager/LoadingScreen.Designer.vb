@@ -47,7 +47,6 @@ Partial Class LoadingScreen
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "LoadingScreen"
         Me.ShowIcon = False
-        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Loading"
         Me.ResumeLayout(False)
