@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ChampionGGUrl" xml:space="preserve">
+    <value>http://champion.gg</value>
+  </data>
   <data name="GitHubLatestReleaseUrl" xml:space="preserve">
     <value>https://github.com/maxdeviant/lol-mastery-manager/releases/latest</value>
   </data>

@@ -5,8 +5,17 @@ Partial Public Module Models
     <JsonObject(MemberSerialization:=MemberSerialization.OptIn)>
     Public Class MasteryPage
 
-        <JsonProperty(PropertyName:="name", Required:=Required.AllowNull)>
-        Public Name As String
+        <JsonProperty(PropertyName:="champion_key", Required:=Required.AllowNull)>
+        Public ChampionKey As String
+
+        <JsonProperty(PropertyName:="champion_name", Required:=Required.AllowNull)>
+        Public ChampionName As String
+
+        <JsonProperty(PropertyName:="role", Required:=Required.AllowNull)>
+        Public Role As String
+
+        <JsonProperty(PropertyName:="stat", Required:=Required.AllowNull)>
+        Public Stat As Stats
 
         <JsonProperty(PropertyName:="offense", Required:=Required.AllowNull)>
         Public OffenseTree As New List(Of Mastery)
@@ -16,6 +25,28 @@ Partial Public Module Models
 
         <JsonProperty(PropertyName:="utility", Required:=Required.AllowNull)>
         Public UtilityTree As New List(Of Mastery)
+
+        Public ReadOnly Property Name As String
+            Get
+
+                Return String.Format("[{0}] {1} - {2}", Stat.GetAbbreviation(), ChampionName, Role)
+
+            End Get
+        End Property
+
+        Public ReadOnly Property FileName As String
+            Get
+
+                Return GenerateFileName(ChampionKey, Role, Stat)
+
+            End Get
+        End Property
+
+        Friend Shared Function GenerateFileName(ByVal championKey As String, ByVal role As String, ByVal stat As Stats) As String
+
+            Return String.Format("[{0}] {1} - {2}", stat.GetAbbreviation(), championKey, role)
+
+        End Function
 
     End Class
 

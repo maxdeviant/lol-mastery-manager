@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="ChampionGG.vb" />
     <Compile Include="ClientControls\ClientControls.vb" />
+    <Compile Include="Extensions.vb" />
     <Compile Include="HwndInterface.vb" />
     <Compile Include="Input.vb" />
     <Compile Include="Keyboard.vb" />

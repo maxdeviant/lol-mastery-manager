@@ -6,13 +6,6 @@ Imports Newtonsoft.Json
 
 Module ChampionGG
 
-    Public Enum Stats
-
-        MostFrequent
-        HighestWin
-
-    End Enum
-
     Public Structure Roles
 
         Public Const Top As String = "Top"
@@ -33,7 +26,7 @@ Module ChampionGG
 
     Public Class Downloader
 
-        Public Const BaseUrl As String = "http://champion.gg/"
+        Public ReadOnly BaseUrl As String = My.Resources.ChampionGGUrl
 
         Public Function ScrapeChampions() As List(Of Champion)
 
@@ -254,7 +247,7 @@ Module ChampionGG
 
                                 End Select
 
-                                oMasteryPages.Add(BuildMasteryPage(GenerateMasteryPageName(championKey, role, eStat), ParseMasteries(oMasteryContainer)))
+                                oMasteryPages.Add(BuildMasteryPage(championKey, role, eStat, ParseMasteries(oMasteryContainer)))
 
                                 iContainer += 1
 
@@ -267,35 +260,6 @@ Module ChampionGG
                 End Using
 
                 Return oMasteryPages
-
-            Catch ex As Exception
-
-                Throw
-
-            End Try
-
-        End Function
-
-        Friend Function GenerateMasteryPageName(ByVal championKey As String, ByVal role As String, ByVal stats As Stats) As String
-
-            Try
-
-                Dim sStats As String
-
-                Select Case stats
-
-                    Case Stats.MostFrequent
-                        sStats = "MF"
-
-                    Case Stats.HighestWin
-                        sStats = "HW"
-
-                    Case Else
-                        Throw New ArgumentException(String.Format("Unrecognized stat type '{0}'.", stats))
-
-                End Select
-
-                Return String.Format("[{0}] {1} - {2}", sStats, championKey, role)
 
             Catch ex As Exception
 
@@ -339,11 +303,16 @@ Module ChampionGG
 
         End Function
 
-        Private Function BuildMasteryPage(ByVal name As String, ByVal masteries As List(Of Mastery)) As MasteryPage
+        Private Function BuildMasteryPage(ByVal championKey As String, ByVal role As String, ByVal stat As Stats, ByVal masteries As List(Of Mastery)) As MasteryPage
 
             Try
+                Dim oMasteryPage As New MasteryPage
 
-                Dim oMasteryPage As New MasteryPage With {.Name = name}
+                With oMasteryPage
+                    .ChampionKey = championKey
+                    .Role = role
+                    .Stat = stat
+                End With
 
                 For Each oMastery As Mastery In masteries
 

@@ -61,6 +61,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to http://champion.gg.
+        '''</summary>
+        Friend ReadOnly Property ChampionGGUrl() As String
+            Get
+                Return ResourceManager.GetString("ChampionGGUrl", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to https://github.com/maxdeviant/lol-mastery-manager/releases/latest.
         '''</summary>
         Friend ReadOnly Property GitHubLatestReleaseUrl() As String

@@ -9,6 +9,13 @@ Public Enum Modes
 
 End Enum
 
+Public Enum Stats
+
+    MostFrequent
+    HighestWin
+
+End Enum
+
 Public Class MasteryManager
 
     Private Structure Directories
@@ -281,7 +288,13 @@ Public Class MasteryManager
 
         Try
 
+            Dim oChampion As Champion
+
             For Each oMasteryPage As MasteryPage In masteryPages
+
+                oChampion = GetChampion(oMasteryPage.ChampionKey)
+
+                oMasteryPage.ChampionName = oChampion.Name
 
                 SaveMasteryPage(oMasteryPage)
 
@@ -299,7 +312,7 @@ Public Class MasteryManager
 
         Try
 
-            Dim sMasteryPagePath As String = Path.Combine(Directories.Masteries, String.Format("{0}.json", masteryPage.Name))
+            Dim sMasteryPagePath As String = Path.Combine(Directories.Masteries, String.Format("{0}.json", masteryPage.FileName))
             Dim sMasteryPageJson As String = JsonConvert.SerializeObject(masteryPage)
 
             Using oStreamWriter As New StreamWriter(sMasteryPagePath)
@@ -320,9 +333,9 @@ Public Class MasteryManager
 
         Try
 
-            Dim sMasteryPageName As String = _Downloader.GenerateMasteryPageName(championKey, role, stat)
+            Dim sMasteryPageFileName As String = MasteryPage.GenerateFileName(championKey, role, stat)
 
-            Return LoadMasteryPage(sMasteryPageName)
+            Return LoadMasteryPage(sMasteryPageFileName)
 
         Catch ex As Exception
 
@@ -332,12 +345,12 @@ Public Class MasteryManager
 
     End Function
 
-    Private Function LoadMasteryPage(ByVal pageName As String) As MasteryPage
+    Private Function LoadMasteryPage(ByVal pageFileName As String) As MasteryPage
 
         Try
 
             Dim oMasteryPage As MasteryPage = Nothing
-            Dim sMasteryPagePath As String = Path.Combine(Directories.Masteries, String.Format("{0}.json", pageName))
+            Dim sMasteryPagePath As String = Path.Combine(Directories.Masteries, String.Format("{0}.json", pageFileName))
             Dim sMasteryPageJson As String
 
             If File.Exists(sMasteryPagePath) Then
@@ -378,13 +391,16 @@ Public Class MasteryManager
 
                     Select Case stat
 
-                        Case "Most Frequent"
+                        Case Stats.MostFrequent.GetName()
+
                             eStat = Stats.MostFrequent
 
-                        Case "Highest Win"
+                        Case Stats.HighestWin.GetName()
+
                             eStat = Stats.HighestWin
 
                         Case Else
+
                             eStat = Stats.HighestWin
 
                     End Select
@@ -422,6 +438,20 @@ Public Class MasteryManager
         End Try
 
     End Sub
+
+    Public Function GetChampion(ByVal championKey As String) As Champion
+
+        Try
+
+            Return _Champions.Find(Function(champion) champion.Key.Equals(championKey))
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Function
 
     Public Function GetChampions() As List(Of Champion)
 
@@ -485,7 +515,7 @@ Public Class MasteryManager
 
             cboStats.Items.Clear()
 
-            Dim oStats As New List(Of String) From {"Most Frequent", "Highest Win"}
+            Dim oStats As New List(Of String) From {Stats.MostFrequent.GetName, Stats.HighestWin.GetName}
 
             For Each sStat As String In oStats
 
