@@ -2,14 +2,19 @@
 
 Public Module Extensions
 
+    ''' <summary>
+    ''' Gets the human-readable name for the given stat.
+    ''' </summary>
+    ''' <param name="stat">The stat value to get the name of.</param>
+    ''' <returns>The human-readable name for the given stat.</returns>
     <Extension>
-    Public Function GetName(ByRef e As Stats) As String
+    Public Function GetName(ByRef stat As Stats) As String
 
         Try
 
             Dim sAbbreviation As String
 
-            Select Case e
+            Select Case stat
 
                 Case Stats.MostFrequent
 
@@ -21,7 +26,7 @@ Public Module Extensions
 
                 Case Else
 
-                    Throw New ArgumentException(String.Format("Unrecognized stat type '{0}'.", e))
+                    Throw New ArgumentException(String.Format("Unrecognized stat type '{0}'.", stat))
 
             End Select
 
@@ -35,14 +40,19 @@ Public Module Extensions
 
     End Function
 
+    ''' <summary>
+    ''' Gets the abbreviation for the given stat.
+    ''' </summary>
+    ''' <param name="stat">The stat value to get the abbreviation for.</param>
+    ''' <returns>The abbreviation for the given stat.</returns>
     <Extension>
-    Public Function GetAbbreviation(ByRef e As Stats) As String
+    Public Function GetAbbreviation(ByRef stat As Stats) As String
 
         Try
 
             Dim sAbbreviation As String
 
-            Select Case e
+            Select Case stat
 
                 Case Stats.MostFrequent
 
@@ -54,7 +64,7 @@ Public Module Extensions
 
                 Case Else
 
-                    Throw New ArgumentException(String.Format("Unrecognized stat type '{0}'.", e))
+                    Throw New ArgumentException(String.Format("Unrecognized stat type '{0}'.", stat))
 
             End Select
 

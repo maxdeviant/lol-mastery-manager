@@ -28,6 +28,10 @@ Module ChampionGG
 
         Public ReadOnly BaseUrl As String = My.Resources.ChampionGGUrl
 
+        ''' <summary>
+        ''' Scrapes the list of champions from Champion.GG.
+        ''' </summary>
+        ''' <returns>A list of champions.</returns>
         Public Function ScrapeChampions() As List(Of Champion)
 
             Try
@@ -58,9 +62,9 @@ Module ChampionGG
                             oChampion = New Champion
 
                             With oChampion
-                                .Key = ParseChampionKey(oChampionNode)
-                                .Name = ParseChampionName(oChampionNode)
-                                .Roles = ParseChampionRoles(oChampionNode)
+                                .Key = ExtractChampionKey(oChampionNode)
+                                .Name = ExtractChampionName(oChampionNode)
+                                .Roles = ExtractChampionRoles(oChampionNode)
                             End With
 
                             oChampions.Add(oChampion)
@@ -81,7 +85,12 @@ Module ChampionGG
 
         End Function
 
-        Private Function ParseChampionKey(ByVal championNode As HtmlNode) As String
+        ''' <summary>
+        ''' Extracts the champion key from the given node.
+        ''' </summary>
+        ''' <param name="championNode">The node containing the champion data.</param>
+        ''' <returns>The key for the champion in the given node.</returns>
+        Private Function ExtractChampionKey(ByVal championNode As HtmlNode) As String
 
             Try
 
@@ -106,7 +115,12 @@ Module ChampionGG
 
         End Function
 
-        Private Function ParseChampionName(ByVal championNode As HtmlNode) As String
+        ''' <summary>
+        ''' Extracts the champion name from the given node.
+        ''' </summary>
+        ''' <param name="championNode">The node containing the champion data.</param>
+        ''' <returns>The name of the champion in the given node.</returns>
+        Private Function ExtractChampionName(ByVal championNode As HtmlNode) As String
 
             Try
 
@@ -129,7 +143,12 @@ Module ChampionGG
 
         End Function
 
-        Private Function ParseChampionRoles(ByVal championNode As HtmlNode) As List(Of Role)
+        ''' <summary>
+        ''' Extracts the list of possible roles for the champion in the given node.
+        ''' </summary>
+        ''' <param name="championNode">The node containing the champion data.</param>
+        ''' <returns>The list of possible roles for the champion in the given node.</returns>
+        Private Function ExtractChampionRoles(ByVal championNode As HtmlNode) As List(Of Role)
 
             Try
 
@@ -163,6 +182,10 @@ Module ChampionGG
 
         End Function
 
+        ''' <summary>
+        ''' Scrapes the current patch number from Champion.GG.
+        ''' </summary>
+        ''' <returns>The current patch number that Champion.GG is serving data for.</returns>
         Public Function ScrapePatchNumber() As String
 
             Try
@@ -207,6 +230,12 @@ Module ChampionGG
 
         End Function
 
+        ''' <summary>
+        ''' Scrapes the list of mastery pages for the champion with the specified key.
+        ''' </summary>
+        ''' <param name="championKey">The key of the champion to retreive the mastery pages for.</param>
+        ''' <param name="role">The role to retrieve the mastery pages for.</param>
+        ''' <returns>A list of mastery pages.</returns>
         Public Function ScrapeChampionMasteries(ByVal championKey As String, ByVal role As String) As List(Of MasteryPage)
 
             Try
@@ -240,14 +269,16 @@ Module ChampionGG
                                 Select Case iContainer
 
                                     Case Stats.MostFrequent
+
                                         eStat = Stats.MostFrequent
 
                                     Case Stats.HighestWin
+
                                         eStat = Stats.HighestWin
 
                                 End Select
 
-                                oMasteryPages.Add(BuildMasteryPage(championKey, role, eStat, ParseMasteries(oMasteryContainer)))
+                                oMasteryPages.Add(BuildMasteryPage(championKey, role, eStat, ExtractMasteries(oMasteryContainer)))
 
                                 iContainer += 1
 
@@ -269,7 +300,12 @@ Module ChampionGG
 
         End Function
 
-        Private Function ParseMasteries(ByVal container As HtmlNode) As List(Of Mastery)
+        ''' <summary>
+        ''' Extracts the list of mastery pages from the given node.
+        ''' </summary>
+        ''' <param name="container">The node containing the mastery data.</param>
+        ''' <returns>The list of mastery pages extracted from the given node.</returns>
+        Private Function ExtractMasteries(ByVal container As HtmlNode) As List(Of Mastery)
 
             Try
 
@@ -285,7 +321,7 @@ Module ChampionGG
 
                         oMastery = GetMastery(iMasteryID)
 
-                        oMastery.Ranks = CountMasteryRanks(oMasteryNode)
+                        oMastery.Ranks = ExtractAssignedMasteryRanks(oMasteryNode)
 
                         oMasteries.Add(oMastery)
 
@@ -303,6 +339,15 @@ Module ChampionGG
 
         End Function
 
+        ''' <summary>
+        ''' Builds a mastery page from the given information
+        ''' </summary>
+        ''' <param name="championKey">The key of the champion this mastery page is intended for.</param>
+        ''' <param name="role">The role this mastery page is intended for.</param>
+        ''' <param name="stat">The stats this mastery page is based on.</param>
+        ''' <param name="masteries">The masteries belonging to this mastery page.</param>
+        ''' <returns>A mastery page.</returns>
+        ''' <remarks>The mastery page will not have a champion name set. This must be done afterwards.</remarks>
         Private Function BuildMasteryPage(ByVal championKey As String, ByVal role As String, ByVal stat As Stats, ByVal masteries As List(Of Mastery)) As MasteryPage
 
             Try
@@ -319,12 +364,15 @@ Module ChampionGG
                     Select Case oMastery.Tree
 
                         Case MasteryTrees.Offense
+
                             oMasteryPage.OffenseTree.Add(oMastery)
 
                         Case MasteryTrees.Defense
+
                             oMasteryPage.DefenseTree.Add(oMastery)
 
                         Case MasteryTrees.Utility
+
                             oMasteryPage.UtilityTree.Add(oMastery)
 
                         Case Else
@@ -344,6 +392,11 @@ Module ChampionGG
 
         End Function
 
+        ''' <summary>
+        ''' Retrieves a mastery from the local data file by its ID.
+        ''' </summary>
+        ''' <param name="id">The ID of the mastery to retrieve.</param>
+        ''' <returns>A mastery.</returns>
         Private Function GetMastery(ByVal id As Integer) As Mastery
 
             Try
@@ -379,7 +432,12 @@ Module ChampionGG
 
         End Function
 
-        Private Function CountMasteryRanks(ByVal masteryNode As HtmlNode) As Integer
+        ''' <summary>
+        ''' Extracts the number of assigned mastery ranks from the given node.
+        ''' </summary>
+        ''' <param name="masteryNode">The node to extract the mastery ranks from.</param>
+        ''' <returns>The number of assigned ranks for the mastery contained in the given node.</returns>
+        Private Function ExtractAssignedMasteryRanks(ByVal masteryNode As HtmlNode) As Integer
 
             Try
 
