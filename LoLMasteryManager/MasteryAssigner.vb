@@ -1,154 +1,5 @@
 ﻿Public Class MasteryAssigner
 
-    Private Structure ScaleFactor
-
-        Public Structure MasteryNode
-
-            Public Const X As Double = 1024 / 40
-            Public Const Y As Double = 640 / 40
-
-        End Structure
-
-        Public Structure MasteryPageNameInputField
-
-            Public Const Width As Integer = 165
-            Public Const Height As Integer = 20
-
-            Public Structure ChampionSelect
-
-                Public Structure Small
-
-                    Public Const X As Double = 0
-                    Public Const Y As Double = 0
-
-                End Structure
-
-                Public Structure Medium
-
-                    Public Const X As Double = 0
-                    Public Const Y As Double = 0
-
-                End Structure
-
-                Public Structure Large
-
-                    Public Const X As Double = 0
-                    Public Const Y As Double = 0
-
-                End Structure
-
-            End Structure
-
-            Public Structure Menu
-
-                Public Const X As Double = 1024 / 98
-                Public Const Y As Double = 640 / 204
-
-            End Structure
-
-        End Structure
-
-        Public Structure SaveMasteriesButton
-
-            Public Const Width As Integer = 175
-            Public Const Height As Integer = 25
-
-            Public Structure ChampionSelect
-
-                Public Structure Small
-
-                    Public Const X As Double = 1024 / 120
-                    Public Const Y As Double = 640 / 265
-
-                End Structure
-
-                Public Structure Medium
-
-                    Public Const X As Double = 1280 / 145
-                    Public Const Y As Double = 800 / 295
-
-                End Structure
-
-                Public Structure Large
-
-                    Public Const X As Double = 1440 / 85
-                    Public Const Y As Double = 900 / 285
-
-                End Structure
-
-            End Structure
-
-            Public Structure Menu
-
-                Public Const X As Double = 1024 / 105
-                Public Const Y As Double = 640 / 300
-
-            End Structure
-
-        End Structure
-
-        Public Structure ReturnPointsButton
-
-            Public Const Width As Integer = 175
-            Public Const Height As Integer = 25
-
-            Public Structure ChampionSelect
-
-                Public Structure Small
-
-                    Public Const X As Double = 1024 / 120
-                    Public Const Y As Double = 640 / 285
-
-                End Structure
-
-                Public Structure Medium
-
-                    Public Const X As Double = 1280 / 145
-                    Public Const Y As Double = 800 / 325
-
-                End Structure
-
-                Public Structure Large
-
-                    Public Const X As Double = 1440 / 85
-                    Public Const Y As Double = 900 / 320
-
-                End Structure
-
-            End Structure
-
-            Public Structure Menu
-
-                Public Const X As Double = 1024 / 105
-                Public Const Y As Double = 640 / 325
-
-            End Structure
-
-        End Structure
-
-        Public Structure MasteryTree
-
-            Public Const Width As Double = 1024 / 220
-            Public Const Height As Double = 640 / 380
-
-            Public Structure ChampionSelect
-
-                Public Const X As Double = 1024 / 290
-                Public Const Y As Double = 640 / 160
-
-            End Structure
-
-            Public Structure Menu
-
-                Public Const X As Double = 1024 / 275
-                Public Const Y As Double = 640 / 190
-
-            End Structure
-
-        End Structure
-
-    End Structure
-
     Private _Mode As Modes = Modes.ChampionSelect
 
     Public Sub SetMode(ByVal mode As Modes)
@@ -206,8 +57,8 @@
 
             Dim oPosition As New Point
 
-            oPosition.X = oClientPosition.X + oMasteryPageNameInputFieldOffset.X + (ScaleFactor.MasteryPageNameInputField.Width \ 2)
-            oPosition.Y = oClientPosition.Y + oMasteryPageNameInputFieldOffset.Y + (ScaleFactor.MasteryPageNameInputField.Height \ 2)
+            oPosition.X = oClientPosition.X + oMasteryPageNameInputFieldOffset.X + (ClientMasteryPageNameInputField.Width \ 2)
+            oPosition.Y = oClientPosition.Y + oMasteryPageNameInputFieldOffset.Y + (ClientMasteryPageNameInputField.Height \ 2)
 
             Input.Lock()
 
@@ -238,8 +89,8 @@
 
             Dim oPosition As New Point
 
-            oPosition.X = oClientPosition.X + oReturnPointsButtonOffsets.X + (ScaleFactor.ReturnPointsButton.Width \ 2)
-            oPosition.Y = oClientPosition.Y + oReturnPointsButtonOffsets.Y + (ScaleFactor.ReturnPointsButton.Height \ 2)
+            oPosition.X = oClientPosition.X + oReturnPointsButtonOffsets.X + (ClientReturnPointsButton.Width \ 2)
+            oPosition.Y = oClientPosition.Y + oReturnPointsButtonOffsets.Y + (ClientReturnPointsButton.Height \ 2)
 
             Input.Lock()
 
@@ -270,8 +121,8 @@
 
             Dim oPosition As New Point
 
-            oPosition.X = oClientPosition.X + oSaveMasteriesButtonOffsets.X + (ScaleFactor.SaveMasteriesButton.Width \ 2)
-            oPosition.Y = oClientPosition.Y + oSaveMasteriesButtonOffsets.Y + (ScaleFactor.SaveMasteriesButton.Height \ 2)
+            oPosition.X = oClientPosition.X + oSaveMasteriesButtonOffsets.X + (ClientSaveMasteriesButton.Width \ 2)
+            oPosition.Y = oClientPosition.Y + oSaveMasteriesButtonOffsets.Y + (ClientSaveMasteriesButton.Height \ 2)
 
             Input.Lock()
 
@@ -404,8 +255,8 @@
 
             Dim oLeagueClientWindowSize As Size = GetLeagueClientWindowSize()
 
-            Dim iMasteryNodeWidth As Integer = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.MasteryNode.X))
-            Dim iMasteryNodeHeight As Integer = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.MasteryNode.Y))
+            Dim iMasteryNodeWidth As Integer = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientMasteryNode.X))
+            Dim iMasteryNodeHeight As Integer = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientMasteryNode.Y))
 
             Return New Size(iMasteryNodeWidth, iMasteryNodeHeight)
 
@@ -428,8 +279,8 @@
 
             Else
 
-                oMasteryPageNameInputFieldOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.MasteryPageNameInputField.Menu.X))
-                oMasteryPageNameInputFieldOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.MasteryPageNameInputField.Menu.Y))
+                oMasteryPageNameInputFieldOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientMasteryPageNameInputField.Menu.X))
+                oMasteryPageNameInputFieldOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientMasteryPageNameInputField.Menu.Y))
 
             End If
 
@@ -456,25 +307,25 @@
 
                     Case < 1200
 
-                        oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.SaveMasteriesButton.ChampionSelect.Small.X))
-                        oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.SaveMasteriesButton.ChampionSelect.Small.Y))
+                        oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientSaveMasteriesButton.ChampionSelect.Small.X))
+                        oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientSaveMasteriesButton.ChampionSelect.Small.Y))
 
                     Case >= 1200, < 1440
 
-                        oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.SaveMasteriesButton.ChampionSelect.Medium.X))
-                        oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.SaveMasteriesButton.ChampionSelect.Medium.Y))
+                        oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientSaveMasteriesButton.ChampionSelect.Medium.X))
+                        oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientSaveMasteriesButton.ChampionSelect.Medium.Y))
 
                     Case >= 1440
 
-                        oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.SaveMasteriesButton.ChampionSelect.Large.X))
-                        oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.SaveMasteriesButton.ChampionSelect.Large.Y))
+                        oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientSaveMasteriesButton.ChampionSelect.Large.X))
+                        oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientSaveMasteriesButton.ChampionSelect.Large.Y))
 
                 End Select
 
             Else
 
-                oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.SaveMasteriesButton.Menu.X))
-                oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.SaveMasteriesButton.Menu.Y))
+                oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientSaveMasteriesButton.Menu.X))
+                oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientSaveMasteriesButton.Menu.Y))
 
             End If
 
@@ -501,25 +352,25 @@
 
                     Case < 1200
 
-                        oReturnPointsButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.ReturnPointsButton.ChampionSelect.Small.X))
-                        oReturnPointsButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.ReturnPointsButton.ChampionSelect.Small.Y))
+                        oReturnPointsButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientReturnPointsButton.ChampionSelect.Small.X))
+                        oReturnPointsButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientReturnPointsButton.ChampionSelect.Small.Y))
 
                     Case >= 1200, < 1440
 
-                        oReturnPointsButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.ReturnPointsButton.ChampionSelect.Medium.X))
-                        oReturnPointsButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.ReturnPointsButton.ChampionSelect.Medium.Y))
+                        oReturnPointsButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientReturnPointsButton.ChampionSelect.Medium.X))
+                        oReturnPointsButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientReturnPointsButton.ChampionSelect.Medium.Y))
 
                     Case >= 1440
 
-                        oReturnPointsButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.ReturnPointsButton.ChampionSelect.Large.X))
-                        oReturnPointsButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.ReturnPointsButton.ChampionSelect.Large.Y))
+                        oReturnPointsButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientReturnPointsButton.ChampionSelect.Large.X))
+                        oReturnPointsButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientReturnPointsButton.ChampionSelect.Large.Y))
 
                 End Select
 
             Else
 
-                oReturnPointsButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.ReturnPointsButton.Menu.X))
-                oReturnPointsButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.ReturnPointsButton.Menu.Y))
+                oReturnPointsButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientReturnPointsButton.Menu.X))
+                oReturnPointsButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientReturnPointsButton.Menu.Y))
 
             End If
 
@@ -542,13 +393,13 @@
 
             If _Mode = Modes.ChampionSelect Then
 
-                oMasteryTreeOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.MasteryTree.ChampionSelect.X) + Math.Floor(((masteryTree - 1) * (oLeagueClientWindowSize.Width / ScaleFactor.MasteryTree.Width))))
-                oMasteryTreeOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.MasteryTree.ChampionSelect.Y))
+                oMasteryTreeOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientMasteryTree.ChampionSelect.X) + Math.Floor(((masteryTree - 1) * (oLeagueClientWindowSize.Width / ClientMasteryTree.Width))))
+                oMasteryTreeOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientMasteryTree.ChampionSelect.Y))
 
             Else
 
-                oMasteryTreeOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ScaleFactor.MasteryTree.Menu.X) + Math.Floor((masteryTree - 1) * (oLeagueClientWindowSize.Width / ScaleFactor.MasteryTree.Width)))
-                oMasteryTreeOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ScaleFactor.MasteryTree.Menu.Y))
+                oMasteryTreeOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientMasteryTree.Menu.X) + Math.Floor((masteryTree - 1) * (oLeagueClientWindowSize.Width / ClientMasteryTree.Width)))
+                oMasteryTreeOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientMasteryTree.Menu.Y))
 
             End If
 
