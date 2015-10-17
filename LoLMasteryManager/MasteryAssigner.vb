@@ -436,7 +436,7 @@
 
         Try
 
-            Return HwndInterface.GetHwndFromTitle("PVP.net Client")
+            Return HwndInterface.GetHwndFromTitle(My.Resources.LeagueClientWindowTitle)
 
         Catch ex As Exception
 

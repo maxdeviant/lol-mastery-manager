@@ -22,7 +22,7 @@ Public Class Main
 
             Dim oGitHubLink As New LinkLabel.Link()
 
-            oGitHubLink.LinkData = "https://github.com/maxdeviant/lol-mastery-manager/releases/latest"
+            oGitHubLink.LinkData = My.Resources.GitHubLatestReleaseUrl
 
             lblVersion.Links.Add(oGitHubLink)
 
@@ -141,7 +141,7 @@ Public Class Main
 
     Private Sub _Timer_Elapsed(sender As Object, e As ElapsedEventArgs) Handles _Timer.Elapsed
 
-        Dim oLeagueWindow As IntPtr = HwndInterface.GetHwndFromTitle("PVP.net Client")
+        Dim oLeagueWindow As IntPtr = HwndInterface.GetHwndFromTitle(My.Resources.LeagueClientWindowTitle)
 
         Dim oLeagueSize = HwndInterface.GetHwndSize(oLeagueWindow)
         Dim oLeaguePosition = HwndInterface.GetHwndPos(oLeagueWindow)
