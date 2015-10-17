@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChampionGG.vb" />
+    <Compile Include="ClientControls\ClientControls.vb" />
     <Compile Include="HwndInterface.vb" />
     <Compile Include="Input.vb" />
     <Compile Include="Keyboard.vb" />
@@ -135,6 +136,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ClientControls\ClientMasteryNode.vb" />
+    <Compile Include="ClientControls\ClientMasteryPageNameInputField.vb" />
+    <Compile Include="ClientControls\ClientMasteryTree.vb" />
+    <Compile Include="ClientControls\ClientReturnPointsButton.vb" />
+    <Compile Include="ClientControls\ClientSaveMasteriesButton.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="LoadingScreen.resx">

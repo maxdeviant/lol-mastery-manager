@@ -143,8 +143,10 @@ Public Class Main
 
         Dim oLeagueWindow As IntPtr = HwndInterface.GetHwndFromTitle("PVP.net Client")
 
+        Dim oLeagueSize = HwndInterface.GetHwndSize(oLeagueWindow)
         Dim oLeaguePosition = HwndInterface.GetHwndPos(oLeagueWindow)
 
+        Debug.WriteLine(oLeagueSize)
         Debug.WriteLine(New Point(Cursor.Position.X - oLeaguePosition.X, Cursor.Position.Y - oLeaguePosition.Y))
 
     End Sub

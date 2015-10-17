@@ -2,20 +2,20 @@
 
     Public Class ClientMasteryTree
 
-        Public Const Width As Double = 1024 / 220
-        Public Const Height As Double = 640 / 380
+        Public Const Width As Double = ClientSize.Small.Width / 220
+        Public Const Height As Double = ClientSize.Small.Height / 380
 
         Public Structure ChampionSelect
 
-            Public Const X As Double = 1024 / 290
-            Public Const Y As Double = 640 / 160
+            Public Const X As Double = ClientSize.Small.Width / 290
+            Public Const Y As Double = ClientSize.Small.Height / 160
 
         End Structure
 
         Public Structure Menu
 
-            Public Const X As Double = 1024 / 275
-            Public Const Y As Double = 640 / 190
+            Public Const X As Double = ClientSize.Small.Width / 275
+            Public Const Y As Double = ClientSize.Small.Height / 190
 
         End Structure
 

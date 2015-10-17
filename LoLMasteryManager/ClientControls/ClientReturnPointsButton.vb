@@ -9,22 +9,22 @@
 
             Public Structure Small
 
-                Public Const X As Double = 1024 / 120
-                Public Const Y As Double = 640 / 285
+                Public Const X As Double = ClientSize.Small.Width / 120
+                Public Const Y As Double = ClientSize.Small.Height / 285
 
             End Structure
 
             Public Structure Medium
 
-                Public Const X As Double = 1280 / 145
-                Public Const Y As Double = 800 / 325
+                Public Const X As Double = ClientSize.Medium.Width / 145
+                Public Const Y As Double = ClientSize.Medium.Height / 325
 
             End Structure
 
             Public Structure Large
 
-                Public Const X As Double = 1440 / 85
-                Public Const Y As Double = 900 / 320
+                Public Const X As Double = ClientSize.Large.Width / 85
+                Public Const Y As Double = ClientSize.Large.Height / 320
 
             End Structure
 
@@ -32,8 +32,8 @@
 
         Public Structure Menu
 
-            Public Const X As Double = 1024 / 105
-            Public Const Y As Double = 640 / 325
+            Public Const X As Double = ClientSize.Small.Width / 105
+            Public Const Y As Double = ClientSize.Small.Height / 325
 
         End Structure
 

@@ -2,8 +2,8 @@
 
     Public Class ClientMasteryNode
 
-        Public Const X As Double = 1024 / 40
-        Public Const Y As Double = 640 / 40
+        Public Const X As Double = ClientSize.Small.Width / 40
+        Public Const Y As Double = ClientSize.Small.Height / 40
 
     End Class
 
