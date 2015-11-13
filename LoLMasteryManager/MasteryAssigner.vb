@@ -138,19 +138,19 @@
 
         Try
 
-            For Each oMastery As Mastery In masteryPage.OffenseTree
+            For Each oMastery As Mastery In masteryPage.FerocityTree
 
                 AssignMastery(oMastery)
 
             Next oMastery
 
-            For Each oMastery As Mastery In masteryPage.DefenseTree
+            For Each oMastery As Mastery In masteryPage.ResolveTree
 
                 AssignMastery(oMastery)
 
             Next oMastery
 
-            For Each oMastery As Mastery In masteryPage.UtilityTree
+            For Each oMastery As Mastery In masteryPage.CunningTree
 
                 AssignMastery(oMastery)
 

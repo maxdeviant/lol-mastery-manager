@@ -17,14 +17,14 @@ Partial Public Module Models
         <JsonProperty(PropertyName:="stat", Required:=Required.AllowNull)>
         Public Stat As Stats
 
-        <JsonProperty(PropertyName:="offense", Required:=Required.AllowNull)>
-        Public OffenseTree As New List(Of Mastery)
+        <JsonProperty(PropertyName:="ferocity", Required:=Required.AllowNull)>
+        Public FerocityTree As New List(Of Mastery)
 
-        <JsonProperty(PropertyName:="defense", Required:=Required.AllowNull)>
-        Public DefenseTree As New List(Of Mastery)
+        <JsonProperty(PropertyName:="resolve", Required:=Required.AllowNull)>
+        Public ResolveTree As New List(Of Mastery)
 
-        <JsonProperty(PropertyName:="utility", Required:=Required.AllowNull)>
-        Public UtilityTree As New List(Of Mastery)
+        <JsonProperty(PropertyName:="cunning", Required:=Required.AllowNull)>
+        Public CunningTree As New List(Of Mastery)
 
         Public ReadOnly Property Name As String
             Get

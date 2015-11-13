@@ -18,9 +18,9 @@ Module ChampionGG
 
     Public Structure MasteryTrees
 
-        Public Const Offense As String = "Offense"
-        Public Const Defense As String = "Defense"
-        Public Const Utility As String = "Utility"
+        Public Const Ferocity As String = "Ferocity"
+        Public Const Resolve As String = "Resolve"
+        Public Const Cunning As String = "Cunning"
 
     End Structure
 
@@ -363,17 +363,17 @@ Module ChampionGG
 
                     Select Case oMastery.Tree
 
-                        Case MasteryTrees.Offense
+                        Case MasteryTrees.Ferocity
 
-                            oMasteryPage.OffenseTree.Add(oMastery)
+                            oMasteryPage.FerocityTree.Add(oMastery)
 
-                        Case MasteryTrees.Defense
+                        Case MasteryTrees.Resolve
 
-                            oMasteryPage.DefenseTree.Add(oMastery)
+                            oMasteryPage.ResolveTree.Add(oMastery)
 
-                        Case MasteryTrees.Utility
+                        Case MasteryTrees.Cunning
 
-                            oMasteryPage.UtilityTree.Add(oMastery)
+                            oMasteryPage.CunningTree.Add(oMastery)
 
                         Case Else
                             Throw New ArgumentException(String.Format("Invalid mastery tree: '{0}'.", oMastery.Tree))
