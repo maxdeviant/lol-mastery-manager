@@ -15,7 +15,7 @@
         Public Structure Menu
 
             Public Const X As Double = ClientSize.Small.Width / 275
-            Public Const Y As Double = ClientSize.Small.Height / 190
+            Public Const Y As Double = ClientSize.Small.Height / 195
 
         End Structure
 
