@@ -164,30 +164,52 @@
 
     End Sub
 
+    ''' <summary>
+    ''' Assigns a mastery in the mastery window.
+    ''' </summary>
+    ''' <param name="mastery">The mastery to assign.</param>
     Private Sub AssignMastery(ByVal mastery As Mastery)
 
         Try
 
+            ' If the mastery has at least one point in it
             If mastery.Ranks > 0 Then
 
+                ' Get the position of the mastery node
                 Dim oMasteryPosition = GetMasteryNodePosition(mastery)
 
+                ' Move the mouse to the mastery
                 Mouse.Move(oMasteryPosition)
 
+                ' Sleep the thread to ensure the mouse has time to move
                 Threading.Thread.Sleep(100)
 
-                For iRank As Integer = 0 To mastery.Ranks - 1 Step 1
+                ' If the mastery has all of the points for that row
+                If mastery.Ranks = 5 Then
 
+                    ' Only need to click once
                     Mouse.LeftClick()
 
-                    Threading.Thread.Sleep(100)
+                Else ' Points shared between both masteries on the row
 
-                Next iRank
+                    ' Loop through the mastery ranks
+                    For iRank As Integer = 0 To mastery.Ranks - 1 Step 1
 
-            End If
+                        ' Click to assign the mastery
+                        Mouse.LeftClick()
+
+                        ' Sleep the thread to ensure the click has time to complete
+                        Threading.Thread.Sleep(100)
+
+                    Next iRank ' Loop through the mastery ranks
+
+                End If ' If the mastery has all of the points for that row
+
+            End If ' If the mastery has at least one point in it
 
         Catch ex As Exception
 
+            ' Throw the exception
             Throw
 
         End Try
