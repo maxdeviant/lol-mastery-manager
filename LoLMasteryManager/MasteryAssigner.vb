@@ -144,13 +144,13 @@
 
             Next oMastery
 
-            For Each oMastery As Mastery In masteryPage.ResolveTree
+            For Each oMastery As Mastery In masteryPage.CunningTree
 
                 AssignMastery(oMastery)
 
             Next oMastery
 
-            For Each oMastery As Mastery In masteryPage.CunningTree
+            For Each oMastery As Mastery In masteryPage.ResolveTree
 
                 AssignMastery(oMastery)
 
@@ -182,13 +182,16 @@
                 Mouse.Move(oMasteryPosition)
 
                 ' Sleep the thread to ensure the mouse has time to move
-                Threading.Thread.Sleep(100)
+                Threading.Thread.Sleep(200)
 
                 ' If the mastery has all of the points for that row
                 If mastery.Ranks = 5 Then
 
                     ' Only need to click once
                     Mouse.LeftClick()
+
+                    ' Sleep the thread to ensure the click has time to complete
+                    Threading.Thread.Sleep(200)
 
                 Else ' Points shared between both masteries on the row
 
@@ -292,8 +295,6 @@
                     ' Odd numbered row
                     Case 1
 
-                        'oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + oMasteryNodeSize.Width + (iMasteryColumn * (oMasteryNodeSize.Width \ 2))
-
                         ' If the mastery is in the first column
                         If iMasteryColumn = 1 Then
 
@@ -301,9 +302,7 @@
 
                         Else ' The mastery is in the last column
 
-                            oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iMasteryColumn + 1) * oMasteryNodeSize.Width) + ((iMasteryColumn + 1) * (oMasteryNodeSize.Width \ 2))
-
-                            'oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + (x * oMasteryNodeSize.Width) + (x * (oMasteryNodeSize.Width \ 2))
+                            oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + (2 * oMasteryNodeSize.Width) + (4 * (oMasteryNodeSize.Width \ 2))
 
                         End If ' If the mastery is in the first column
 
@@ -312,11 +311,15 @@
 
                         oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iMasteryColumn + 1) * oMasteryNodeSize.Width)
 
+                        ' If we are on the last row
                         If iMasteryRow = 6 Then
 
-                            oPosition.X -= oMasteryNodeSize.Width \ 2
+                            Dim iAdjustedMasteryColumn As Integer = If(iMasteryColumn = 4, 3, iMasteryColumn)
 
-                        End If
+                            'oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iAdjustedMasteryColumn) * oMasteryNodeSize.Width)
+                            oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iAdjustedMasteryColumn - 1) * (oMasteryNodeSize.Width + 4)) + ((iAdjustedMasteryColumn - If(iAdjustedMasteryColumn = 1, 1, 0)) * ((oMasteryNodeSize.Width + 4) \ 2))
+
+                        End If ' If we are on the last row
 
                 End Select ' Determine if row is even or odd
 
