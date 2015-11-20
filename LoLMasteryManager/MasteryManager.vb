@@ -36,9 +36,10 @@ Public Class MasteryManager
     Private _Assigner As New MasteryAssigner
     Private Shared _LoadingWindow As LoadingScreen = Nothing
 
-    Private _PatchNumber As String
     Private _Champions As New List(Of Champion)
     Private _MasteryPages As New List(Of MasteryPage)
+
+    Public Property PatchNumber As String
 
     Public Sub New()
 

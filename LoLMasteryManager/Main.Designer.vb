@@ -32,6 +32,7 @@ Partial Class Main
         Me.btnAssignMasteries = New System.Windows.Forms.Button()
         Me.chkInChampionSelect = New System.Windows.Forms.CheckBox()
         Me.lblVersion = New System.Windows.Forms.LinkLabel()
+        Me.lblClientVersion = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'cboChampion
@@ -119,11 +120,25 @@ Partial Class Main
         Me.lblVersion.Text = "1.0.0"
         Me.lblVersion.VisitedLinkColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(192, Byte), Integer))
         '
+        'lblClientVersion
+        '
+        Me.lblClientVersion.ActiveLinkColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.lblClientVersion.AutoSize = True
+        Me.lblClientVersion.LinkColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.lblClientVersion.Location = New System.Drawing.Point(271, 136)
+        Me.lblClientVersion.Name = "lblClientVersion"
+        Me.lblClientVersion.Size = New System.Drawing.Size(59, 13)
+        Me.lblClientVersion.TabIndex = 10
+        Me.lblClientVersion.TabStop = True
+        Me.lblClientVersion.Text = "Patch 1.11"
+        Me.lblClientVersion.VisitedLinkColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(192, Byte), Integer))
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(342, 158)
+        Me.Controls.Add(Me.lblClientVersion)
         Me.Controls.Add(Me.lblVersion)
         Me.Controls.Add(Me.chkInChampionSelect)
         Me.Controls.Add(Me.btnAssignMasteries)
@@ -151,4 +166,5 @@ Partial Class Main
     Friend WithEvents btnAssignMasteries As Button
     Friend WithEvents chkInChampionSelect As CheckBox
     Friend WithEvents lblVersion As LinkLabel
+    Friend WithEvents lblClientVersion As LinkLabel
 End Class

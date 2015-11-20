@@ -26,6 +26,14 @@ Public Class Main
 
             lblVersion.Links.Add(oGitHubLink)
 
+            lblClientVersion.Text = String.Format("Patch {0}", _MasteryManager.PatchNumber)
+
+            Dim oChampionGGLink As New LinkLabel.Link
+
+            oChampionGGLink.LinkData = My.Resources.ChampionGGUrl
+
+            lblClientVersion.Links.Add(oChampionGGLink)
+
 #If DEBUG Then
 
             _Timer = New Timer(1000)
@@ -124,6 +132,20 @@ Public Class Main
     End Sub
 
     Private Sub lblVersion_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblVersion.LinkClicked
+
+        Try
+
+            Process.Start(e.Link.LinkData.ToString)
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+    End Sub
+
+    Private Sub lblClientVersion_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblClientVersion.LinkClicked
 
         Try
 
