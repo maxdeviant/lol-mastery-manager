@@ -336,6 +336,16 @@ Public Class MasteryManager
 
             Dim sMasteryPageFileName As String = MasteryPage.GenerateFileName(championKey, role, stat)
 
+            Dim oMasteryPage As MasteryPage = LoadMasteryPage(sMasteryPageFileName)
+
+            If oMasteryPage Is Nothing Then
+
+                Dim oChampion As Champion = GetChampion(championKey)
+
+                Throw New Exception(String.Format("Could not find a mastery page for {0} {1}.", oChampion.Name, role))
+
+            End If
+
             Return LoadMasteryPage(sMasteryPageFileName)
 
         Catch ex As Exception
