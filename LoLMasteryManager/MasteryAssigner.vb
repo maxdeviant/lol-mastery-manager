@@ -258,12 +258,68 @@
 
             If _Mode = Modes.ChampionSelect AndAlso oLeagueClientWindowSize.Width > 1200 Then
 
-                oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iMasteryColumn - 1) * oMasteryNodeSize.Width) + (iMasteryColumn * CInt(oMasteryNodeSize.Width / 2.2))
+                Select Case iMasteryRow Mod 2
+
+                    ' Odd row
+                    Case 1
+
+                        ' If the mastery is in the first column
+                        If iMasteryColumn = 1 Then
+
+                            oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + oMasteryNodeSize.Width + (iMasteryColumn * CInt(oMasteryNodeSize.Width / 2.2))
+
+                        Else ' The mastery is in the last column
+
+
+
+                        End If ' If the mastery is in the first column
+
+                    ' Even row
+                    Case 0
+
+
+
+
+                End Select
+
                 oPosition.Y = oClientPosition.Y + oMasteryTreeOffset.Y + ((iMasteryRow - 1) * oMasteryNodeSize.Height) + (iMasteryRow * CInt(oMasteryNodeSize.Height / 2.5))
 
             Else
 
-                oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iMasteryColumn - 1) * oMasteryNodeSize.Width) + (iMasteryColumn * (oMasteryNodeSize.Width \ 2))
+                ' Determine if row is even or odd
+                Select Case iMasteryRow Mod 2
+
+                    ' Odd numbered row
+                    Case 1
+
+                        'oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + oMasteryNodeSize.Width + (iMasteryColumn * (oMasteryNodeSize.Width \ 2))
+
+                        ' If the mastery is in the first column
+                        If iMasteryColumn = 1 Then
+
+                            oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + oMasteryNodeSize.Width + (iMasteryColumn * (oMasteryNodeSize.Width \ 2))
+
+                        Else ' The mastery is in the last column
+
+                            oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iMasteryColumn + 1) * oMasteryNodeSize.Width) + ((iMasteryColumn + 1) * (oMasteryNodeSize.Width \ 2))
+
+                            'oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + (x * oMasteryNodeSize.Width) + (x * (oMasteryNodeSize.Width \ 2))
+
+                        End If ' If the mastery is in the first column
+
+                    ' Even numbered row
+                    Case 0
+
+                        oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iMasteryColumn + 1) * oMasteryNodeSize.Width)
+
+                        If iMasteryRow = 6 Then
+
+                            oPosition.X -= oMasteryNodeSize.Width \ 2
+
+                        End If
+
+                End Select ' Determine if row is even or odd
+
                 oPosition.Y = oClientPosition.Y + oMasteryTreeOffset.Y + ((iMasteryRow - 1) * oMasteryNodeSize.Height) + (iMasteryRow * (oMasteryNodeSize.Height \ 2))
 
             End If
