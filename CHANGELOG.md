@@ -4,6 +4,13 @@ Changelog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.0] - 2015-11-19
+### Added
+- Updated for the new mastery system.
+
+### Fixed
+- Prevent crashing when no mastery data is found for the selected champion and role.
+
 ## [1.1.3] - 2015-10-16
 ### Added
 - Application version number now visible (including a link to the latest release page).
@@ -37,6 +44,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.0.0] - 2015-10-11
 - Initial release.
 
+[2.0.0]: https://github.com/maxdeviant/lol-mastery-manager/compare/v1.1.3...v2.0.0
 [1.1.3]: https://github.com/maxdeviant/lol-mastery-manager/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/maxdeviant/lol-mastery-manager/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/maxdeviant/lol-mastery-manager/compare/v1.1.0...v1.1.1
