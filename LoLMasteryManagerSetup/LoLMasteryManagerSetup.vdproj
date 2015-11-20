@@ -27,13 +27,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_A572069D17FF43B0664EEDC235ACBFAD"
+        "MsmKey" = "8:_97B38A7C5E81016B3E292C0719A04229"
         "OwnerKey" = "8:_81C7BBB3115E496B998A7EBFD775EFDD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_BD7E41990EB1CF7826E1ADA4611C51CB"
+        "MsmKey" = "8:_A572069D17FF43B0664EEDC235ACBFAD"
         "OwnerKey" = "8:_81C7BBB3115E496B998A7EBFD775EFDD"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -70,7 +70,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BD7E41990EB1CF7826E1ADA4611C51CB"
+        "OwnerKey" = "8:_97B38A7C5E81016B3E292C0719A04229"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -98,6 +98,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
             }
         }
         "Release"
@@ -122,6 +130,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
             }
         }
     }
@@ -183,20 +199,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A572069D17FF43B0664EEDC235ACBFAD"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_97B38A7C5E81016B3E292C0719A04229"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_A572069D17FF43B0664EEDC235ACBFAD"
+                    "_97B38A7C5E81016B3E292C0719A04229"
                     {
-                    "Name" = "8:HtmlAgilityPack.dll"
+                    "Name" = "8:System.Net.Http.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:HtmlAgilityPack.dll"
+            "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_BD99C2C140E146FDBA4A8320F80F9972"
@@ -214,20 +230,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_BD7E41990EB1CF7826E1ADA4611C51CB"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A572069D17FF43B0664EEDC235ACBFAD"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+            "AssemblyAsmDisplayName" = "8:HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_BD7E41990EB1CF7826E1ADA4611C51CB"
+                    "_A572069D17FF43B0664EEDC235ACBFAD"
                     {
-                    "Name" = "8:System.Net.Http.dll"
+                    "Name" = "8:HtmlAgilityPack.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:System.Net.Http.dll"
+            "SourcePath" = "8:HtmlAgilityPack.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_BD99C2C140E146FDBA4A8320F80F9972"
@@ -332,15 +348,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:LoL Mastery Manager"
-        "ProductCode" = "8:{DE59F893-21D4-42ED-8A51-FF26C11F5F8D}"
-        "PackageCode" = "8:{F9E91F98-2A21-4BEE-AE64-E8673282FB70}"
+        "ProductCode" = "8:{5456F0F7-A829-4908-A819-B9A0F5BC685B}"
+        "PackageCode" = "8:{06823A73-1C4F-401B-925D-9F4D967CB0C1}"
         "UpgradeCode" = "8:{DDAFDC7D-36CD-44C7-83A9-C7757C7ACF8D}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.1.3"
+        "ProductVersion" = "8:2.0.0"
         "Manufacturer" = "8:Elliott Codes"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
