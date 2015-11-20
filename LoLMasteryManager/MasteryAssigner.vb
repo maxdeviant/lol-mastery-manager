@@ -226,6 +226,29 @@
             Dim iMasteryRow As Integer = Val(sID(2))
             Dim iMasteryColumn As Integer = Val(sID(3))
 
+            ' Reorder mastery trees
+            Select Case iMasteryTree
+
+                ' Ferocity
+                Case 1
+
+                    ' First mastery tree
+                    iMasteryTree = 1
+
+                ' Resolve
+                Case 2
+
+                    ' Third mastery tree
+                    iMasteryTree = 3
+
+                ' Cunning
+                Case 3
+
+                    ' Second mastery tree
+                    iMasteryTree = 2
+
+            End Select ' Reorder mastery trees
+
             Dim oClientPosition As Point = GetLeagueClientWindowPosition()
             Dim oLeagueClientWindowSize As Size = GetLeagueClientWindowSize()
             Dim oMasteryTreeOffset As Point = CalculateMasteryTreeOffsets(iMasteryTree)
