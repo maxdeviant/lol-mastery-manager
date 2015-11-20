@@ -261,9 +261,10 @@
 
             If _Mode = Modes.ChampionSelect AndAlso oLeagueClientWindowSize.Width > 1200 Then
 
+                ' Determine if row is even or odd
                 Select Case iMasteryRow Mod 2
 
-                    ' Odd row
+                    ' Odd numbered row
                     Case 1
 
                         ' If the mastery is in the first column
@@ -273,17 +274,25 @@
 
                         Else ' The mastery is in the last column
 
-
+                            oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + (2 * oMasteryNodeSize.Width) + (4 * CInt(oMasteryNodeSize.Width / 2.2))
 
                         End If ' If the mastery is in the first column
 
-                    ' Even row
+                    ' Even numbered row
                     Case 0
 
+                        oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iMasteryColumn + 1) * oMasteryNodeSize.Width)
 
+                        ' If we are on the last row
+                        If iMasteryRow = 6 Then
 
+                            Dim iAdjustedMasteryColumn As Integer = If(iMasteryColumn = 4, 3, iMasteryColumn)
 
-                End Select
+                            oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iAdjustedMasteryColumn) * (oMasteryNodeSize.Width + 4)) + ((iAdjustedMasteryColumn - 1) * ((oMasteryNodeSize.Width + 4) \ 2))
+
+                        End If ' If we are on the last row
+
+                End Select ' Determine if row is even or odd
 
                 oPosition.Y = oClientPosition.Y + oMasteryTreeOffset.Y + ((iMasteryRow - 1) * oMasteryNodeSize.Height) + (iMasteryRow * CInt(oMasteryNodeSize.Height / 2.5))
 
