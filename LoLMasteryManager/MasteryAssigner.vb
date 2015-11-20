@@ -182,7 +182,7 @@
                 Mouse.Move(oMasteryPosition)
 
                 ' Sleep the thread to ensure the mouse has time to move
-                Threading.Thread.Sleep(200)
+                Threading.Thread.Sleep(100)
 
                 ' If the mastery has all of the points for that row
                 If mastery.Ranks = 5 Then
@@ -191,7 +191,7 @@
                     Mouse.LeftClick()
 
                     ' Sleep the thread to ensure the click has time to complete
-                    Threading.Thread.Sleep(200)
+                    Threading.Thread.Sleep(100)
 
                 Else ' Points shared between both masteries on the row
 
@@ -316,8 +316,7 @@
 
                             Dim iAdjustedMasteryColumn As Integer = If(iMasteryColumn = 4, 3, iMasteryColumn)
 
-                            'oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iAdjustedMasteryColumn) * oMasteryNodeSize.Width)
-                            oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iAdjustedMasteryColumn - 1) * (oMasteryNodeSize.Width + 4)) + ((iAdjustedMasteryColumn - If(iAdjustedMasteryColumn = 1, 1, 0)) * ((oMasteryNodeSize.Width + 4) \ 2))
+                            oPosition.X = oClientPosition.X + oMasteryTreeOffset.X + ((iAdjustedMasteryColumn) * (oMasteryNodeSize.Width + 4)) + ((iAdjustedMasteryColumn - 1) * ((oMasteryNodeSize.Width + 4) \ 2))
 
                         End If ' If we are on the last row
 
