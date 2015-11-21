@@ -70,6 +70,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to http://ddragon.leagueoflegends.com/cdn/.
+        '''</summary>
+        Friend ReadOnly Property DataDragonUrl() As String
+            Get
+                Return ResourceManager.GetString("DataDragonUrl", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to https://github.com/maxdeviant/lol-mastery-manager/releases/latest.
         '''</summary>
         Friend ReadOnly Property GitHubLatestReleaseUrl() As String

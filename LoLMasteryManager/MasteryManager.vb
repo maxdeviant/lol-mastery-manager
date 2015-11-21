@@ -22,6 +22,7 @@ Public Class MasteryManager
 
         Public Shared Data As String
         Public Shared Masteries As String
+        Public Shared DataDragon As String
 
     End Structure
 
@@ -32,7 +33,8 @@ Public Class MasteryManager
 
     End Structure
 
-    Private _Downloader As New Downloader
+    Private _ChampionGGDownloader As New ChampionGG.Downloader
+    Private _DataDragonDownloader As DataDragon.Downloader
     Private _Assigner As New MasteryAssigner
     Private Shared _LoadingWindow As LoadingScreen = Nothing
 
@@ -62,7 +64,7 @@ Public Class MasteryManager
         Paths.Metadata = Path.Combine(Directories.Data, "Metadata.json")
         Paths.Champions = Path.Combine(Directories.Data, "Champions.json")
 
-        _PatchNumber = _Downloader.ScrapePatchNumber()
+        _PatchNumber = _ChampionGGDownloader.ScrapePatchNumber()
 
         Dim oMetadata As Metadata = LoadMetadata()
 
@@ -81,7 +83,7 @@ Public Class MasteryManager
 
         If Not File.Exists(Paths.Champions) Then
 
-            _Champions = _Downloader.ScrapeChampions()
+            _Champions = _ChampionGGDownloader.ScrapeChampions()
 
             SaveChampions()
 
@@ -115,7 +117,7 @@ Public Class MasteryManager
                                                               _LoadingWindow.SetCurrentChampion(oChampion.Name, oRole.Name)
                                                           End Sub))
 
-                    oMasteryPages = _Downloader.ScrapeChampionMasteries(oChampion.Key, oRole.Name)
+                    oMasteryPages = _ChampionGGDownloader.ScrapeChampionMasteries(oChampion.Key, oRole.Name)
 
                     SaveMasteryPages(oMasteryPages)
 
@@ -130,6 +132,18 @@ Public Class MasteryManager
         End If
 
         SaveMetadata()
+
+        Directories.DataDragon = Path.Combine(Directories.Data, "Static")
+
+        _DataDragonDownloader = New DataDragon.Downloader(Directories.DataDragon)
+
+        If Not Directory.Exists(Directories.DataDragon) Then
+
+            Directory.CreateDirectory(Directories.DataDragon)
+
+        End If
+
+        _DataDragonDownloader.DownloadMasteryImage("6111")
 
     End Sub
 

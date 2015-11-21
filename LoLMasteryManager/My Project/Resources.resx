@@ -120,6 +120,9 @@
   <data name="ChampionGGUrl" xml:space="preserve">
     <value>http://champion.gg</value>
   </data>
+  <data name="DataDragonUrl" xml:space="preserve">
+    <value>http://ddragon.leagueoflegends.com/cdn/</value>
+  </data>
   <data name="GitHubLatestReleaseUrl" xml:space="preserve">
     <value>https://github.com/maxdeviant/lol-mastery-manager/releases/latest</value>
   </data>
