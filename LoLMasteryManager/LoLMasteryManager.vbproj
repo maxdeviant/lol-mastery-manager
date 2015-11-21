@@ -94,6 +94,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin.Designer.vb">
+      <DependentUpon>Admin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Admin.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ChampionGG.vb" />
     <Compile Include="ClientControls\ClientControls.vb" />
     <Compile Include="DataDragon.vb" />
@@ -147,6 +153,9 @@
     <Compile Include="ClientControls\ClientSaveMasteriesButton.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Admin.resx">
+      <DependentUpon>Admin.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoadingScreen.resx">
       <DependentUpon>LoadingScreen.vb</DependentUpon>
     </EmbeddedResource>

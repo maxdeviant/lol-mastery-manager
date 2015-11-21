@@ -388,27 +388,6 @@ Public Class MasteryManager
 
     End Function
 
-    Private Sub SaveMasteryCoordinates(ByVal masteryCoordinateListFile As MasteryCoordinateListFile)
-
-        Try
-
-            Dim sMasteryCoordinatesPath As String = Path.Combine(Directories.Data, String.Format("{0}.json", "Coordinates"))
-            Dim sMasteryCoordinatesJson As String = JsonConvert.SerializeObject(masteryCoordinateListFile)
-
-            Using oStreamWriter As New StreamWriter(sMasteryCoordinatesPath)
-
-                oStreamWriter.Write(sMasteryCoordinatesJson)
-
-            End Using
-
-        Catch ex As Exception
-
-            Throw
-
-        End Try
-
-    End Sub
-
     Public Function AssignMasteries(ByVal championKey As String, ByVal role As String, ByVal stat As String) As Boolean
 
         Try

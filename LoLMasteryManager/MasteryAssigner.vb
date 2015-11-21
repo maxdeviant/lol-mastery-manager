@@ -3,7 +3,7 @@ Imports Newtonsoft.Json
 
 Public Class MasteryAssigner
 
-    Private _MasteryCoordinatesListFile As MasteryCoordinateListFile
+    Private _MasteryCoordinatesListFile As MasteryCoordinatesFile
     Private _Mode As Modes = Modes.ChampionSelect
 
     Public Sub New(ByVal masteryCoordinatesPath As String)
@@ -16,7 +16,7 @@ Public Class MasteryAssigner
 
         End Using
 
-        _MasteryCoordinatesListFile = JsonConvert.DeserializeObject(Of MasteryCoordinateListFile)(sJson)
+        _MasteryCoordinatesListFile = JsonConvert.DeserializeObject(Of MasteryCoordinatesFile)(sJson)
 
     End Sub
 
@@ -250,7 +250,19 @@ Public Class MasteryAssigner
             Dim oMasteryNodeSize As Size = CalculateMasteryNodeSize()
 
             Dim oRefererenceClientSize As Size = _MasteryCoordinatesListFile.ReferenceClientSize
-            Dim oMasteryPosition As Point = _MasteryCoordinatesListFile.MasteryCoordinates(sID)
+            Dim oMasteryPosition As Point
+
+            Select Case _Mode
+
+                Case Modes.Menu
+
+                    oMasteryPosition = _MasteryCoordinatesListFile.MasteryCoordinatesMenu(sID)
+
+                Case Modes.ChampionSelect
+
+                    oMasteryPosition = _MasteryCoordinatesListFile.MasteryCoordinatesChampionSelect(sID)
+
+            End Select
 
             Dim oPosition As New Point
 
