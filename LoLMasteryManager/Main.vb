@@ -14,25 +14,15 @@ Public Class Main
 
         Try
 
-            Dim oVersion As New Version
+            InitializeApplicationVersion()
 
-            Version.TryParse(ProductVersion, oVersion)
+            InitializeLoLClientVersion()
 
-            lblVersion.Text = String.Format("{0}.{1}.{2}", oVersion.Major, oVersion.Minor, oVersion.Build)
+            InitializeChampions()
 
-            Dim oGitHubLink As New LinkLabel.Link()
+            InitializeRoles()
 
-            oGitHubLink.LinkData = My.Resources.GitHubLatestReleaseUrl
-
-            lblVersion.Links.Add(oGitHubLink)
-
-            lblClientVersion.Text = String.Format("Patch {0}", _MasteryManager.PatchNumber)
-
-            Dim oChampionGGLink As New LinkLabel.Link
-
-            oChampionGGLink.LinkData = My.Resources.ChampionGGUrl
-
-            lblClientVersion.Links.Add(oChampionGGLink)
+            InitializeStats()
 
 #If DEBUG Then
 
@@ -42,36 +32,77 @@ Public Class Main
 
 #End If
 
-            With cboChampion
-                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
-                .AutoCompleteSource = AutoCompleteSource.ListItems
-            End With
-
-            With cboRole
-                .DropDownStyle = ComboBoxStyle.DropDownList
-            End With
-
-            With cboStats
-                .DropDownStyle = ComboBoxStyle.DropDownList
-            End With
-
-            _MasteryManager.PopulateChampions(cboChampion)
-
-            cboChampion.SelectedIndex = 0
-
-            _MasteryManager.PopulateRoles(cboRole, CType(cboChampion.SelectedItem, Champion))
-
-            cboRole.SelectedIndex = 0
-
-            _MasteryManager.PopulateStats(cboStats)
-
-            cboStats.SelectedIndex = 1
-
         Catch ex As Exception
 
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
+
+    End Sub
+
+    Private Sub InitializeChampions()
+
+        With cboChampion
+            .AutoCompleteMode = AutoCompleteMode.SuggestAppend
+            .AutoCompleteSource = AutoCompleteSource.ListItems
+        End With
+
+        _MasteryManager.PopulateChampions(cboChampion)
+
+        cboChampion.SelectedIndex = 0
+
+    End Sub
+
+    Private Sub InitializeRoles()
+
+        With cboRole
+            .DropDownStyle = ComboBoxStyle.DropDownList
+        End With
+
+        _MasteryManager.PopulateRoles(cboRole, CType(cboChampion.SelectedItem, Champion))
+
+        cboRole.SelectedIndex = 0
+
+    End Sub
+
+    Private Sub InitializeStats()
+
+        With cboStats
+            .DropDownStyle = ComboBoxStyle.DropDownList
+        End With
+
+        _MasteryManager.PopulateStats(cboStats)
+
+        ' Use the "Highest Win" stat by default
+        cboStats.SelectedIndex = 1
+
+    End Sub
+
+    Private Sub InitializeApplicationVersion()
+
+        Dim oVersion As New Version
+
+        Version.TryParse(ProductVersion, oVersion)
+
+        lblVersion.Text = String.Format("{0}.{1}.{2}", oVersion.Major, oVersion.Minor, oVersion.Build)
+
+        Dim oGitHubLink As New LinkLabel.Link()
+
+        oGitHubLink.LinkData = My.Resources.GitHubLatestReleaseUrl
+
+        lblVersion.Links.Add(oGitHubLink)
+
+    End Sub
+
+    Private Sub InitializeLoLClientVersion()
+
+        lblClientVersion.Text = String.Format("Patch {0}", _MasteryManager.PatchNumber)
+
+        Dim oChampionGGLink As New LinkLabel.Link
+
+        oChampionGGLink.LinkData = My.Resources.ChampionGGUrl
+
+        lblClientVersion.Links.Add(oChampionGGLink)
 
     End Sub
 
