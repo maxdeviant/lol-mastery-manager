@@ -35,6 +35,7 @@ Public Class MasteryManager
 
     Private _ChampionGGDownloader As New ChampionGG.Downloader
     Private _DataDragonDownloader As DataDragon.Downloader
+    Private _Locator As New MasteryLocator
     Private _Assigner As New MasteryAssigner
     Private Shared _LoadingWindow As LoadingScreen = Nothing
 
@@ -144,6 +145,8 @@ Public Class MasteryManager
         End If
 
         _DataDragonDownloader.DownloadMasteryImage("6111")
+
+        _Locator.GetMasteryPosition("C:\Users\Marshall Bowers\Documents\LoLMasteryManager\Static\Client1280x800.png", "C:\Users\Marshall Bowers\Documents\LoLMasteryManager\Static\6111 - Copy.png")
 
     End Sub
 

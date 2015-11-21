@@ -115,6 +115,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MasteryAssigner.vb" />
+    <Compile Include="MasteryLocator.vb" />
     <Compile Include="MasteryManager.vb" />
     <Compile Include="Models\Champion.vb" />
     <Compile Include="Models\Mastery.vb" />
