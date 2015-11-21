@@ -132,34 +132,6 @@ Public Class MasteryManager
 
         SaveMetadata()
 
-        Dim sJson As String
-
-        Dim sMasteriesPath As String = Path.Combine(Path.GetDirectoryName(Reflection.Assembly.GetExecutingAssembly().Location), "Masteries.json")
-
-        Using oStreamReader As New StreamReader(sMasteriesPath)
-
-            sJson = oStreamReader.ReadToEnd()
-
-        End Using
-
-        Dim oRiotMasteries As Dictionary(Of String, RiotMastery) = JsonConvert.DeserializeObject(Of RiotMasteryListFile)(sJson).Masteries
-
-        Dim sPositions As String = String.Empty
-
-        Dim oMasteryCoordinateListFile As New MasteryCoordinateListFile
-
-        oMasteryCoordinateListFile.ReferenceClientSize = New Size(1280, 800)
-
-        For Each sMasteryID As String In oRiotMasteries.Keys
-
-            Dim oPosition As Point = _Locator.GetMasteryPosition("C:\Users\Marshall Bowers\Documents\LoLMasteryManager\Static\Client1280x800.png", String.Format("C:\Users\Marshall Bowers\Documents\LoLMasteryManager\Static\{0}.png", sMasteryID))
-
-            oMasteryCoordinateListFile.MasteryCoordinates.Add(sMasteryID, oPosition)
-
-        Next sMasteryID
-
-        SaveMasteryCoordinates(oMasteryCoordinateListFile)
-
     End Sub
 
     Private Sub ShowLoadingScreen()
