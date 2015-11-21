@@ -33,8 +33,7 @@ Public Class MasteryManager
     End Structure
 
     Private _ChampionGGDownloader As New ChampionGG.Downloader
-    Private _Locator As New MasteryLocator
-    Private _Assigner As New MasteryAssigner
+    Private _Assigner As MasteryAssigner
     Private Shared _LoadingWindow As LoadingScreen = Nothing
 
     Private _Champions As New List(Of Champion)
@@ -131,6 +130,8 @@ Public Class MasteryManager
         End If
 
         SaveMetadata()
+
+        _Assigner = New MasteryAssigner(Path.Combine(Path.GetDirectoryName(Reflection.Assembly.GetExecutingAssembly().Location), "Coordinates.json"))
 
     End Sub
 

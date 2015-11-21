@@ -1,6 +1,24 @@
-﻿Public Class MasteryAssigner
+﻿Imports System.IO
+Imports Newtonsoft.Json
 
+Public Class MasteryAssigner
+
+    Private _MasteryCoordinatesListFile As MasteryCoordinateListFile
     Private _Mode As Modes = Modes.ChampionSelect
+
+    Public Sub New(ByVal masteryCoordinatesPath As String)
+
+        Dim sJson As String
+
+        Using oStreamReader As New StreamReader(masteryCoordinatesPath)
+
+            sJson = oStreamReader.ReadToEnd()
+
+        End Using
+
+        _MasteryCoordinatesListFile = JsonConvert.DeserializeObject(Of MasteryCoordinateListFile)(sJson)
+
+    End Sub
 
     Public Sub SetMode(ByVal mode As Modes)
 
@@ -231,13 +249,14 @@
             Dim oClientSize As Size = GetLeagueClientWindowSize()
             Dim oMasteryNodeSize As Size = CalculateMasteryNodeSize()
 
-            Dim oMasteryPosition As Point = oLocator.GetMasteryPosition("C:\Users\Marshall Bowers\Documents\LoLMasteryManager\Static\Client1280x800.png", String.Format("C:\Users\Marshall Bowers\Documents\LoLMasteryManager\Static\{0}.png", sID))
+            Dim oRefererenceClientSize As Size = _MasteryCoordinatesListFile.ReferenceClientSize
+            Dim oMasteryPosition As Point = _MasteryCoordinatesListFile.MasteryCoordinates(sID)
 
             Dim oPosition As New Point
 
             With oPosition
-                .X = oClientPosition.X + CInt(oMasteryPosition.X * (oClientSize.Width / 1280)) + (oMasteryNodeSize.Width \ 2)
-                .Y = oClientPosition.Y + CInt(oMasteryPosition.Y * (oClientSize.Height / 800)) + (oMasteryNodeSize.Height \ 2)
+                .X = oClientPosition.X + CInt(oMasteryPosition.X * (oClientSize.Width / oRefererenceClientSize.Width)) + (oMasteryNodeSize.Width \ 2)
+                .Y = oClientPosition.Y + CInt(oMasteryPosition.Y * (oClientSize.Height / oRefererenceClientSize.Height)) + (oMasteryNodeSize.Height \ 2)
             End With
 
             Return oPosition
