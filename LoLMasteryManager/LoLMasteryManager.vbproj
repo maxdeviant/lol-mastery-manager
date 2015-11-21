@@ -119,6 +119,7 @@
     <Compile Include="MasteryManager.vb" />
     <Compile Include="Models\Champion.vb" />
     <Compile Include="Models\Mastery.vb" />
+    <Compile Include="Models\MasteryCoordinates.vb" />
     <Compile Include="Models\MasteryPage.vb" />
     <Compile Include="Models\Metadata.vb" />
     <Compile Include="Models\Riot.vb" />

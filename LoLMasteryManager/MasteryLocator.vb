@@ -1,78 +1,159 @@
 ﻿Imports System.Drawing.Imaging
 Imports System.Runtime.InteropServices
 
+''' <summary>
+''' A class for handling the location of masteries within an image.
+''' </summary>
 Public Class MasteryLocator
 
+    ''' <summary>
+    ''' The representation of an ARGB color.
+    ''' </summary>
     Private Structure ArgbColor
 
+        ''' <summary>
+        ''' The value of the alpha channel.
+        ''' </summary>
         Public A As Byte
+
+        ''' <summary>
+        ''' The value of the red channel.
+        ''' </summary>
         Public R As Byte
+
+        ''' <summary>
+        ''' The value of the green channel.
+        ''' </summary>
         Public G As Byte
+
+        ''' <summary>
+        ''' The value of the blue channel.
+        ''' </summary>
         Public B As Byte
 
+        ''' <summary>
+        ''' Creates a new <see cref="ArgbColor"/> from the specified ARGB channels.
+        ''' </summary>
+        ''' <param name="a">The value of the alpha channel.</param>
+        ''' <param name="r">The value of the red channel.</param>
+        ''' <param name="g">The value of the green channel.</param>
+        ''' <param name="b">The value of the blue channel.</param>
+        ''' <returns>An ARGB color with the specified channels.</returns>
         Public Shared Function FromArgb(ByVal a As Byte, ByVal r As Byte, ByVal g As Byte, ByVal b As Byte) As ArgbColor
 
+            ' Instantiate a new ARGB color
             Dim color As New ArgbColor()
 
-            color.A = a
-            color.R = r
-            color.G = g
-            color.B = b
+            ' Set the color properties
+            With color
+                .A = a
+                .R = r
+                .G = g
+                .B = b
+            End With ' Set the color properties
 
+            ' Return the color
             Return color
 
         End Function
 
+        ''' <summary>
+        ''' Determines whether this instance and a specified object, which must also be an <see cref="ArgbColor"/> object, have the same value.
+        ''' </summary>
+        ''' <param name="obj"></param>
+        ''' <returns></returns>
         Public Overrides Function Equals(obj As Object) As Boolean
 
+            ' Check if the obj is not nothing and has the same type as the current object instance
             If obj Is Nothing OrElse Not obj.GetType Is [GetType]() Then
 
+                ' Objects are not equal
                 Return False
 
-            End If
+            End If ' Check if the obj is not nothing and has the same type as the current object instance
 
+            ' Cast the object to an ARGB color
             Dim color As ArgbColor = CType(obj, ArgbColor)
 
+            ' Return whether or not the values of the ARGB channels are all equal
             Return A = color.A AndAlso R = color.R AndAlso G = color.G AndAlso B = color.B
 
         End Function
 
     End Structure
 
+    ''' <summary>
+    ''' Gets the position of the specified mastery image within the client image.
+    ''' </summary>
+    ''' <param name="clientImagePath">The path to the image of the client to search for the mastery in.</param>
+    ''' <param name="masteryImagePath">The path to the mastery image to search for in the client image.</param>
+    ''' <returns>The position of the mastery image within the client image.</returns>
     Public Function GetMasteryPosition(ByVal clientImagePath As String, masteryImagePath As String) As Point
 
-        Dim oClientImage As Image = Image.FromFile(clientImagePath)
-        Dim oMasteryImage As Image = Image.FromFile(masteryImagePath)
+        Try
 
-        Return GetMasteryPosition(oClientImage, oMasteryImage)
+            ' Load the client image
+            Dim oClientImage As Image = Image.FromFile(clientImagePath)
+
+            ' Load the mastery image
+            Dim oMasteryImage As Image = Image.FromFile(masteryImagePath)
+
+            ' Get the position of the mastery
+            Return GetMasteryPosition(oClientImage, oMasteryImage)
+
+        Catch ex As Exception
+
+            ' Throw the exception
+
+        End Try
 
     End Function
 
+    ''' <summary>
+    ''' Gets the position of the specified mastery image within the client image.
+    ''' </summary>
+    ''' <param name="clientImage">The iamge of the client to search for the mastery in.</param>
+    ''' <param name="masteryImage">The mastery iamge to search for in the client image.</param>
+    ''' <returns>The position of the mastery image within the client image.</returns>
     Public Function GetMasteryPosition(ByVal clientImage As Image, ByVal masteryImage As Image) As Point
 
         Try
 
+            ' Create a bitmap representation of the client image
             Dim oClientImage As New Bitmap(clientImage)
+
+            ' Create a bitmap representation of the mastery image
             Dim oMasteryImage As New Bitmap(masteryImage)
 
+            ' Get all of the positions that the mastery image appears at in the client image
             Dim oPositions As List(Of Point) = GetSubImagePositions(oClientImage, oMasteryImage)
 
+            ' If there is at least one position
             If oPositions IsNot Nothing AndAlso oPositions.Count > 0 Then
 
+                ' Return the first position
                 Return oPositions.First
 
-            End If
+            End If ' If there is at least one position
 
+            ' Return nothing
             Return Nothing
 
         Catch ex As Exception
 
+            ' Throw the exception
             Throw
 
         End Try
 
     End Function
 
+    ''' <summary>
+    ''' Returns all positions of the specified subimage within the specified image.
+    ''' </summary>
+    ''' <param name="image">The bitmap to search for the subimage in.</param>
+    ''' <param name="subImage">The bitmap to search for within the main image.</param>
+    ''' <returns>A list of positions that the subimage was found in the main image.</returns>
     Private Function GetSubImagePositions(ByVal image As Bitmap, ByVal subImage As Bitmap) As List(Of Point)
 
         Try

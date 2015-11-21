@@ -22,7 +22,6 @@ Public Class MasteryManager
 
         Public Shared Data As String
         Public Shared Masteries As String
-        Public Shared DataDragon As String
 
     End Structure
 
@@ -34,7 +33,6 @@ Public Class MasteryManager
     End Structure
 
     Private _ChampionGGDownloader As New ChampionGG.Downloader
-    Private _DataDragonDownloader As DataDragon.Downloader
     Private _Locator As New MasteryLocator
     Private _Assigner As New MasteryAssigner
     Private Shared _LoadingWindow As LoadingScreen = Nothing
@@ -134,19 +132,33 @@ Public Class MasteryManager
 
         SaveMetadata()
 
-        Directories.DataDragon = Path.Combine(Directories.Data, "Static")
+        Dim sJson As String
 
-        _DataDragonDownloader = New DataDragon.Downloader(Directories.DataDragon)
+        Dim sMasteriesPath As String = Path.Combine(Path.GetDirectoryName(Reflection.Assembly.GetExecutingAssembly().Location), "Masteries.json")
 
-        If Not Directory.Exists(Directories.DataDragon) Then
+        Using oStreamReader As New StreamReader(sMasteriesPath)
 
-            Directory.CreateDirectory(Directories.DataDragon)
+            sJson = oStreamReader.ReadToEnd()
 
-        End If
+        End Using
 
-        _DataDragonDownloader.DownloadMasteryImage("6111")
+        Dim oRiotMasteries As Dictionary(Of String, RiotMastery) = JsonConvert.DeserializeObject(Of RiotMasteryListFile)(sJson).Masteries
 
-        _Locator.GetMasteryPosition("C:\Users\Marshall Bowers\Documents\LoLMasteryManager\Static\Client1280x800.png", "C:\Users\Marshall Bowers\Documents\LoLMasteryManager\Static\6111 - Copy.png")
+        Dim sPositions As String = String.Empty
+
+        Dim oMasteryCoordinateListFile As New MasteryCoordinateListFile
+
+        oMasteryCoordinateListFile.ReferenceClientSize = New Size(1280, 800)
+
+        For Each sMasteryID As String In oRiotMasteries.Keys
+
+            Dim oPosition As Point = _Locator.GetMasteryPosition("C:\Users\Marshall Bowers\Documents\LoLMasteryManager\Static\Client1280x800.png", String.Format("C:\Users\Marshall Bowers\Documents\LoLMasteryManager\Static\{0}.png", sMasteryID))
+
+            oMasteryCoordinateListFile.MasteryCoordinates.Add(sMasteryID, oPosition)
+
+        Next sMasteryID
+
+        SaveMasteryCoordinates(oMasteryCoordinateListFile)
 
     End Sub
 
@@ -403,6 +415,26 @@ Public Class MasteryManager
 
     End Function
 
+    Private Sub SaveMasteryCoordinates(ByVal masteryCoordinateListFile As MasteryCoordinateListFile)
+
+        Try
+
+            Dim sMasteryCoordinatesPath As String = Path.Combine(Directories.Data, String.Format("{0}.json", "Coordinates"))
+            Dim sMasteryCoordinatesJson As String = JsonConvert.SerializeObject(masteryCoordinateListFile)
+
+            Using oStreamWriter As New StreamWriter(sMasteryCoordinatesPath)
+
+                oStreamWriter.Write(sMasteryCoordinatesJson)
+
+            End Using
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
+
+    End Sub
 
     Public Function AssignMasteries(ByVal championKey As String, ByVal role As String, ByVal stat As String) As Boolean
 
