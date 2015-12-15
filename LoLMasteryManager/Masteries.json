@@ -264,6 +264,12 @@
       "name": "Secret Stash",
       "masteryTree": "Cunning"
     },
+    "6323": {
+      "id": 6323,
+      "description": [ "Deal 1.5% increased damage when no allied champions are nearby" ],
+      "name": "Assassin",
+      "masteryTree": "Cunning"
+    },
     "6331": {
       "id": 6331,
       "description": [
