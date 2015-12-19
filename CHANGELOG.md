@@ -4,6 +4,10 @@ Changelog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.1] - 2015-12-19
+### Fixed
+- Fix crash from missing the "Assassin" mastery.
+
 ## [2.0.0] - 2015-11-19
 ### Added
 - Updated for the new mastery system.
@@ -44,6 +48,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.0.0] - 2015-10-11
 - Initial release.
 
+[2.0.1]: https://github.com/maxdeviant/lol-mastery-manager/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/maxdeviant/lol-mastery-manager/compare/v1.1.3...v2.0.0
 [1.1.3]: https://github.com/maxdeviant/lol-mastery-manager/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/maxdeviant/lol-mastery-manager/compare/v1.1.1...v1.1.2
