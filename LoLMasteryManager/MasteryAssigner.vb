@@ -468,7 +468,17 @@ Public Class MasteryAssigner
 
         Try
 
-            Return HwndInterface.GetHwndFromTitle(My.Resources.LeagueClientWindowTitle)
+            Dim oLeagueWindow As IntPtr = HwndInterface.GetHwndFromTitle(My.Resources.LeagueClientWindowTitle)
+
+            If oLeagueWindow = IntPtr.Zero Then
+
+                Return HwndInterface.GetHwndFromTitle(My.Resources.LeagueClientWindowTitleAlternative)
+
+            Else
+
+                Return oLeagueWindow
+
+            End If
 
         Catch ex As Exception
 
