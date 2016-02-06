@@ -11,8 +11,8 @@
 
         Public Structure Medium
 
-            Public Const Width As Integer = 1280
-            Public Const Height As Integer = 800
+            Public Const Width As Integer = 1152
+            Public Const Height As Integer = 720
 
         End Structure
 

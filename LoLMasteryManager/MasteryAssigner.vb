@@ -82,11 +82,11 @@ Public Class MasteryAssigner
 
             Mouse.Move(oPosition)
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(300)
 
             Mouse.LeftClick()
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(300)
 
         Catch ex As Exception
 
@@ -110,11 +110,11 @@ Public Class MasteryAssigner
 
             Mouse.Move(oPosition)
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(300)
 
             Mouse.LeftClick()
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(300)
 
         Catch ex As Exception
 
@@ -138,11 +138,11 @@ Public Class MasteryAssigner
 
             Mouse.Move(oPosition)
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(300)
 
             Mouse.LeftClick()
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(300)
 
         Catch ex As Exception
 
@@ -200,7 +200,7 @@ Public Class MasteryAssigner
                 Mouse.Move(oMasteryPosition)
 
                 ' Sleep the thread to ensure the mouse has time to move
-                Threading.Thread.Sleep(100)
+                Threading.Thread.Sleep(300)
 
                 ' If the mastery has all of the points for that row
                 If mastery.Ranks = 5 Then
@@ -209,7 +209,7 @@ Public Class MasteryAssigner
                     Mouse.LeftClick()
 
                     ' Sleep the thread to ensure the click has time to complete
-                    Threading.Thread.Sleep(100)
+                    Threading.Thread.Sleep(300)
 
                 Else ' Points shared between both masteries on the row
 
@@ -220,7 +220,7 @@ Public Class MasteryAssigner
                         Mouse.LeftClick()
 
                         ' Sleep the thread to ensure the click has time to complete
-                        Threading.Thread.Sleep(100)
+                        Threading.Thread.Sleep(300)
 
                     Next iRank ' Loop through the mastery ranks
 
@@ -261,6 +261,10 @@ Public Class MasteryAssigner
                 Case Modes.ChampionSelect
 
                     oMasteryPosition = _MasteryCoordinatesListFile.MasteryCoordinatesChampionSelect(sID)
+
+                Case Modes.ChampionSelect_Old
+
+                    oMasteryPosition = _MasteryCoordinatesListFile.MasteryCoordinatesChampionSelect_Old(sID)
 
             End Select
 
@@ -309,29 +313,20 @@ Public Class MasteryAssigner
 
             If _Mode = Modes.ChampionSelect Then
 
-                Select Case oLeagueClientWindowSize.Width
+                oMasteryPageNameInputFieldOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientMasteryPageNameInputField.ChampionSelect.X))
+                oMasteryPageNameInputFieldOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientMasteryPageNameInputField.ChampionSelect.Y))
+            End If
 
-                    Case < ClientSize.Medium.Width
+            If _Mode = Modes.Menu Then
 
-                        oMasteryPageNameInputFieldOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientMasteryPageNameInputField.ChampionSelect.Small.X))
-                        oMasteryPageNameInputFieldOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientMasteryPageNameInputField.ChampionSelect.Small.Y))
+                    oMasteryPageNameInputFieldOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientMasteryPageNameInputField.Menu.X))
+                    oMasteryPageNameInputFieldOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientMasteryPageNameInputField.Menu.Y))
 
-                    Case >= ClientSize.Medium.Width, < ClientSize.Large.Width
+                End If
+            If _Mode = Modes.ChampionSelect_Old Then
 
-                        oMasteryPageNameInputFieldOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientMasteryPageNameInputField.ChampionSelect.Medium.X))
-                        oMasteryPageNameInputFieldOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientMasteryPageNameInputField.ChampionSelect.Medium.Y))
-
-                    Case >= ClientSize.Large.Width
-
-                        oMasteryPageNameInputFieldOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientMasteryPageNameInputField.ChampionSelect.Large.X))
-                        oMasteryPageNameInputFieldOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientMasteryPageNameInputField.ChampionSelect.Large.Y))
-
-                End Select
-
-            Else
-
-                oMasteryPageNameInputFieldOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientMasteryPageNameInputField.Menu.X))
-                oMasteryPageNameInputFieldOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientMasteryPageNameInputField.Menu.Y))
+                oMasteryPageNameInputFieldOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientMasteryPageNameInputField.ChampionSelect_Old.X))
+                oMasteryPageNameInputFieldOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientMasteryPageNameInputField.ChampionSelect_Old.Y))
 
             End If
 
@@ -352,35 +347,23 @@ Public Class MasteryAssigner
             Dim oLeagueClientWindowSize As Size = GetLeagueClientWindowSize()
             Dim oSaveMasteriesButtonOffsets As New Point
 
-            If _Mode = Modes.ChampionSelect Then
+            If _Mode = Modes.ChampionSelect_Old Then
 
-                Select Case oLeagueClientWindowSize.Width
 
-                    Case < ClientSize.Medium.Width
-
-                        oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientSaveMasteriesButton.ChampionSelect.Small.X))
-                        oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientSaveMasteriesButton.ChampionSelect.Small.Y))
-
-                    Case >= ClientSize.Medium.Width, < ClientSize.Large.Width
-
-                        oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientSaveMasteriesButton.ChampionSelect.Medium.X))
-                        oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientSaveMasteriesButton.ChampionSelect.Medium.Y))
-
-                    Case >= ClientSize.Large.Width
-
-                        oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientSaveMasteriesButton.ChampionSelect.Large.X))
-                        oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientSaveMasteriesButton.ChampionSelect.Large.Y))
-
-                End Select
-
-            Else
-
-                oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientSaveMasteriesButton.Menu.X))
-                oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientSaveMasteriesButton.Menu.Y))
+                oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientSaveMasteriesButton.ChampionSelect_Old.X))
+                oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientSaveMasteriesButton.ChampionSelect_Old.Y))
 
             End If
 
-            Return oSaveMasteriesButtonOffsets
+
+            If _Mode = Modes.Menu Then
+
+                    oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientSaveMasteriesButton.Menu.X))
+                    oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientSaveMasteriesButton.Menu.Y))
+
+                End If
+
+                Return oSaveMasteriesButtonOffsets
 
         Catch ex As Exception
 
@@ -397,31 +380,24 @@ Public Class MasteryAssigner
             Dim oLeagueClientWindowSize As Size = GetLeagueClientWindowSize()
             Dim oReturnPointsButtonOffsets As New Point
 
-            If _Mode = Modes.ChampionSelect Then
+            If _Mode = Modes.ChampionSelect_Old Then
 
-                Select Case oLeagueClientWindowSize.Width
 
-                    Case < ClientSize.Medium.Width
+                oReturnPointsButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientReturnPointsButton.ChampionSelect_Old.X))
+                oReturnPointsButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientReturnPointsButton.ChampionSelect_Old.Y))
 
-                        oReturnPointsButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientReturnPointsButton.ChampionSelect.Small.X))
-                        oReturnPointsButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientReturnPointsButton.ChampionSelect.Small.Y))
+            End If
 
-                    Case >= ClientSize.Medium.Width, < ClientSize.Large.Width
-
-                        oReturnPointsButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientReturnPointsButton.ChampionSelect.Medium.X))
-                        oReturnPointsButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientReturnPointsButton.ChampionSelect.Medium.Y))
-
-                    Case >= ClientSize.Large.Width
-
-                        oReturnPointsButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientReturnPointsButton.ChampionSelect.Large.X))
-                        oReturnPointsButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientReturnPointsButton.ChampionSelect.Large.Y))
-
-                End Select
-
-            Else
+            If _Mode = Modes.Menu Then
 
                 oReturnPointsButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientReturnPointsButton.Menu.X))
                 oReturnPointsButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientReturnPointsButton.Menu.Y))
+
+            End If
+            If _Mode = Modes.ChampionSelect Then
+
+                oReturnPointsButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientReturnPointsButton.ChampionSelect.X))
+                oReturnPointsButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientReturnPointsButton.ChampionSelect.Y))
 
             End If
 

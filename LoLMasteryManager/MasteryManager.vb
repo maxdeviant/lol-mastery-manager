@@ -4,6 +4,7 @@ Imports Newtonsoft.Json
 
 Public Enum Modes
 
+    ChampionSelect_Old
     ChampionSelect
     Menu
 
@@ -101,7 +102,7 @@ Public Class MasteryManager
 
             While _LoadingWindow Is Nothing OrElse Not _LoadingWindow.IsHandleCreated
 
-                Thread.Sleep(100)
+                Thread.Sleep(300)
 
             End While
 

@@ -77,7 +77,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("DataDragonUrl", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to https://github.com/maxdeviant/lol-mastery-manager/releases/latest.
         '''</summary>
@@ -86,11 +86,20 @@ Namespace My.Resources
                 Return ResourceManager.GetString("GitHubLatestReleaseUrl", resourceCulture)
             End Get
         End Property
-        
+
+        Private mdescription As String
+        Public Property LeagueClientWindowTitle() As String
+            Set(ByVal Value As String)
+                mdescription = Value
+            End Set
+            Get
+                LeagueClientWindowTitle = mdescription
+            End Get
+        End Property
         '''<summary>
         '''  Looks up a localized string similar to PVP.net Client.
         '''</summary>
-        Friend ReadOnly Property LeagueClientWindowTitle() As String
+        Friend ReadOnly Property LeagueClientWindowTitle1() As String
             Get
                 Return ResourceManager.GetString("LeagueClientWindowTitle", resourceCulture)
             End Get

@@ -1,4 +1,6 @@
 ﻿Imports System.Timers
+Imports System.Diagnostics
+Imports System.Runtime.InteropServices
 
 Public Class Main
 
@@ -11,6 +13,7 @@ Public Class Main
     Private _MasteryManager As New MasteryManager
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        CbClienName.SelectedIndex = 0
 
         Try
 
@@ -28,7 +31,8 @@ Public Class Main
 
             _Timer = New Timer(1000)
 
-            _Timer.Enabled = True
+            _Timer.Enabled = False
+
 
 #End If
 
@@ -105,9 +109,27 @@ Public Class Main
         lblClientVersion.Links.Add(oChampionGGLink)
 
     End Sub
+    <DllImport("user32.dll", CharSet:=CharSet.Auto, CallingConvention:=CallingConvention.StdCall, ExactSpelling:=True, SetLastError:=True)>
+    Friend Shared Sub MoveWindow(hwnd As IntPtr, X As Integer, Y As Integer, nWidth As Integer, nHeight As Integer, bRepaint As Boolean)
+    End Sub
+    Friend Shared Function GetWindowRect(hWnd As IntPtr, ByRef rect As RECT) As Boolean
+    End Function
+    Private Sub ChangeSizeWindow()
+        Dim processes As Process() = Process.GetProcesses()
+        If processes.Length > 0 Then
+            For i As Integer = 0 To processes.Length - 1
+                If processes(i).MainWindowTitle = CbClienName.Text Then
 
+                    Console.Write("tim thay cua so")
+
+                    MoveWindow(processes(i).MainWindowHandle, 0, 0, 1152, 720, False)
+
+                End If
+            Next
+        End If
+
+    End Sub
     Private Sub btnAssignMasteries_Click(sender As Object, e As EventArgs) Handles btnAssignMasteries.Click
-
         Try
 
             Dim sChampionKey As String = CType(cboChampion.SelectedItem, Champion).Key
@@ -140,27 +162,7 @@ Public Class Main
 
     End Sub
 
-    Private Sub chkInChampionSelect_CheckedChanged(sender As Object, e As EventArgs) Handles chkInChampionSelect.CheckedChanged
 
-        Try
-
-            If chkInChampionSelect.Checked Then
-
-                _MasteryManager.SetMode(Modes.ChampionSelect)
-
-            Else
-
-                _MasteryManager.SetMode(Modes.Menu)
-
-            End If
-
-        Catch ex As Exception
-
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        End Try
-
-    End Sub
 
     Private Sub lblVersion_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblVersion.LinkClicked
 
@@ -196,12 +198,49 @@ Public Class Main
 
         Dim oLeagueWindow As IntPtr = HwndInterface.GetHwndFromTitle(My.Resources.LeagueClientWindowTitle)
 
+
         Dim oLeagueSize = HwndInterface.GetHwndSize(oLeagueWindow)
         Dim oLeaguePosition = HwndInterface.GetHwndPos(oLeagueWindow)
 
-        Debug.WriteLine(String.Format("Client: {{ {0}, {1} }}", oLeaguePosition, oLeagueSize))
-        Debug.WriteLine(New Point(Cursor.Position.X - oLeaguePosition.X, Cursor.Position.Y - oLeaguePosition.Y))
+        Debug.WriteLine(My.Resources.LeagueClientWindowTitle)
 
+
+    End Sub
+
+    Private Sub cboStats_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboStats.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbClienName.SelectedIndexChanged
+        My.Resources.LeagueClientWindowTitle = CbClienName.Text
+
+        Debug.WriteLine(My.Resources.LeagueClientWindowTitle)
+    End Sub
+
+    Private Sub CbMenuOrSelect_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbMenuOrSelect.SelectedIndexChanged
+        Try
+            If CbMenuOrSelect.SelectedIndex = 0 Then
+                _MasteryManager.SetMode(Modes.Menu)
+            End If
+            If CbMenuOrSelect.SelectedIndex = 1 Then
+                _MasteryManager.SetMode(Modes.ChampionSelect_Old)
+            End If
+            If CbMenuOrSelect.SelectedIndex = 2 Then
+                _MasteryManager.SetMode(Modes.ChampionSelect)
+            End If
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+    End Sub
+
+    Private Sub Label3_Click(sender As Object, e As EventArgs) Handles Label3.Click
+
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        ChangeSizeWindow()
     End Sub
 
 #End If
