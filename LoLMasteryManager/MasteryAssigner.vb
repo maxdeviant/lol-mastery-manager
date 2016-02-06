@@ -82,11 +82,11 @@ Public Class MasteryAssigner
 
             Mouse.Move(oPosition)
 
-            Threading.Thread.Sleep(300)
+            Threading.Thread.Sleep(150)
 
             Mouse.LeftClick()
 
-            Threading.Thread.Sleep(300)
+            Threading.Thread.Sleep(150)
 
         Catch ex As Exception
 
@@ -110,11 +110,11 @@ Public Class MasteryAssigner
 
             Mouse.Move(oPosition)
 
-            Threading.Thread.Sleep(300)
+            Threading.Thread.Sleep(150)
 
             Mouse.LeftClick()
 
-            Threading.Thread.Sleep(300)
+            Threading.Thread.Sleep(150)
 
         Catch ex As Exception
 
@@ -138,11 +138,11 @@ Public Class MasteryAssigner
 
             Mouse.Move(oPosition)
 
-            Threading.Thread.Sleep(300)
+            Threading.Thread.Sleep(150)
 
             Mouse.LeftClick()
 
-            Threading.Thread.Sleep(300)
+            Threading.Thread.Sleep(150)
 
         Catch ex As Exception
 
@@ -200,7 +200,7 @@ Public Class MasteryAssigner
                 Mouse.Move(oMasteryPosition)
 
                 ' Sleep the thread to ensure the mouse has time to move
-                Threading.Thread.Sleep(300)
+                Threading.Thread.Sleep(150)
 
                 ' If the mastery has all of the points for that row
                 If mastery.Ranks = 5 Then
@@ -209,7 +209,7 @@ Public Class MasteryAssigner
                     Mouse.LeftClick()
 
                     ' Sleep the thread to ensure the click has time to complete
-                    Threading.Thread.Sleep(300)
+                    Threading.Thread.Sleep(150)
 
                 Else ' Points shared between both masteries on the row
 
@@ -220,7 +220,7 @@ Public Class MasteryAssigner
                         Mouse.LeftClick()
 
                         ' Sleep the thread to ensure the click has time to complete
-                        Threading.Thread.Sleep(300)
+                        Threading.Thread.Sleep(150)
 
                     Next iRank ' Loop through the mastery ranks
 

@@ -102,7 +102,7 @@ Public Class MasteryManager
 
             While _LoadingWindow Is Nothing OrElse Not _LoadingWindow.IsHandleCreated
 
-                Thread.Sleep(300)
+                Thread.Sleep(150)
 
             End While
 
