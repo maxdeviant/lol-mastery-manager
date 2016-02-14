@@ -77,8 +77,15 @@ Public Class MasteryAssigner
 
             Dim oPosition As New Point
 
-            oPosition.X = oClientPosition.X + oMasteryPageNameInputFieldOffset.X + (ClientMasteryPageNameInputField.Width \ 2)
-            oPosition.Y = oClientPosition.Y + oMasteryPageNameInputFieldOffset.Y + (ClientMasteryPageNameInputField.Height \ 2)
+            If Not _MasteryCoordinatesListFile.ReferenceCoordinatesAbsolute Then
+                oPosition.X = oClientPosition.X + oMasteryPageNameInputFieldOffset.X + (ClientMasteryPageNameInputField.Width \ 2)
+                oPosition.Y = oClientPosition.Y + oMasteryPageNameInputFieldOffset.Y + (ClientMasteryPageNameInputField.Height \ 2)
+            Else
+                Dim oInputCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Input")
+                oPosition.X = oClientPosition.X + oInputCoordinates.X
+                oPosition.Y = oClientPosition.Y + oInputCoordinates.Y
+            End If
+
 
             Mouse.Move(oPosition)
 
@@ -105,8 +112,16 @@ Public Class MasteryAssigner
 
             Dim oPosition As New Point
 
-            oPosition.X = oClientPosition.X + oReturnPointsButtonOffsets.X + (ClientReturnPointsButton.Width \ 2)
-            oPosition.Y = oClientPosition.Y + oReturnPointsButtonOffsets.Y + (ClientReturnPointsButton.Height \ 2)
+            If Not _MasteryCoordinatesListFile.ReferenceCoordinatesAbsolute Then
+                oPosition.X = oClientPosition.X + oReturnPointsButtonOffsets.X + (ClientReturnPointsButton.Width \ 2)
+                oPosition.Y = oClientPosition.Y + oReturnPointsButtonOffsets.Y + (ClientReturnPointsButton.Height \ 2)
+            Else
+                Dim oReturnCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Return")
+                oPosition.X = oClientPosition.X + oReturnCoordinates.X
+                oPosition.Y = oClientPosition.Y + oReturnCoordinates.Y
+            End If
+
+
 
             Mouse.Move(oPosition)
 
@@ -133,8 +148,14 @@ Public Class MasteryAssigner
 
             Dim oPosition As New Point
 
-            oPosition.X = oClientPosition.X + oSaveMasteriesButtonOffsets.X + (ClientSaveMasteriesButton.Width \ 2)
-            oPosition.Y = oClientPosition.Y + oSaveMasteriesButtonOffsets.Y + (ClientSaveMasteriesButton.Height \ 2)
+            If Not _MasteryCoordinatesListFile.ReferenceCoordinatesAbsolute Then
+                oPosition.X = oClientPosition.X + oSaveMasteriesButtonOffsets.X + (ClientSaveMasteriesButton.Width \ 2)
+                oPosition.Y = oClientPosition.Y + oSaveMasteriesButtonOffsets.Y + (ClientSaveMasteriesButton.Height \ 2)
+            Else
+                Dim oSaveCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Save")
+                oPosition.X = oClientPosition.X + oSaveCoordinates.X
+                oPosition.Y = oClientPosition.Y + oSaveCoordinates.Y
+            End If
 
             Mouse.Move(oPosition)
 
@@ -251,6 +272,7 @@ Public Class MasteryAssigner
 
             Dim oRefererenceClientSize As Size = _MasteryCoordinatesListFile.ReferenceClientSize
             Dim oMasteryPosition As Point
+            Dim oAbsoluteCoordinates As Boolean = _MasteryCoordinatesListFile.ReferenceCoordinatesAbsolute
 
             Select Case _Mode
 
@@ -264,14 +286,30 @@ Public Class MasteryAssigner
 
             End Select
 
-            Dim oPosition As New Point
+            If Not oAbsoluteCoordinates Then
 
-            With oPosition
-                .X = oClientPosition.X + CInt(oMasteryPosition.X * (oClientSize.Width / oRefererenceClientSize.Width)) + (oMasteryNodeSize.Width \ 2)
-                .Y = oClientPosition.Y + CInt(oMasteryPosition.Y * (oClientSize.Height / oRefererenceClientSize.Height)) + (oMasteryNodeSize.Height \ 2)
-            End With
+                Dim oPosition As New Point
 
-            Return oPosition
+                With oPosition
+                    .X = oClientPosition.X + CInt(oMasteryPosition.X * (oClientSize.Width / oRefererenceClientSize.Width)) + (oMasteryNodeSize.Width \ 2)
+                    .Y = oClientPosition.Y + CInt(oMasteryPosition.Y * (oClientSize.Height / oRefererenceClientSize.Height)) + (oMasteryNodeSize.Height \ 2)
+                End With
+
+                Return oPosition
+
+            Else
+
+                Dim oPosition As New Point
+
+                With oPosition
+                    .X = oClientPosition.X + CInt(oMasteryPosition.X)
+                    .Y = oClientPosition.Y + CInt(oMasteryPosition.Y)
+                End With
+
+                Return oPosition
+
+            End If
+
 
         Catch ex As Exception
 
