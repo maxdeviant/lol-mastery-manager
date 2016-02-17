@@ -347,6 +347,13 @@ Public Class MasteryAssigner
             Dim oLeagueClientWindowSize As Size = GetLeagueClientWindowSize()
             Dim oSaveMasteriesButtonOffsets As New Point
 
+            If _Mode = Modes.ChampionSelect Then
+
+
+                oSaveMasteriesButtonOffsets.X = CInt(Math.Floor(oLeagueClientWindowSize.Width / ClientSaveMasteriesButton.ChampionSelect.X))
+                oSaveMasteriesButtonOffsets.Y = CInt(Math.Floor(oLeagueClientWindowSize.Height / ClientSaveMasteriesButton.ChampionSelect.Y))
+
+            End If
             If _Mode = Modes.ChampionSelect_Old Then
 
 
