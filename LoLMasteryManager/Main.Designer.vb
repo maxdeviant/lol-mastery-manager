@@ -128,12 +128,14 @@ Partial Class Main
         '
         'CbClienName
         '
+        Me.CbClienName.Enabled = False
         Me.CbClienName.FormattingEnabled = True
         Me.CbClienName.Items.AddRange(New Object() {"PVP.net Client", "Protect by Son Nguyen (www.sonnguyen.xyz)"})
         Me.CbClienName.Location = New System.Drawing.Point(90, 93)
         Me.CbClienName.Name = "CbClienName"
         Me.CbClienName.Size = New System.Drawing.Size(261, 21)
         Me.CbClienName.TabIndex = 3
+        Me.CbClienName.Text = "PVP.net Client"
         '
         'CbMenuOrSelect
         '
