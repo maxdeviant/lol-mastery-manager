@@ -82,18 +82,18 @@ Public Class MasteryAssigner
                 oPosition.Y = oClientPosition.Y + oMasteryPageNameInputFieldOffset.Y + (ClientMasteryPageNameInputField.Height \ 2)
             Else
                 Dim oInputCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Input")
-                oPosition.X = oClientPosition.X + oInputCoordinates.X
-                oPosition.Y = oClientPosition.Y + oInputCoordinates.Y
+                oPosition.X = oInputCoordinates.X
+                oPosition.Y = oInputCoordinates.Y
             End If
 
 
             Mouse.Move(oPosition)
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(200)
 
             Mouse.LeftClick()
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(200)
 
         Catch ex As Exception
 
@@ -117,19 +117,19 @@ Public Class MasteryAssigner
                 oPosition.Y = oClientPosition.Y + oReturnPointsButtonOffsets.Y + (ClientReturnPointsButton.Height \ 2)
             Else
                 Dim oReturnCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Return")
-                oPosition.X = oClientPosition.X + oReturnCoordinates.X
-                oPosition.Y = oClientPosition.Y + oReturnCoordinates.Y
+                oPosition.X = oReturnCoordinates.X
+                oPosition.Y = oReturnCoordinates.Y
             End If
 
 
 
             Mouse.Move(oPosition)
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(200)
 
             Mouse.LeftClick()
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(200)
 
         Catch ex As Exception
 
@@ -153,17 +153,17 @@ Public Class MasteryAssigner
                 oPosition.Y = oClientPosition.Y + oSaveMasteriesButtonOffsets.Y + (ClientSaveMasteriesButton.Height \ 2)
             Else
                 Dim oSaveCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Save")
-                oPosition.X = oClientPosition.X + oSaveCoordinates.X
-                oPosition.Y = oClientPosition.Y + oSaveCoordinates.Y
+                oPosition.X = oSaveCoordinates.X
+                oPosition.Y = oSaveCoordinates.Y
             End If
 
             Mouse.Move(oPosition)
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(200)
 
             Mouse.LeftClick()
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(200)
 
         Catch ex As Exception
 
@@ -221,7 +221,7 @@ Public Class MasteryAssigner
                 Mouse.Move(oMasteryPosition)
 
                 ' Sleep the thread to ensure the mouse has time to move
-                Threading.Thread.Sleep(100)
+                Threading.Thread.Sleep(200)
 
                 ' If the mastery has all of the points for that row
                 If mastery.Ranks = 5 Then
@@ -230,7 +230,7 @@ Public Class MasteryAssigner
                     Mouse.LeftClick()
 
                     ' Sleep the thread to ensure the click has time to complete
-                    Threading.Thread.Sleep(100)
+                    Threading.Thread.Sleep(200)
 
                 Else ' Points shared between both masteries on the row
 
@@ -241,7 +241,7 @@ Public Class MasteryAssigner
                         Mouse.LeftClick()
 
                         ' Sleep the thread to ensure the click has time to complete
-                        Threading.Thread.Sleep(100)
+                        Threading.Thread.Sleep(200)
 
                     Next iRank ' Loop through the mastery ranks
 
@@ -302,8 +302,8 @@ Public Class MasteryAssigner
                 Dim oPosition As New Point
 
                 With oPosition
-                    .X = oClientPosition.X + CInt(oMasteryPosition.X)
-                    .Y = oClientPosition.Y + CInt(oMasteryPosition.Y)
+                    .X = oMasteryPosition.X
+                    .Y = oMasteryPosition.Y
                 End With
 
                 Return oPosition
