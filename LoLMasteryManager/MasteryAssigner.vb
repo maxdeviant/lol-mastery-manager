@@ -81,7 +81,22 @@ Public Class MasteryAssigner
                 oPosition.X = oClientPosition.X + oMasteryPageNameInputFieldOffset.X + (ClientMasteryPageNameInputField.Width \ 2)
                 oPosition.Y = oClientPosition.Y + oMasteryPageNameInputFieldOffset.Y + (ClientMasteryPageNameInputField.Height \ 2)
             Else
-                Dim oInputCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Input")
+                'Dim oInputCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Input")
+
+                Dim oInputCoordinates As New Point
+
+                Select Case _Mode
+
+                    Case Modes.Menu
+
+                        oInputCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Input")
+
+                    Case Modes.ChampionSelect
+
+                        oInputCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesChampionSelect("Input")
+
+                End Select
+
                 oPosition.X = oInputCoordinates.X
                 oPosition.Y = oInputCoordinates.Y
             End If
@@ -116,7 +131,22 @@ Public Class MasteryAssigner
                 oPosition.X = oClientPosition.X + oReturnPointsButtonOffsets.X + (ClientReturnPointsButton.Width \ 2)
                 oPosition.Y = oClientPosition.Y + oReturnPointsButtonOffsets.Y + (ClientReturnPointsButton.Height \ 2)
             Else
-                Dim oReturnCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Return")
+                'Dim oReturnCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Return")
+
+                Dim oReturnCoordinates As New Point
+
+                Select Case _Mode
+
+                    Case Modes.Menu
+
+                        oReturnCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Return")
+
+                    Case Modes.ChampionSelect
+
+                        oReturnCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesChampionSelect("Return")
+
+                End Select
+
                 oPosition.X = oReturnCoordinates.X
                 oPosition.Y = oReturnCoordinates.Y
             End If
@@ -152,7 +182,22 @@ Public Class MasteryAssigner
                 oPosition.X = oClientPosition.X + oSaveMasteriesButtonOffsets.X + (ClientSaveMasteriesButton.Width \ 2)
                 oPosition.Y = oClientPosition.Y + oSaveMasteriesButtonOffsets.Y + (ClientSaveMasteriesButton.Height \ 2)
             Else
-                Dim oSaveCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Save")
+                'Dim oSaveCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Save")
+
+                Dim oSaveCoordinates As New Point
+
+                Select Case _Mode
+
+                    Case Modes.Menu
+
+                        oSaveCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Save")
+
+                    Case Modes.ChampionSelect
+
+                        oSaveCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesChampionSelect("Save")
+
+                End Select
+
                 oPosition.X = oSaveCoordinates.X
                 oPosition.Y = oSaveCoordinates.Y
             End If
