@@ -412,6 +412,8 @@ Module ChampionGG
                 End Using
 
                 Dim oRiotMasteries As Dictionary(Of String, RiotMastery) = JsonConvert.DeserializeObject(Of RiotMasteryListFile)(sJson).Masteries
+                Dim oRiotTree As RiotMasteryTreeList = JsonConvert.DeserializeObject(Of RiotMasteryListFile)(sJson).Tree
+
                 Dim oRiotMastery As RiotMastery = oRiotMasteries(id.ToString)
 
                 Dim oMastery As New Mastery
@@ -419,7 +421,8 @@ Module ChampionGG
                 With oMastery
                     .ID = oRiotMastery.ID
                     .Name = oRiotMastery.Name
-                    .Tree = oRiotMastery.Tree
+                    '.Tree = oRiotMastery.Tree
+                    .Tree = ExtractTree(oRiotMastery.ID, oRiotTree)
                 End With
 
                 Return oMastery
@@ -430,6 +433,44 @@ Module ChampionGG
 
             End Try
 
+        End Function
+
+        Private Function ExtractTree(iD As Integer, oRiotTree As RiotMasteryTreeList) As String
+
+            For Each oCunningList In oRiotTree.Cunning
+                For Each oMastery As RiotMasteryIdPrereq In oCunningList
+                    If oMastery IsNot Nothing Then
+                        If oMastery.MasteryId.Equals(Convert.ToString(iD)) Then
+                            Return "Cunning"
+                        End If
+                    End If
+
+                Next
+            Next
+
+            For Each oFerocityList In oRiotTree.Ferocity
+                For Each oMastery As RiotMasteryIdPrereq In oFerocityList
+                    If oMastery IsNot Nothing Then
+                        If oMastery.MasteryId.Equals(Convert.ToString(iD)) Then
+                            Return "Ferocity"
+                        End If
+                    End If
+
+                Next
+            Next
+
+            For Each oResolveList In oRiotTree.Resolve
+                For Each oMastery As RiotMasteryIdPrereq In oResolveList
+                    If oMastery IsNot Nothing Then
+                        If oMastery.MasteryId.Equals(Convert.ToString(iD)) Then
+                            Return "Resolve"
+                        End If
+                    End If
+
+                Next
+            Next
+
+            Return ""
         End Function
 
         ''' <summary>
