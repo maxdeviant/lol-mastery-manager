@@ -3,6 +3,7 @@ Imports System.Net
 Imports System.Net.Http
 Imports HtmlAgilityPack
 Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 Module ChampionGG
 
@@ -419,16 +420,60 @@ Module ChampionGG
                 With oMastery
                     .ID = oRiotMastery.ID
                     .Name = oRiotMastery.Name
-                    .Tree = oRiotMastery.Tree
+                    .Tree = GetTree(sJson, oRiotMastery.ID)
                 End With
 
                 Return oMastery
 
             Catch ex As Exception
-
                 Throw
 
             End Try
+
+        End Function
+
+        Private Function GetTree(ByVal json As String, ByVal masteryId As Integer) As String
+
+            Dim jobj = JObject.Parse(json)
+
+            Dim ferocityMasteryIds As List(Of Integer) = ParseMasteryTree("Ferocity", jobj)
+            Dim cunningMasteryIds As List(Of Integer) = ParseMasteryTree("Cunning", jobj)
+            Dim resolveMasteryIds As List(Of Integer) = ParseMasteryTree("Resolve", jobj)
+
+            If ferocityMasteryIds.Contains(masteryId) Then
+                Return "Ferocity"
+            End If
+
+            If cunningMasteryIds.Contains(masteryId) Then
+                Return "Cunning"
+            End If
+
+            If resolveMasteryIds.Contains(masteryId) Then
+                Return "Resolve"
+            End If
+
+            Throw New IndexOutOfRangeException
+
+        End Function
+
+        Private Function ParseMasteryTree(ByVal tree As String, ByVal jobj As JObject) As List(Of Integer)
+
+            Dim myMasteryIds As List(Of Integer) = New List(Of Integer)()
+
+            Dim myMasteryJson = jobj("tree")(tree)
+            Dim myMasteryGroupJson = myMasteryJson.Children()
+            For Each grp In myMasteryGroupJson
+
+                For Each leafMastery In grp.Children(Of JObject)
+
+                    Dim masteryIdStr = leafMastery("masteryId").ToString()
+                    Dim masteryIdInt = Int32.Parse(masteryIdStr)
+                    myMasteryIds.Add(masteryIdInt)
+
+                Next
+            Next
+
+            Return myMasteryIds
 
         End Function
 
