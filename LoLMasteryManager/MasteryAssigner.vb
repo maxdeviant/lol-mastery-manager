@@ -6,6 +6,8 @@ Public Class MasteryAssigner
     Private _MasteryCoordinatesListFile As MasteryCoordinatesFile
     Private _Mode As Modes = Modes.ChampionSelect
 
+    Private Const SleepTime As Integer = 100 '100 Works well for production, 250 for testing
+
     Public Sub New(ByVal masteryCoordinatesPath As String)
 
         Dim sJson As String
@@ -82,11 +84,11 @@ Public Class MasteryAssigner
 
             Mouse.Move(oPosition)
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(SleepTime)
 
             Mouse.LeftClick()
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(SleepTime)
 
         Catch ex As Exception
 
@@ -110,11 +112,11 @@ Public Class MasteryAssigner
 
             Mouse.Move(oPosition)
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(SleepTime)
 
             Mouse.LeftClick()
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(SleepTime)
 
         Catch ex As Exception
 
@@ -138,11 +140,11 @@ Public Class MasteryAssigner
 
             Mouse.Move(oPosition)
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(SleepTime)
 
             Mouse.LeftClick()
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(SleepTime)
 
         Catch ex As Exception
 
@@ -200,7 +202,7 @@ Public Class MasteryAssigner
                 Mouse.Move(oMasteryPosition)
 
                 ' Sleep the thread to ensure the mouse has time to move
-                Threading.Thread.Sleep(100)
+                Threading.Thread.Sleep(SleepTime)
 
                 ' If the mastery has all of the points for that row
                 If mastery.Ranks = 5 Then
@@ -209,7 +211,7 @@ Public Class MasteryAssigner
                     Mouse.LeftClick()
 
                     ' Sleep the thread to ensure the click has time to complete
-                    Threading.Thread.Sleep(100)
+                    Threading.Thread.Sleep(SleepTime)
 
                 Else ' Points shared between both masteries on the row
 
@@ -220,7 +222,7 @@ Public Class MasteryAssigner
                         Mouse.LeftClick()
 
                         ' Sleep the thread to ensure the click has time to complete
-                        Threading.Thread.Sleep(100)
+                        Threading.Thread.Sleep(SleepTime)
 
                     Next iRank ' Loop through the mastery ranks
 
