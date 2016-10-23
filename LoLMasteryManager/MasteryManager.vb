@@ -39,6 +39,8 @@ Public Class MasteryManager
     Private _Champions As New List(Of Champion)
     Private _MasteryPages As New List(Of MasteryPage)
 
+    Private Const SleepTime As Integer = 100 '100 Works well for production, 250 for testing
+
     Public Property PatchNumber As String
 
     Public Sub New()
@@ -101,7 +103,7 @@ Public Class MasteryManager
 
             While _LoadingWindow Is Nothing OrElse Not _LoadingWindow.IsHandleCreated
 
-                Thread.Sleep(100)
+                Thread.Sleep(SleepTime)
 
             End While
 

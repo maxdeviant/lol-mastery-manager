@@ -77,9 +77,6 @@ Public Class RiotMastery
     <JsonProperty(PropertyName:="id", Required:=Required.AllowNull)>
     Public ID As Integer
 
-    <JsonProperty(PropertyName:="masteryTree", Required:=Required.AllowNull)>
-    Public Tree As String
-
     <JsonProperty(PropertyName:="name", Required:=Required.AllowNull)>
     Public Name As String
 
