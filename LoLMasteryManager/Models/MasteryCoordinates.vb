@@ -14,6 +14,9 @@ Partial Public Module Models
         <JsonProperty(PropertyName:="mastery_coordinates_champion_select", Required:=Required.AllowNull)>
         Public MasteryCoordinatesChampionSelect As New Dictionary(Of String, Point)
 
+        <JsonProperty(PropertyName:="mastery_coordinates_champion_select_old", Required:=Required.AllowNull)>
+        Public MasteryCoordinatesChampionSelect_Old As New Dictionary(Of String, Point)
+
     End Class
 
 End Module

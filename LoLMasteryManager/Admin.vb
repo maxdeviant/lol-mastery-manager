@@ -9,9 +9,9 @@ Public Class Admin
 
             Dim oMasteryCoordinatesFile As New MasteryCoordinatesFile
 
-            Dim sMenuScreenshotPath As String = "D:\Google Drive\LoL Mastery Manager\Client - Menu.png"
-            Dim sChampionSelectScreenshotPath As String = "D:\Google Drive\LoL Mastery Manager\Client - Champion Select.png"
-            Dim sMasteryIconDirectory As String = "D:\Google Drive\LoL Mastery Manager\Masteries"
+            Dim sMenuScreenshotPath As String = "D:\LoL Mastery Manager\Client - Menu.png"
+            Dim sChampionSelectScreenshotPath As String = "D:\LoL Mastery Manager\Client - Champion Select.png"
+            Dim sMasteryIconDirectory As String = "D:\LoL Mastery Manager\Masteries"
 
             Dim oLocator As New MasteryLocator
             Dim oMasteryCoordinateFile As New MasteryCoordinatesFile
@@ -73,7 +73,7 @@ Public Class Admin
 
         Try
 
-            Dim sMasteryCoordinatesPath As String = Path.Combine("D:\Google Drive\LoL Mastery Manager", "Coordinates.json")
+            Dim sMasteryCoordinatesPath As String = Path.Combine("D:\LoL Mastery Manager", "Coordinates.json")
             Dim sMasteryCoordinatesJson As String = JsonConvert.SerializeObject(masteryCoordinateListFile)
 
             Using oStreamWriter As New StreamWriter(sMasteryCoordinatesPath)
