@@ -317,7 +317,8 @@ Module ChampionGG
 
                     For Each oMasteryNode As HtmlNode In oMasteryRow.SelectNodes("descendant::div[contains(@class, 'mastery-icon')]")
 
-                        Dim iMasteryID As Integer = CInt(oMasteryNode.Attributes.Item("api-primary-id").Value)
+                        'Dim iMasteryID As Integer = CInt(oMasteryNode.Attributes.Item("api-primary-id").Value)
+                        Dim iMasteryID As Integer = CInt(oMasteryNode.Attributes.Item("data-id").Value)
 
                         oMastery = GetMastery(iMasteryID)
 
