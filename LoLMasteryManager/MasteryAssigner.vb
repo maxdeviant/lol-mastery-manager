@@ -26,7 +26,7 @@ Public Class MasteryAssigner
 
     End Sub
 
-    Public Sub Assign(ByVal masteryPage As MasteryPage)
+    Public Sub Assign(ByVal masteryPage As MasteryPage, PatchNumber As String)
 
         Try
 
@@ -36,7 +36,7 @@ Public Class MasteryAssigner
 
             AssignMasteries(masteryPage)
 
-            NameMasteryPage(masteryPage.Name)
+            NameMasteryPage(masteryPage.Name + "-" + PatchNumber)
 
             SaveMasteries()
 

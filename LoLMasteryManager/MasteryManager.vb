@@ -419,7 +419,7 @@ Public Class MasteryManager
 
                     oMasteryPage = LoadMasteryPage(championKey, role, eStat)
 
-                    _Assigner.Assign(oMasteryPage)
+                    _Assigner.Assign(oMasteryPage, PatchNumber)
 
                     bResult = True
 
