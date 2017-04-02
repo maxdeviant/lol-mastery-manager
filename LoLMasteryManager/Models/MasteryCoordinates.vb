@@ -8,6 +8,9 @@ Partial Public Module Models
         <JsonProperty(PropertyName:="reference_client_size", Required:=Required.AllowNull)>
         Public ReferenceClientSize As Size
 
+        <JsonProperty(PropertyName:="absolute_coordinates")>
+        Public ReferenceCoordinatesAbsolute As Boolean
+
         <JsonProperty(PropertyName:="mastery_coordinates_menu", Required:=Required.AllowNull)>
         Public MasteryCoordinatesMenu As New Dictionary(Of String, Point)
 

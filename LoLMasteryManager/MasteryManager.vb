@@ -68,7 +68,7 @@ Public Class MasteryManager
 
         If oMetadata IsNot Nothing Then
 
-            If Not String.Equals(_PatchNumber, oMetadata.PatchNumber) Then
+            If Not String.Equals(_PatchNumber, oMetadata.PatchNumber) AndAlso Not String.Equals(_PatchNumber, "") Then
 
                 Directory.Delete(Directories.Data, True)
 
@@ -419,7 +419,7 @@ Public Class MasteryManager
 
                     oMasteryPage = LoadMasteryPage(championKey, role, eStat)
 
-                    _Assigner.Assign(oMasteryPage)
+                    _Assigner.Assign(oMasteryPage, PatchNumber)
 
                     bResult = True
 

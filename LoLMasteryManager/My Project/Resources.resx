@@ -129,4 +129,7 @@
   <data name="LeagueClientWindowTitle" xml:space="preserve">
     <value>PVP.net Client</value>
   </data>
+  <data name="LeagueClientWindowTitleAlternative" xml:space="preserve">
+    <value>Client PVP.net</value>
+  </data>
 </root>

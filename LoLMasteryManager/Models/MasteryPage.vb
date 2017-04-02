@@ -28,8 +28,8 @@ Partial Public Module Models
 
         Public ReadOnly Property Name As String
             Get
-
-                Return String.Format("[{0}] {1} - {2}", Stat.GetAbbreviation(), ChampionName, Role)
+                ' String.Format("Patch {0}", _MasteryManager.PatchNumber)
+                Return String.Format("[{0}][{2}]{1}", Stat.GetStatAbbreviation(), ChampionName, Role.GetRoleAbbreviation())
 
             End Get
         End Property
@@ -44,7 +44,7 @@ Partial Public Module Models
 
         Friend Shared Function GenerateFileName(ByVal championKey As String, ByVal role As String, ByVal stat As Stats) As String
 
-            Return String.Format("[{0}] {1} - {2}", stat.GetAbbreviation(), championKey, role)
+            Return String.Format("[{0}] {1} - {2}", stat.GetStatAbbreviation(), championKey, role)
 
         End Function
 

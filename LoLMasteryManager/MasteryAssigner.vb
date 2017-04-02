@@ -26,7 +26,7 @@ Public Class MasteryAssigner
 
     End Sub
 
-    Public Sub Assign(ByVal masteryPage As MasteryPage)
+    Public Sub Assign(ByVal masteryPage As MasteryPage, PatchNumber As String)
 
         Try
 
@@ -36,7 +36,7 @@ Public Class MasteryAssigner
 
             AssignMasteries(masteryPage)
 
-            NameMasteryPage(masteryPage.Name)
+            NameMasteryPage(masteryPage.Name + "-" + PatchNumber)
 
             SaveMasteries()
 
@@ -77,16 +77,38 @@ Public Class MasteryAssigner
 
             Dim oPosition As New Point
 
-            oPosition.X = oClientPosition.X + oMasteryPageNameInputFieldOffset.X + (ClientMasteryPageNameInputField.Width \ 2)
-            oPosition.Y = oClientPosition.Y + oMasteryPageNameInputFieldOffset.Y + (ClientMasteryPageNameInputField.Height \ 2)
+            If Not _MasteryCoordinatesListFile.ReferenceCoordinatesAbsolute Then
+                oPosition.X = oClientPosition.X + oMasteryPageNameInputFieldOffset.X + (ClientMasteryPageNameInputField.Width \ 2)
+                oPosition.Y = oClientPosition.Y + oMasteryPageNameInputFieldOffset.Y + (ClientMasteryPageNameInputField.Height \ 2)
+            Else
+                'Dim oInputCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Input")
+
+                Dim oInputCoordinates As New Point
+
+                Select Case _Mode
+
+                    Case Modes.Menu
+
+                        oInputCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Input")
+
+                    Case Modes.ChampionSelect
+
+                        oInputCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesChampionSelect("Input")
+
+                End Select
+
+                oPosition.X = oInputCoordinates.X
+                oPosition.Y = oInputCoordinates.Y
+            End If
+
 
             Mouse.Move(oPosition)
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(200)
 
             Mouse.LeftClick()
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(200)
 
         Catch ex As Exception
 
@@ -105,16 +127,39 @@ Public Class MasteryAssigner
 
             Dim oPosition As New Point
 
-            oPosition.X = oClientPosition.X + oReturnPointsButtonOffsets.X + (ClientReturnPointsButton.Width \ 2)
-            oPosition.Y = oClientPosition.Y + oReturnPointsButtonOffsets.Y + (ClientReturnPointsButton.Height \ 2)
+            If Not _MasteryCoordinatesListFile.ReferenceCoordinatesAbsolute Then
+                oPosition.X = oClientPosition.X + oReturnPointsButtonOffsets.X + (ClientReturnPointsButton.Width \ 2)
+                oPosition.Y = oClientPosition.Y + oReturnPointsButtonOffsets.Y + (ClientReturnPointsButton.Height \ 2)
+            Else
+                'Dim oReturnCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Return")
+
+                Dim oReturnCoordinates As New Point
+
+                Select Case _Mode
+
+                    Case Modes.Menu
+
+                        oReturnCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Return")
+
+                    Case Modes.ChampionSelect
+
+                        oReturnCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesChampionSelect("Return")
+
+                End Select
+
+                oPosition.X = oReturnCoordinates.X
+                oPosition.Y = oReturnCoordinates.Y
+            End If
+
+
 
             Mouse.Move(oPosition)
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(200)
 
             Mouse.LeftClick()
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(200)
 
         Catch ex As Exception
 
@@ -133,16 +178,37 @@ Public Class MasteryAssigner
 
             Dim oPosition As New Point
 
-            oPosition.X = oClientPosition.X + oSaveMasteriesButtonOffsets.X + (ClientSaveMasteriesButton.Width \ 2)
-            oPosition.Y = oClientPosition.Y + oSaveMasteriesButtonOffsets.Y + (ClientSaveMasteriesButton.Height \ 2)
+            If Not _MasteryCoordinatesListFile.ReferenceCoordinatesAbsolute Then
+                oPosition.X = oClientPosition.X + oSaveMasteriesButtonOffsets.X + (ClientSaveMasteriesButton.Width \ 2)
+                oPosition.Y = oClientPosition.Y + oSaveMasteriesButtonOffsets.Y + (ClientSaveMasteriesButton.Height \ 2)
+            Else
+                'Dim oSaveCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Save")
+
+                Dim oSaveCoordinates As New Point
+
+                Select Case _Mode
+
+                    Case Modes.Menu
+
+                        oSaveCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesMenu("Save")
+
+                    Case Modes.ChampionSelect
+
+                        oSaveCoordinates = _MasteryCoordinatesListFile.MasteryCoordinatesChampionSelect("Save")
+
+                End Select
+
+                oPosition.X = oSaveCoordinates.X
+                oPosition.Y = oSaveCoordinates.Y
+            End If
 
             Mouse.Move(oPosition)
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(200)
 
             Mouse.LeftClick()
 
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(200)
 
         Catch ex As Exception
 
@@ -200,7 +266,7 @@ Public Class MasteryAssigner
                 Mouse.Move(oMasteryPosition)
 
                 ' Sleep the thread to ensure the mouse has time to move
-                Threading.Thread.Sleep(100)
+                Threading.Thread.Sleep(200)
 
                 ' If the mastery has all of the points for that row
                 If mastery.Ranks = 5 Then
@@ -209,7 +275,7 @@ Public Class MasteryAssigner
                     Mouse.LeftClick()
 
                     ' Sleep the thread to ensure the click has time to complete
-                    Threading.Thread.Sleep(100)
+                    Threading.Thread.Sleep(200)
 
                 Else ' Points shared between both masteries on the row
 
@@ -220,7 +286,7 @@ Public Class MasteryAssigner
                         Mouse.LeftClick()
 
                         ' Sleep the thread to ensure the click has time to complete
-                        Threading.Thread.Sleep(100)
+                        Threading.Thread.Sleep(200)
 
                     Next iRank ' Loop through the mastery ranks
 
@@ -251,6 +317,7 @@ Public Class MasteryAssigner
 
             Dim oRefererenceClientSize As Size = _MasteryCoordinatesListFile.ReferenceClientSize
             Dim oMasteryPosition As Point
+            Dim oAbsoluteCoordinates As Boolean = _MasteryCoordinatesListFile.ReferenceCoordinatesAbsolute
 
             Select Case _Mode
 
@@ -264,14 +331,30 @@ Public Class MasteryAssigner
 
             End Select
 
-            Dim oPosition As New Point
+            If Not oAbsoluteCoordinates Then
 
-            With oPosition
-                .X = oClientPosition.X + CInt(oMasteryPosition.X * (oClientSize.Width / oRefererenceClientSize.Width)) + (oMasteryNodeSize.Width \ 2)
-                .Y = oClientPosition.Y + CInt(oMasteryPosition.Y * (oClientSize.Height / oRefererenceClientSize.Height)) + (oMasteryNodeSize.Height \ 2)
-            End With
+                Dim oPosition As New Point
 
-            Return oPosition
+                With oPosition
+                    .X = oClientPosition.X + CInt(oMasteryPosition.X * (oClientSize.Width / oRefererenceClientSize.Width)) + (oMasteryNodeSize.Width \ 2)
+                    .Y = oClientPosition.Y + CInt(oMasteryPosition.Y * (oClientSize.Height / oRefererenceClientSize.Height)) + (oMasteryNodeSize.Height \ 2)
+                End With
+
+                Return oPosition
+
+            Else
+
+                Dim oPosition As New Point
+
+                With oPosition
+                    .X = oMasteryPosition.X
+                    .Y = oMasteryPosition.Y
+                End With
+
+                Return oPosition
+
+            End If
+
 
         Catch ex As Exception
 
@@ -468,7 +551,17 @@ Public Class MasteryAssigner
 
         Try
 
-            Return HwndInterface.GetHwndFromTitle(My.Resources.LeagueClientWindowTitle)
+            Dim oLeagueWindow As IntPtr = HwndInterface.GetHwndFromTitle(My.Resources.LeagueClientWindowTitle)
+
+            If oLeagueWindow = IntPtr.Zero Then
+
+                Return HwndInterface.GetHwndFromTitle(My.Resources.LeagueClientWindowTitleAlternative)
+
+            Else
+
+                Return oLeagueWindow
+
+            End If
 
         Catch ex As Exception
 

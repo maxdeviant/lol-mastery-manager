@@ -46,7 +46,7 @@ Public Module Extensions
     ''' <param name="stat">The stat value to get the abbreviation for.</param>
     ''' <returns>The abbreviation for the given stat.</returns>
     <Extension>
-    Public Function GetAbbreviation(ByRef stat As Stats) As String
+    Public Function GetStatAbbreviation(ByRef stat As Stats) As String
 
         Try
 
@@ -76,6 +76,43 @@ Public Module Extensions
 
         End Try
 
+    End Function
+
+    <Extension>
+    Public Function GetRoleAbbreviation(ByRef role As String) As String
+
+        Try
+
+            Dim sAbbreviation As String
+
+            Select Case role
+
+                Case "Middle"
+
+                    sAbbreviation = "MID"
+
+                Case "Support"
+
+                    sAbbreviation = "SUP"
+
+                Case "Jungle"
+
+                    sAbbreviation = "JNG"
+
+
+                Case Else
+
+                    sAbbreviation = role
+
+            End Select
+
+            Return sAbbreviation
+
+        Catch ex As Exception
+
+            Throw
+
+        End Try
     End Function
 
 End Module
